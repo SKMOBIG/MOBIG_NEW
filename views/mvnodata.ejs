@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <% include ./partials/css.ejs %>
+
+    <% include ./partials/script.ejs %>
+
+
+  <script type="text/javascript">
+
+    var ITEM_MAX_SIZE = 10;  // 선택가능 갯수
+
+    NMap = function(){
+      this.map = new Object();
+     };
+    NMap.prototype = {   
+       put : function(key, value){   
+           this.map[key] = value;
+       },
+       putMap : function(key, value){
+        this.map[key] = value.map;
+       },
+       putMapList : function(key, value){
+        var list = new Array();
+        for(var i=0;i<value.length;i++){
+         list.push(value[i].map);
+        }
+        this.map[key] = list;
+       },
+       get : function(key){   
+           return this.map[key];
+       },
+       containsKey : function(key){    
+        return key in this.map;
+       },
+       containsValue : function(value){    
+        for(var prop in this.map){
+         if(this.map[prop] == value) return true;
+        }
+        return false;
+       },
+       isEmpty : function(key){    
+        return (this.size() == 0);
+       },
+       clear : function(){   
+        for(var prop in this.map){
+         delete this.map[prop];
+        }
+       },
+       remove : function(key){    
+        delete this.map[key];
+       },
+       keys : function(){
+           var keys = new Array();
+           for(var prop in this.map){
+               keys.push(prop);
+           }
+           return keys;
+       },
+       values : function(){   
+        var values = new Array();   
+           for(var prop in this.map){   
+            values.push(this.map[prop]);
+           }   
+           return values;
+       },
+      size : function() {
+       var count = 0;
+       for (var prop in this.map) {
+         count++;
+       }
+       return count;
+      },
+       jsonString: function(){
+        return JSON.stringify(this.map);    
+       }
+    };
+
+    // 선택된 아이템Map
+    var itemMap = new NMap();  
+
+    // 카테고리 세팅 
+    function getCategory(){
+      
+  			$.ajax({
+  				type: "get",
+  				url: "/getCategory",
+  				data: { 
+  				},
+  				success: function(data) {
+  				  
+  				  // 카테고리세팅
+  				  $('#div_category').html(data.categoryList);
+  				  
+  				  getItem();
+  				},
+  				error: function(e) {
+  					alert(e.responseText);
+  				}
+  			});
+    }
+    
+    // 아이템세팅 
+    function getItem(){
+      
+  			$.ajax({
+  				type: "get",
+  				url: "/getItem",
+  				data: {
+  				},
+  				success: function(data) {
+  				  // 아이템세팅
+  					$('#div_item').html(data.itemList);
+  					
+  					// 아이템버튼div
+  					$("#div_item_cnt_row").show();
+  					// checkout버튼div
+  					$("#div_checkout").show();
+  					
+  				},
+  				error: function(e) {
+  					alert(e.responseText);
+  				}
+  			});
+
+      reset();
+    }
+    
+    // 페이지 초기화 
+    function reset() {
+      // TO-DO : Map, div 초기화
+      
+    }
+    
+    
+    // 선택 아이템을 Map & div 추가
+    function addItem (id, nm){
+      
+      if(itemMap.containsKey(id)){
+        alert('이미 선택된 아이템입니다.');
+        return;
+      }
+      
+      if(itemMap.size() == ITEM_MAX_SIZE){
+        alert('10개까지만 선택 가능합니다.');
+        return;
+      }
+      
+      itemMap.put(id, nm);
+      
+      var strTag = "<div class=\"align-self-center col-md-2\" id=\"item_" + id + "\"><a class=\"btn btn-primary w-100\" href=\"#div_item\" onClick=\"removeItem(\'"+ id + "\')\">" + nm + "</a></div>";
+      $("#div_item_row").append(strTag);
+      
+      document.getElementById('span_total_cnt').innerHTML = itemMap.size();
+    }
+    
+    // 선택 아이템을 Map & div 삭제
+    function removeItem(id){
+      
+      itemMap.remove(id);
+      
+      $("#item_"+ id).remove();
+      
+      document.getElementById('span_total_cnt').innerHTML = itemMap.size();
+    }
+    
+    
+    // 선택 아이템 목록 INSERT
+    function sendItems() {
+      
+      if(!confirm("선택한 아이템으로 빅데이터 생성을 요청하시겠습니까?")){
+        return;
+      }
+      
+      $.ajax({
+        type: "post",
+        url : "/checkout",
+        data: {
+          items : itemMap.keys()
+        }, 
+          success:function(data){   
+            var id = data.datas.req_id;
+            // alert(id);
+            location.href = 'progress/' + id;
+          },
+          error:function(e){  
+            alert(e.responseText);  
+          }  
+      });
+      
+    }
+
+  </script>
+  
+  <script>
+    // 페이지로딩시 카테고리 display
+    $(document).ready(function() { getCategory(); });
+  </script>
+  
+</head>
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+	<!-- Header/Navigation -->
+	<% include ./partials/navigation.ejs %>
+
+    <!-- Main content-->
+    <section class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+
+                    <!-- 2.select items -->
+                    <div class="text-center py-5">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h3>Select items for MVNO Big Data.</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="text-center bg-primary py-5">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-md-12"><br>
+                          </div>
+                        </div>
+                        <div class="row" id="div_category">
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <!-- 3.show detail list -->
+                    <div class="text-center py-5">
+                      <div class="container">
+                        <div class="row" id="div_item">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- 4.view selected items -->
+                    <div class="section text-center py-3">
+                      <div class="container">
+                        <div class="row bg-faded py-2">
+                          <div class="col-md-12">
+                            <div class="row" id="div_item_row">
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12 py-3" style="display:none" id="div_item_cnt_row">
+                                <a href="#" class="btn btn-danger disabled">Total <b><span id="span_total_cnt">0</span></b> items</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                    <!-- 5.check out -->
+                    <div class="section text-center py-0" style="display:none" id="div_checkout">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-md-3"></div>
+                          <div class="col-md-3">
+                            <a class="btn w-100 btn-warning" href="#">Add to cart <i class="fa fa-cart-arrow-down fa-fw"></i></a>
+                          </div>
+                          <div class="col-md-3">
+                            
+                              <!--item전송-->
+                              <a class="btn w-100 btn-success" onclick="sendItems()">Check out <i class="fa fa-check fa-fw"></i></a>
+                              <!--<a class="btn w-100 btn-success" href="/mvno/mvnoresult">Check out <i class="fa fa-check fa-fw"></i></a>-->
+                  
+                          </div>
+                          <div class="col-md-3"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+
+
+</body>

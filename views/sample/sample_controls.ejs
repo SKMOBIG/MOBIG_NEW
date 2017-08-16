@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <!-- Page title -->
+    <title>MOBIG | MVNO Big Data Market</title>
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="vendor/animate.css/animate.css"/>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="vendor/switchery/switchery.min.css"/>
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="styles/pe-icons/pe-icon-7-stroke.css"/>
+    <link rel="stylesheet" href="styles/pe-icons/helper.css"/>
+    <link rel="stylesheet" href="styles/stroke-icons/style.css"/>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+	<!-- Header/Navigation -->
+	<% include ../partials/sample_navigation.ejs %>
+
+
+    <!-- Main content-->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+                            <small>UI Elements<br>Form controls<br> <span class="c-white">Selection controls</span></small>
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-magic-wand"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>Selection controls</h3>
+                            <small>
+                                Allow the user to select options by checkbox, radio buttons or switches.
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                            Checkbox examples
+                        </div>
+                        <div class="panel-body">
+
+                            <fieldset>
+                                <div class="checkbox">
+                                    <input id="checkbox1" class="styled" type="checkbox">
+                                    <label for="checkbox1">
+                                        Default
+                                    </label>
+                                </div>
+                                <div class="checkbox checkbox-primary">
+                                    <input id="checkbox2" class="styled" type="checkbox" checked="">
+                                    <label for="checkbox2">
+                                        Primary
+                                    </label>
+                                </div>
+                                <div class="checkbox checkbox-success">
+                                    <input id="checkbox3" class="styled" type="checkbox" checked="">
+                                    <label for="checkbox3">
+                                        Success
+                                    </label>
+                                </div>
+                                <div class="checkbox checkbox-info">
+                                    <input id="checkbox4" class="styled" type="checkbox" checked="">
+                                    <label for="checkbox4">
+                                        Info
+                                    </label>
+                                </div>
+                                <div class="checkbox checkbox-warning">
+                                    <input id="checkbox5" type="checkbox" class="styled" checked="">
+                                    <label for="checkbox5">
+                                        Warning
+                                    </label>
+                                </div>
+                                <div class="checkbox checkbox-danger">
+                                    <input id="checkbox6" type="checkbox" class="styled" checked="">
+                                    <label for="checkbox6">
+                                        Check me out
+                                    </label>
+                                </div>
+                                <p>Inline checkboxes</p>
+                                <div class="checkbox checkbox-inline">
+                                    <input type="checkbox" class="styled" id="inlineCheckbox1" value="option1">
+                                    <label for="inlineCheckbox1"> Inline One </label>
+                                </div>
+                                <div class="checkbox checkbox-success checkbox-inline">
+                                    <input type="checkbox" class="styled" id="inlineCheckbox2" value="option1" checked="">
+                                    <label for="inlineCheckbox2"> Inline Two </label>
+                                </div>
+                            </fieldset>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                            Checkbox code
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                A checkbox allows user to make a binary choice, i.e. a choice between one of two possible mutually options.
+
+                            </p>
+                            <pre>
+// HTML
+&lt;div class="checkbox"&gt;
+    &lt;input type="checkbox" id="checkbox1"&gt;
+    &lt;label for="checkbox1"&gt;
+        Check me out
+    &lt;/label&gt;
+&lt;/div&gt;
+                            </pre>
+                            Full documentation: <a href="https://github.com/flatlogic/awesome-bootstrap-checkbox" target="_blank">https://github.com/flatlogic/awesome-bootstrap-checkbox</a>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                            Switches examples
+                        </div>
+                        <div class="panel-body">
+
+                            <div>Basic example:</div>
+                            <div class="m-xs">
+                                <input type="checkbox" class="js-switch1" checked />
+                                <input type="checkbox" class="js-switch2"/>
+                            </div>
+                            <div>Colored:</div>
+                            <div class="m-xs">
+                                <input type="checkbox" class="js-switch3" checked />
+                                <input type="checkbox" class="js-switch4" checked />
+                                <input type="checkbox" class="js-switch5" checked />
+                                <input type="checkbox" class="js-switch6" checked />
+                            </div>
+                            <div>Small size:</div>
+                            <div class="m-xs">
+                                <input type="checkbox" class="js-switch7" checked />
+                                <input type="checkbox" class="js-switch8" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                            Switches code
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Simple component that helps you turn your default HTML checkbox inputs into beautiful iOS 7 style switches in just few simple steps.
+                            </p>
+
+                            <pre>
+// HTML
+&lt;input type="checkbox"
+class="js-switch" checked /&gt;
+
+// JavaScript
+var elem = document.querySelector('.js-switch');
+var init = new Switchery(elem);
+                            </pre>
+                            Full documentation: <a href="https://github.com/abpetkov/switchery" target="_blank">https://github.com/abpetkov/switchery</a>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                            Radio buttons examples
+                        </div>
+                        <div class="panel-body">
+
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="radio radio-warning">
+                                            <input type="radio" name="radio1" id="radio1" value="option1" checked="">
+                                            <label for="radio1">
+                                                Small
+                                            </label>
+                                        </div>
+                                        <div class="radio radio-warning">
+                                            <input type="radio" name="radio1" id="radio2" value="option2">
+                                            <label for="radio2">
+                                                Big
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="radio radio-danger">
+                                            <input type="radio" name="radio2" id="radio3" value="option1">
+                                            <label for="radio3">
+                                                Next
+                                            </label>
+                                        </div>
+                                        <div class="radio radio-danger">
+                                            <input type="radio" name="radio2" id="radio4" value="option2" checked="">
+                                            <label for="radio4">
+                                                One
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>Radios without label text</p>
+                                <div class="radio">
+                                    <input type="radio" id="singleRadio1" value="option1" name="radioSingle1" aria-label="Single radio One">
+                                    <label></label>
+                                </div>
+                                <div class="radio radio-success">
+                                    <input type="radio" id="singleRadio2" value="option2" name="radioSingle1" checked="" aria-label="Single radio Two">
+                                    <label></label>
+                                </div>
+                                <p>Inline radios</p>
+                                <div class="radio radio-info radio-inline">
+                                    <input type="radio" id="inlineRadio1" value="option1" name="radioInline" checked="">
+                                    <label for="inlineRadio1"> Inline One </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <input type="radio" id="inlineRadio2" value="option2" name="radioInline">
+                                    <label for="inlineRadio2"> Inline Two </label>
+                                </div>
+                            </fieldset>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                            Radio buttons code
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                A radio button allows the user to choose only one of a predefined set of options.
+
+                            </p>
+                            <pre>
+&lt;div class="radio"&gt;
+    &lt;input type="radio" name="radio" value="2" &gt;
+    &lt;label"&gt;
+        Option
+    &lt;/label&gt;
+&lt;/div&gt;
+                            </pre>
+                            Full documentation: <a href="https://github.com/flatlogic/awesome-bootstrap-checkbox" target="_blank">https://github.com/flatlogic/awesome-bootstrap-checkbox</a>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+<!-- Vendor scripts -->
+<script src="vendor/pacejs/pace.min.js"></script>
+<script src="vendor/jquery/dist/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/switchery/switchery.min.js"></script>
+
+<!-- App scripts -->
+<script src="scripts/luna.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        // Native javascript
+        var elem1 = document.querySelector('.js-switch1');
+        var elem1 = new Switchery(elem1);
+
+        var elem2 = document.querySelector('.js-switch2');
+        var elem2 = new Switchery(elem2);
+
+        var elem3 = document.querySelector('.js-switch3');
+        var elem3 = new Switchery(elem3, { color: '#7c8bc7'});
+
+        var elem4 = document.querySelector('.js-switch4');
+        var elem4 = new Switchery(elem4, { color: '#f6a821'});
+
+        var elem5 = document.querySelector('.js-switch5');
+        var elem5 = new Switchery(elem5, { color: '#1bbf89'});
+
+        var elem6 = document.querySelector('.js-switch6');
+        var elem6 = new Switchery(elem6, { color: '#db524b'});
+
+        var elem7 = document.querySelector('.js-switch7');
+        var elem7 = new Switchery(elem7, { color: '#f6a821',size: 'small'});
+
+        var elem8 = document.querySelector('.js-switch8');
+        var elem8 = new Switchery(elem8, { color: '#f6a821', size: 'small'});
+
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <!-- Page title -->
+    <title>LUNA | Responsive Admin Theme</title>
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="vendor/animate.css/animate.css"/>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css"/>
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="styles/pe-icons/pe-icon-7-stroke.css"/>
+    <link rel="stylesheet" href="styles/pe-icons/helper.css"/>
+    <link rel="stylesheet" href="styles/stroke-icons/style.css"/>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body class="blank">
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+    <!-- Header-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">
+                    LUNA
+                    <span>v.1.3</span>
+                </a>
+            </div>
+
+        </div>
+    </nav>
+    <!-- End header-->
+
+    <!-- Main content-->
+    <section class="content">
+
+        <div class="container">
+
+            <div class="row" style="margin-top: 100px">
+                <div class="col-lg-12">
+
+
+                    <div class="panel panel-filled">
+                        <div class="panel-body">
+                            <h2 class="m-b-none">Luna documentation</h2>
+                            <p>Version 1.3</p>
+
+                            <p>
+                                Thank you for purchasing LUNA admin theme. If you have any questions about the template, please feel free to contact us via email: <a href="mailto:support@webapplayers.com">support@webapplayers.com</a>
+                            </p>
+
+                            <p>
+                                Documentation created: <span class="c-white">19/02/2016</span> <br>
+                                Latest update: <span class="c-white">10/03/2017</span> <br>
+                                By: <span class="c-white">WebAppLayers Team</span> <br>
+                            </p>
+                            <p>
+                                This documentation is focused on Luna Meteor version. It assumes a minimum knowledge of Meteor framework and html/css/js language. It describe mainly files and structure in project.
+                                Please note that this documentation is dedicated to the main element of the template. With each version, we will try to develop it.
+                                But if you have any questions going beyond what is described here don't hesitate to write to us on support email. We would love to help.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="panel panel-filled">
+                        <div class="panel-body">
+                            <h3 class="m-b-none">First run</h3>
+                            <p>File system or server
+
+                            </p>
+
+                            <p>
+
+                                To run Meteor version you will need Meteor package installed. Please go to Meteor website to install package for your system: https://www.meteor.com/install
+                                <br><span class="c-white">Before you run Luna please be sure that you can create and run sample Meteor app: https://www.meteor.com/try</span> Please be sure that you don't have any error while running sample Meteor app.
+                            </p>
+                            <p>
+                                If everything work well please go to Luna_Full_Version_Meteor (Luna Meteor folder) and run meteor command
+                            </p>
+                            <pre>
+meteor</pre>
+                            <p>
+                                Next open your web browser and go to.
+                            </p>
+                            <pre>
+http://localhost:3000</pre>
+                            <p>
+                                And after that you will see the app running. If you have any problem on this stage feel free to write to us on support@webapplayers and we will try to help.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Structure</h3>
+                                    <p>Folders and files</p>
+
+                                    <p>File pack consists for Meteor is located under Luna_Full_Version_Meteor folder. Project structure presents as below.</p>
+
+                                    <div>
+                                <pre>
+/Luna_Full_Version_Meteor
+  |- .meteor
+  |- /client
+  |----- /config
+  |----- /startup
+  |----- /stylesheets
+  |----- /templates
+  |----- /vendor
+  |- /public
+  |----- /images
+  |----- /pe-icons
+  |----- /strokeicons
+  |- /server
+
+                                </pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Styles structure</h3>
+                                    <p>Styles folder</p>
+
+                                    <p>In Meteor package we use LESS css preprocessors. All files are located in </p>
+
+                                    <div>
+                                <pre>
+/client/stylesheets/
+/client/stylesheets/
+  |- /import
+  |- /pe-icons
+  |- /pestroke-icons
+  |- style.less
+                                </pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Public and Vendor structure</h3>
+                                    <p>Libraries folder</p>
+
+                                    <p>Meteor has own build and injection system. So you don't need to worry about adding a script. In client->vendor folder are few libraries that for some reason we not added by atmospherejs - meteor package system. They are automatically added by Meteor to your app.
+                                    Most libraries are added by atmospherejs - meteor package system.
+                                    </p>
+
+                                    <p>Local added libraries</p>
+                                    <div>
+                                <pre>
+/client/vendor
+  |- /bootstrap3-typeahead
+  |- /chart.js
+  |- /d3
+  |- /datamaps
+  |- /datatables
+  |- /flot
+  |- /pacejs
+  |- /switchery
+
+                                </pre>
+                                    </div>
+                                    <p>Libraries added by atmospherejs</p>
+                                    <div>
+                                <pre>
+|- less
+|- twbs:bootstrap
+|- fortawesome:fontawesome
+|- jquery
+|- rollypolly:sparkline
+|- kadira:flow-router
+|- ejson
+|- kadira:blaze-layout
+|- zimme:active-route
+|- chrismbeckett:toastr
+|- natestrauser:animate-css
+|- okgrow:router-autoscroll
+|- thesabbir:jquery-nestable
+|- mizzao:jquery-ui
+|- momentjs:moment
+|- hyperborea:datamaps
+|- summernote:summernote
+                                </pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Layout structure</h3>
+                                    <p>Luna layout</p>
+
+                                    <p>
+                                        Main layout are created with few main elements:
+                                    </p>
+                                    <ol>
+                                        <li><code>.wrapper</code> main page wrapper</li>
+                                        <li><code>{{> header }}</code> top header with menu</li>
+                                        <li><code>{{> navigation }}</code> left sidebar navigation.</li>
+                                        <li><code>.content {{>Template.dynamic template=content}}</code> main container for page elements.</li>
+                                    </ol>
+                                    <div>
+                                    <pre>
+&lt;template name="layout"&gt;
+
+    &lt;!-- Wrapper--&gt;
+    &lt;div class="wrapper"&gt;
+
+        &lt;!-- Header--&gt;
+        {{> header }}
+
+        &lt;!-- Navigation--&gt;
+        {{> navigation }}
+
+        &lt;!-- Main content--&gt;
+        &lt;section class="content"&gt;
+
+            &lt;!-- Main view  --&gt;
+            {{>Template.dynamic template=content}}
+
+        &lt;/section&gt;
+        &lt;!-- End main content --&gt;
+
+    &lt;/div&gt;
+    &lt;!-- End wrapper--&gt;
+
+&lt;/template&gt;
+
+                                    </pre>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Common templates and pages</h3>
+                                    <p>Views files</p>
+
+                                    <p>Main layout use common templates like navigation, header. All common templates you can find under client->templates->common
+
+                                        Each page in Meteor is a template. All pages/templates you can find at client->templates->pages folder. </p>
+                                    <div>
+                                        <pre>
+/client/templates
+  |- /common
+  |----- header.html
+  |----- header.js
+  |----- navigation.html
+  |----- navigation.js
+  |----- page-header.html
+  |----- panel-tools.html
+  |----- panel-tools.js
+  |- /layouts
+  |----- blankLayout.html
+  |----- blankLayout.js
+  |----- layout.html
+  |----- layout.js
+  |- /pages
+  |----- /appviews
+  |----- /monitoring
+  |----- /ui
+  |----- dashboard.html
+  |----- dashboard.js
+  |----- versions.html
+  |- head.html
+                                        </pre>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Page header</h3>
+                                    <p>Custom page header</p>
+
+                                    <p>Each page has also own pageHeader template - it is a heading bar with breadcrumb
+
+                                        It is added to view as a {{> pageHeader}}</p>
+
+                                    <div>
+                                        <pre>
+{{> pageHeader category='UI Elements' section='General' title='Alerts' icon="pe-7s-speaker" desc='Notification and custom alerts' }}
+
+                                        </pre>
+                                        <p>And the structure of it is:</p>
+                                        <pre>
+    &lt;div class="row"&gt;
+        &lt;div class="col-lg-12"&gt;
+            &lt;div class="view-header"&gt;
+                &lt;div class="pull-right text-right" style="line-height: 14px"&gt;
+                    &lt;small>{{category}}&lt;br&gt;{{section}}&lt;br> &lt;span class="c-white"&gt;{{title}}&lt;/span&gt;&lt;/small&gt;
+                &lt;/div&gt;
+                &lt;div class="header-icon"&gt;
+                    &lt;i class="pe page-header-icon {{icon}}">&lt;/i&gt;
+               &lt;/div&gt;
+                &lt;div class="header-title"&gt;
+                    &lt;h3>{{title}}&lt;/h3&gt;
+                    &lt;small&gt;
+                        {{desc}}
+                    &lt;/small&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;hr&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;                       </pre>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Route config</h3>
+                                    <p>Flow router</p>
+
+                                    <p>To manage all route we use great plugin Flow router https://github.com/kadirahq/flow-router. It allows you to organize the parts of your interface into a templates.
+
+                                        Additional to have a layout feature we use BlazeLayout: https://github.com/kadirahq/blaze-layout. Below you can see example of configuration routes. Configuration routing are in client->config->router.js<div>
+                                        <pre>
+
+FlowRouter.route('/', {
+    action: function() {
+        FlowRouter.go('/dashboard');
+    }
+});
+
+FlowRouter.route('/dashboard', {
+    action: function() {
+        BlazeLayout.render("layout", {content: "dashboard"});
+    }
+});
+
+
+FlowRouter.route('/metrics', {
+    name: 'metrics',
+    action: function() {
+        BlazeLayout.render("layout", {content: "metrics"});
+    }
+});
+
+// UI Elements
+// General
+
+FlowRouter.route('/panels', {
+    name: 'Panels',
+    action: function() {
+        BlazeLayout.render("layout", {content: "panels"});
+    }
+});
+
+FlowRouter.route('/icons', {
+    name: 'Icons',
+    action: function() {
+        BlazeLayout.render("layout", {content: "icons"});
+    }
+});
+
+                                        </pre>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-filled">
+                                <div class="panel-body text-center">
+
+                                    <h3>Contact</h3>
+                                    <p>
+                                        If you have any question or find some issue feel free to contact with us on  <br><br><a href="mailto:support@webapplayers.com" class="btn btn-accent">support@webapplayers.com</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+<!-- Vendor scripts -->
+<script src="vendor/pacejs/pace.min.js"></script>
+<script src="vendor/jquery/dist/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- App scripts -->
+<script src="scripts/luna.js"></script>
+
+</body>
+
+</html>

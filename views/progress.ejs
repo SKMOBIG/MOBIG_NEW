@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <% include ./partials/css.ejs %>
+    
+    <% include ./partials/script.ejs %>
+    
+    <style type="text/css">
+    
+        /* progress bar */
+        #myProgress {
+          width: 100%;
+          background-color: #ddd;
+        }
+        
+        #myBar {
+          width: 10%;
+          height: 30px;
+          background-color: #4CAF50;
+          text-align: center;
+          line-height: 30px;
+          color: white;
+        }
+        
+    </style>
+    
+    <script type="text/javascript">
+    
+        // progress bar
+        function move() {
+          var elem = document.getElementById("myBar");   
+          var width = 10;
+          var id = setInterval(frame, 100);
+          function frame() {
+            if (width >= 100) {
+                clearInterval(id);
+                
+                // 일단 progress완료시 결과페이지로 이동하도록 함 => ajax조회 결과가 완료일때 이동하도록 수정
+                if( confirm('데이터생성이 완료되었습니다. 지금 결과를 확인 하시겠습니까?') ){
+                    location.href = '/result/' + $("#req_id").val();
+                }
+              
+            } else {
+              width++; 
+              elem.style.width = width + '%'; 
+              elem.innerHTML = width * 1  + '%';
+            }
+          }
+        }
+        
+    </script>
+    
+    <script>
+        // toggle progress bar
+        $(document).ready(function() { move(); });
+    </script>
+
+
+</head>
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+	<!-- Header/Navigation -->
+	<% include ./partials/navigation.ejs %>
+
+    <!-- Main content-->
+    <section class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+
+                    <!-- 1.요청한 item목록 -->
+                    <div class="col-md-12">
+                        <h3>요청item</h3>
+            			<!-- req_id로 조회한 결과 -->
+            			<% if (req_data) { %>
+                			<li><%=req_data.req_id %></li>
+                			<li><%=req_data.category_grp_dtl_id1 %></li>
+                			<li><%=req_data.table_nm1 %></li>
+                			<li><%=req_data.column_nm1 %></li>
+                			<li><%=req_data.item_nm1 %></li>
+                			<input type="hidden" id="req_id" value=<%=req_data.req_id %>>
+                		<% } %>
+                    </div>
+                    
+                    <!-- 2.hive 모니터링 페이지 -->
+                    <div class="col-md-12">
+                        <h3>hive 처리페이지 include</h3>
+                        <iframe src="http://169.56.103.56:8088/cluster" width="50%" height="50%">
+                            Hive monitoring page access error.
+                        </iframe>
+                    </div>
+                    
+                    <!-- 3.progress bar -->
+                    <div class="col-md-12">
+                        <h3>잠시 후 데이터 생성이 완료됩니다.</h3>
+                        <div id="myProgress">
+                          <div id="myBar">10%</div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+
+
+</body>
