@@ -44,17 +44,20 @@
             var goNext = next+1;
         }
     
-        var prevStep = "<li class=\"\"> <a class=\"\" href='javascript:drawPage("+goPrev+");'> Prev </a> </li>";
-        var nextStep = "<li class=\"\"> <a class=\"\" href='javascript:drawPage("+goNext+");'> Next </a> </li>";
+        // var prevStep = "<li class=\"\"> <a class=\"\" href='javascript:drawPage("+goPrev+");'> Prev </a> </li>";
+        // var nextStep = "<li class=\"\"> <a class=\"\" href='javascript:drawPage("+goNext+");'> Next </a> </li>";
+        
+        var prevStep = "<li class=\"\"> <a class=\"\" href=\"mydata?page="+goPrev+"\"> Prev </a> </li>";
+        var nextStep = "<li class=\"\"> <a class=\"\" href=\"mydata?page="+goNext+"\"> Next </a> </li>";        
     
         $("#pageZone").empty();
         $("#pageZone").append(prevStep);
     
         for(var i=prev; i<=next;i++){
             if(i==page){
-                PageNum = "<li class=\"active\"> <a class=\"\" href=\"mydata?page="+i+"\";>"+ i +"</a> </li>";
+                PageNum = "<li class=\"active\"> <a class=\"\" href=\"mydata?page="+i+"\">"+ i +"</a> </li>";
             } else {
-                PageNum = "<li class=\"\"> <a class=\"\" href=\"mydata?page="+i+"\";>"+ i +"</a> </li>";
+                PageNum = "<li class=\"\"> <a class=\"\" href=\"mydata?page="+i+"\">"+ i +"</a> </li>";
             }
             $("#pageZone").append(PageNum);
         }    
