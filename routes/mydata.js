@@ -30,7 +30,7 @@ module.exports = function(app, connectionPool) {
                     if (error) throw error;
                     else {
                         // 쿼리 결과가 있다면,
-                        if (rows.length >= 0) {
+                        if (rows.length > 0) {
                             
                             // 총개수 파악
                             var queryCnt = 'SELECT count(*) cnt FROM mvno_req_data WHERE user_id = ?;';
