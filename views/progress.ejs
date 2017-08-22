@@ -32,7 +32,7 @@
                             <small>UI Elements<br>General<br> <span class="c-white">Progress</span></small>
                         </div>
                         <div class="header-icon">
-                            <i class="pe page-header-icon pe-7s-albums"></i>
+                            <i class="pe page-header-icon pe-7s-next-2"></i>
                         </div>
                         <div class="header-title">
                             <h3>Requested Successfully</h3>
@@ -51,11 +51,13 @@
 
                     <div class="panel">
                         <div class="panel-heading">
-                            Wait for the Progress
+                            Wait for the Progress . . .
+                            <i class="fa fa-hourglass-2"></i> 
                         </div>
                         <div class="panel-body">
+                            Big Data you choose was sent to MoBIG. <br/>
                             It may take about <u>10~30 minutes.</u> <br/>
-                            Check your request below that you chosen.
+                            Check your request below whether it is correct.
                         </div>
                     </div>
 
@@ -90,7 +92,7 @@
                                     <tbody>
                                 <% for (i=0;i<grpId.length;i++){ %>    
                                     <tr>
-                                        <th scope="row">1</th>
+                                        <th scope="row"><%=i+1%></th>
                                         <td><%=grpId[i][0]%></td>
                                         <td><%=grpId[i][1]%></td>
                                         <td><%=req_data.sta_ym%>~<%=req_data.end_ym%></td>
@@ -101,8 +103,7 @@
                             
                         </div>
                         <div class="panel-footer">
-                            You can Make another analysing, <br/>
-                            or Go "My Data" to check the request finishied or not. <br/>
+                            * If there is some mistake on your request, you'd better make a request again. <br/>
                         </div>
                     </div>
 
@@ -111,20 +112,37 @@
             </div>
             
             <div class="row">
-                <a href="../mvnodata">
-                    <button class="btn btn-default " type="button">
-                        <i class="fa fa-sticky-note"></i> 
-                        <span class="bold">Make New Data</span>
-                    </button>
-                </a>
-                <a href="../mydata">
-                    <button class="btn btn-default " type="button">
-                        <i class="fa fa-database"></i> 
-                        <span class="bold">Check My Data</span>
-                    </button>                
-                </a>
+
+                <div class="col-md-8">
+
+                    <div class="panel">
+                        <div class="panel-heading">
+                            Thanks for using MoBIG !
+                        </div>
+                        <div class="panel-body">
+                            * You can "Make New" analysing, 
+                            or Go to "My Data" to check the request finishied or not.
+                        </div>
+                        <div class="panel-footer pull-right">
+                            <a href="../mvnodata">
+                                <button class="btn btn-lg btn-default" type="button">
+                                    <i class="fa fa-sticky-note"></i> 
+                                    <span class="bold">Make New Data</span>
+                                </button>
+                            </a>
+                            <a href="../mydata">
+                                <button class="btn btn-lg btn-default" type="button">
+                                    <i class="fa fa-database"></i> 
+                                    <span class="bold">Check My Data</span>
+                                </button>                
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+
             </div>
-            
         </div>
     </section>
     <!-- End main content-->
