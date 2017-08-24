@@ -289,7 +289,7 @@ a.badge:focus, a.badge:hover {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   line-height: 1.25;
-  border-radius: 0px;
+  border-radius: 5px;
   transition: all 0.2s ease-in-out; }
   .btn:focus, .btn:hover {
     text-decoration: none; }
@@ -3959,7 +3959,7 @@ a.bg-success:focus, a.bg-success:hover {
   background-color: #449d44 !important; }
 
 .bg-info {
-  background-color: #333 !important; }
+  background-color: #404040 !important; }
 
 a.bg-info:focus, a.bg-info:hover {
   background-color: #1a1a1a !important; }
