@@ -13,6 +13,17 @@
     <!-- Page title -->
     <title>MOBIG | MVNO Big Data Market</title>
   
+  
+    <style type="text/css">
+    
+        #goBtn {
+          margin:auto;
+        }
+        #stBtn {
+          margin-bottom:0 !important;
+        }
+        
+    </style>
 </head>
 
 <body class="text-center">
@@ -21,10 +32,13 @@
   <nav class="navbar navbar-inverse navbar-expand-md navbar-dark bg-warning">
     <div class="container">
       <a class="navbar-brand" href="/">MOBIG</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span></button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <!--로그인호출-->
-        <a class="btn navbar-btn btn-secondary mx-3" href="/login">Log in</a>
+        <% if (session.user_name == null) {%>
+        <a class="btn navbar-btn btn-secondary mx-3" href="/login">Sign in</a>
+        <% } else { %>
+        <span class="navbar-brand"><%= session.user_name %></span>
+        <% } %>
       </div>
     </div>
   </nav>
@@ -37,7 +51,7 @@
           <h1 class="text-warning display-1">MOBIG</h1>
           <h4 class="text-warning">Big Data Market</h4>
           <div class="row mt-5">
-
+            <a href="/login" id="goBtn" class="btn btn-outline-primary"><H4 id="stBtn">Get Started</H4></a>
           </div>
         </div>
         <div class="col-md-6" style="margin:auto;">

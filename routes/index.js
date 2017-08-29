@@ -6,7 +6,7 @@ module.exports = function(app, connectionPool) {
         if(sess.views) {
             res.render('index', { title: 'MOBIG', session : req.session });    
         }else {
-            res.render('landing', { title: 'MOBIG'});  
+            res.render('landing', { title: 'MOBIG', session : req.session });  
         }
         
     });
