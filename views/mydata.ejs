@@ -68,9 +68,26 @@
 
     $(document).ready(function() { drawPage(<%= page %>); });
 
+    $(function(){
+      $('.yellow_circle').mouseenter(function(){
+        $('.yellow_circle_word').css('border-color: #616779; color: #ffffff; background-color: #3d404c;');
+      });
+
+    });
+    
+    
+    $(function () {
+        $('.test').hover(
+        function () {
+            $(this).children('.btn').css({"border-color":"#616779", "color":"#ffffff", "background-color":"#3d404c"});
+        },
+        function () {
+            $(this).children('.btn').css({"border-color":"#616779", "color":"#949ba2", "background-color":"transparent"});
+        }
+    );
+    });
 
   </script>
-
 
 </head>
 <body>
@@ -175,7 +192,7 @@
                                         MVNO Data
                                     </td>
                                     <td class="items">
-                                        <a href="result/<%=req_list[i].req_id%>">
+                                        <a href="result/<%=req_list[i].req_id%>" class="test">
                                             <% for (var j=0; j < grpId[i].length; j++) { %>
                                                 <button class="btn btn-default btn-xs"><i class="fa fa-folder"></i> 
                                                    <%=grpId[i][j]%>
