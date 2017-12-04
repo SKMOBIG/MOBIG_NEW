@@ -22,6 +22,10 @@
         #stBtn {
           margin-bottom:0 !important;
         }
+        .img {
+          width:45px; height:45px;
+        }
+
         
     </style>
 </head>
@@ -51,7 +55,11 @@
           <h1 class="text-warning display-1">MOBIG</h1>
           <h4 class="text-warning">Big Data Market</h4>
           <div class="row mt-5">
-            <a href="/login" id="goBtn" class="btn btn-outline-primary"><H4 id="stBtn">Get Started</H4></a>
+            <% if (session.user_name == null) {%>
+                <a href="/login" id="goBtn" class="btn btn-outline-primary"><H4 id="stBtn">Get Started</H4></a>
+            <% } else { %>
+                <a href="/index" id="goBtn" class="btn btn-outline-primary"><H4 id="stBtn">Get Started</H4></a>
+            <% } %>
           </div>
         </div>
         <div class="col-md-6" style="margin:auto;">
@@ -72,51 +80,52 @@
         <div class="align-self-center text-right col-lg-4 col-md-6">
           <div class="row my-5">
             <div class="col-10">
-              <h4>Rating</h4>
-              <p>Based on fluid design principles.
-                <br>Works with screen resolution</p>
+              <h4>Usage</h4>
+              <p>Check the customer's calling usage.
+                <br>Seperate the customer group.</p>
             </div>
-            <div class="col-2"><i class="d-block fa fa-3x fa-columns"></i></div>
+            <div class="col-2"><img class="img" src="/images/usage.png"></div>
           </div>
           <div class="row my-5">
             <div class="col-10">
               <h4>Billing</h4>
-              <p>Choose settings depending on the criteria you value the most</p>
+              <p>Analyse all bill.
+              <br>Bill for each customer group.</p>
             </div>
-            <div class="col-2"><i class="d-block fa  fa-3x fa-circle-thin"></i></div>
+            <div class="col-2"><img class="img" src="/images/billing.png"></div>
           </div>
           <div class="row my-5">
             <div class="col-10">
-              <h4>Adjustment</h4>
-              <p>In-app chat panel 24/7 active.
-                <br>The support you need, right there.</p>
+              <h4>Calling Plan</h4>
+              <p>Compare calling plans' profits.
+                <br>Band plan, Teenager plan, PPS plan, etc.</p>
             </div>
-            <div class="col-2"><i class="d-block fa  fa-3x fa-comment-o"></i></div>
+            <div class="col-2"><img class="img" src="/images/plan.png"></div>
           </div>
         </div>
         <div class="my-3 col-lg-4 col-md-6">
           <img class="img-fluid d-block mx-auto" src="/images/iphone_features.png"> </div>
         <div class="align-self-center text-left col-lg-4 col-md-12">
           <div class="row my-5">
-            <div class="col-3"><i class="d-block fa fa-battery-empty fa-3x"></i></div>
+            <div class="col-2"><img class="img" src="/images/model.png"></div>
             <div class="col-9">
-              <h4>Equipment</h4>
-              <p>Non consuming background operation for longer mobile life</p>
+              <h4>Phone Model</h4>
+              <p>Find diffrences between using IPhone and Galaxy.</p>
             </div>
           </div>
           <div class="row my-5">
-            <div class="col-3"><i class="d-block mx-auto fa  fa-3x fa-clone"></i></div>
+            <div class="col-2"><img class="img" src="/images/customer.png"></div>
             <div class="col-9">
               <h4>Customer</h4>
-              <p>Work simultaneously on different panels with the switcher</p>
+              <p>Use the basic elements to get more specific result. </p>
             </div>
           </div>
           <div class="row my-5">
-            <div class="col-3"><i class="d-block fa  fa-3x fa-heart-o"></i></div>
+            <div class="col-2"><img class="img" src="/images/services.png"></div>
             <div class="col-9">
               <h4>Services</h4>
-              <p>Help us spreading the word.
-                <br>Tell your friends with just one-click</p>
+              <p>Service change logs or service relations can also be useful.
+                </p>
             </div>
           </div>
         </div>
@@ -130,21 +139,21 @@
           <div id="carousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner" role="listbox">
               <div class="carousel-item active flex-column mx-auto">
-                <img src="https://pingendo.github.io/templates/app/reviews_logo_1.png" class="img-block mx-auto d-block" width="250">
+                <!--<img src="https://pingendo.github.io/templates/app/reviews_logo_1.png" class="img-block mx-auto d-block" width="250">-->
                 <div class="blockquote">
                   <p class="text-muted my-1">I can barely imagine my life without Pingendo</p>
                   <div class="blockquote-footer">Alex Denver, Tech reviews</div>
                 </div>
               </div>
               <div class="carousel-item flex-column">
-                <img src="https://pingendo.github.io/templates/app/reviews_logo_2.png" class="img-fluid mx-auto d-block">
+                <!--<img src="https://pingendo.github.io/templates/app/reviews_logo_2.png" class="img-fluid mx-auto d-block">-->
                 <div class="blockquote">
                   <p class="text-muted my-1">Pingendo set a new standard for mobile apps. It's time to move toward the future.</p>
                   <div class="blockquote-footer">Sarah Krichko, APPetizer</div>
                 </div>
               </div>
               <div class="carousel-item flex-column">
-                <img src="https://pingendo.github.io/templates/app/reviews_logo_3.png" class="img-fluid mx-auto d-block">
+                <!--<img src="https://pingendo.github.io/templates/app/reviews_logo_3.png" class="img-fluid mx-auto d-block">-->
                 <div class="blockquote">
                   <p class="text-muted my-1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
                   <div class="blockquote-footer">Miguel Barboso, NewsApps</div>
