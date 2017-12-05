@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+    <!--<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>-->
 
     <% include ./partials/css.ejs %>
     
@@ -235,7 +235,7 @@
                                     </div>
                                     <div class="vertical-timeline-content">
                                         <div class="p-sm">
-                                            <span class="vertical-date pull-right"> <small>2017-12-04 12:40:10</small> </span>
+                                            <span class="vertical-date pull-right"> <small><i class="fa fa-clock-o"></i> 2017-12-04 12:40:10</small> </span>
 
                                             <h2>Dowload Big Data results</h2>
 
@@ -250,7 +250,7 @@
                                     </div>
                                     <div class="vertical-timeline-content">
                                         <div class="p-sm">
-                                            <span class="vertical-date pull-right"> <small>2017-12-04 12:40:00</small> </span>
+                                            <span class="vertical-date pull-right"> <small><i class="fa fa-clock-o"></i> 2017-12-04 12:40:00</small> </span>
 
                                             <h2>Analyse Big Data</h2>
 
@@ -265,7 +265,7 @@
                                     </div>
                                     <div class="vertical-timeline-content">
                                         <div class="p-sm">
-                                            <span class="vertical-date pull-right"> <small>2017-12-04 12:30:20</small> </span>
+                                            <span class="vertical-date pull-right"> <small><i class="fa fa-clock-o"></i> 2017-12-04 12:30:20</small> </span>
 
                                             <h2>Upload items to Cloud</h2>
 
@@ -280,7 +280,7 @@
                                     </div>
                                     <div class="vertical-timeline-content">
                                         <div class="p-sm">
-                                            <span class="vertical-date pull-right"> <small>2017-12-04 12:30:00</small> </span>
+                                            <span class="vertical-date pull-right"> <small><i class="fa fa-clock-o"></i> 2017-12-04 12:30:00</small> </span>
 
                                             <h2>Check out selected items</h2>
                                             <p><code>사업자코드</code> <code>단말기모델코드</code> <code>신규가입월</code> <code>요금제코드</code> <code>음성</code> <code>DATA</code></p>
@@ -317,7 +317,6 @@
                                             <div class="flot-chart">
                                                 <div class="flot-chart-content" id="flotExample1"></div>
                                             </div>
-                
                                         </div>
                                     </div>
                                 </div>
@@ -335,59 +334,151 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row" style="background-color: #FFFFFF">
                                 <div class="col-md-6">
                                     <div class="panel">
-                                        <div class="panel-heading">
-                                            Line type chart with tension
+                                        <div class="panel-heading" style="color: #000000">
+                                            Points type chart
                                         </div>
                                         <div class="panel-body">
-                                            <div class="flot-chart">
-                                                <div class="flot-chart-content" id="flotExample5"></div>
-                                            </div>
-                
+                                            <img class="img" src="/images/rstudio-export/2graphs.png" width="90%">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="panel">
-                                        <div class="panel-heading">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Line type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/Rplot_1.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="background-color: #FFFFFF">
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Line type chart with tension
+                                        </div>
+                                        <div class="panel-body">
+                                            <!--<div class="flot-chart">-->
+                                            <!--    <div class="flot-chart-content" id="flotExample5"></div>-->
+                                            <!--</div>-->
+                                            <img class="img" src="/images/rstudio-export/Rplot_2.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
                                             Line type chart with steps
                                         </div>
                                         <div class="panel-body">
-                                            <div class="flot-chart">
-                                                <div class="flot-chart-content" id="flotExample4"></div>
-                                            </div>
-                
+                                            <!--<div class="flot-chart">-->
+                                            <!--    <div class="flot-chart-content" id="flotExample4"></div>-->
+                                            <!--</div>-->
+                                            <img class="img" src="/images/rstudio-export/Rplot_3.png" width="90%">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="row">
+                            <div class="row" style="background-color: #FFFFFF">
                                 <div class="col-md-6">
                                     <div class="panel">
-                                        <div class="panel-heading">
+                                        <div class="panel-heading" style="color: #000000">
                                             Bar type chart
                                         </div>
                                         <div class="panel-body">
-                                            <div class="flot-chart">
-                                                <div class="flot-chart-content" id="flotExample3"></div>
-                                            </div>
-                
+                                            <!--<div class="flot-chart">-->
+                                            <!--    <div class="flot-chart-content" id="flotExample3"></div>-->
+                                            <!--</div>-->
+                                            <img class="img" src="/images/rstudio-export/Rplot_4.png" width="90%">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="panel">
-                                        <div class="panel-heading">
+                                        <div class="panel-heading" style="color: #000000">
                                             Filled Area type chart
                                         </div>
                                         <div class="panel-body">
-                                            <div class="flot-chart">
-                                                <div class="flot-chart-content" id="flotExample6"></div>
-                                            </div>
-                
+                                            <!--<div class="flot-chart">-->
+                                            <!--    <div class="flot-chart-content" id="flotExample6"></div>-->
+                                            <!--</div>-->
+                                            <img class="img" src="/images/rstudio-export/scatter matrix.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" style="background-color: #FFFFFF">
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Bar type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/scatter_plot.jpg" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Filled Area type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/ScatterPlot_1.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" style="background-color: #FFFFFF">
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Bar type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/ScatterPlot_2.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Filled Area type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/ScatterPlot_3.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" style="background-color: #FFFFFF">
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Bar type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/ScatterPlot_4.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Filled Area type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/ScatterPlot_5.png" width="90%">
                                         </div>
                                     </div>
                                 </div>
@@ -475,6 +566,7 @@
 
         $.plot($("#flotExample2"), [data1], chartUsersOptions);
 
+/*
         var data2 = [
             {
                 label: "bar",
@@ -554,6 +646,7 @@
         };
 
         $.plot($("#flotExample6"), data2, chartUsersOptions2);
+*/        
 
     });    
 </script>
