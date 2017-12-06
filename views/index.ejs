@@ -8,7 +8,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
 
     <% include ./partials/css.ejs %>
-    
+
 </head>
 <body>
 
@@ -197,15 +197,52 @@
                                     <table  class="table">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Phone</th>
-                                            <th>Street Address</th>
+                                            <th>Req No</th>
+                                            <th>Data</th>
+                                            <th>Req Time</th>
                                             <th>% Share</th>
-                                            <th>City</th>
+                                            <th>User</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
+                                <!-- 5개 있을 경우만 (req없는 user는 기본값 표현) -->
+                                <%  if (req_list.length = 5) { %>
+                                    <%  for (var i=0; i < req_list.length; i++) { %>
+                                        <tr>
+                                            <td>
+                                                <a href="result/<%=req_list[i].req_id%>"><%=req_list[i].req_id %></a>
+                                            </td>
+                                            <td class="items">
+                                                <% if(req_list[i].num!=0) { %>
+                                                    <a href="result/<%=req_list[i].req_id%>" class="test">
+                                                <% } else { %>
+                                                    <a href="javascript:Unfinished();" class="test">
+                                                <% } %>
+                                                        <% for (var j=0; j < grpId[i].length; j++) { %>
+                                                            <button class="btn btn-default btn-xs">
+                                                               <%=grpId[i][j]%>
+                                                            </button>
+                                                        <% } %>                                            
+                                                    </a>
+                                            </td>
+                                            <td>
+                                                <div class="small"><i class="fa fa-clock-o"></i> <%=req_list[i].req_dtm %> </div>
+                                            </td>
+                                            <td><div class="sparkline<%=i+8%>"></div></td>
+                                            <td><%=req_list[i].user_name%></td>
+                                            <td>
+                                                <% if(req_list[i].num!=0) { %>
+                                                    <a href="result/<%=req_list[i].req_id%>" class="btn btn-default btn-xs">
+                                                <% } else { %>
+                                                    <a href="javascript:Unfinished();" class="btn btn-default btn-xs">
+                                                <% } %>
+                                                    View
+                                                    </a>
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                <% } else { %>
                                         <tr>
                                             <td>Abraham</td>
                                             <td>076 9477 4896</td>
@@ -246,6 +283,7 @@
                                             <td>Ternitz</td>
                                             <td><a href="#" class="btn btn-default btn-xs">View</a></td>
                                         </tr>
+                                    <% } %>
                                         </tbody>
                                     </table>
                                 </div>
@@ -412,7 +450,7 @@
         $.plot($("#flot-line-chart"), [data2, data1], chartUsersOptions);
 
 
-        // Run toastr notification with Welcome message
+/*        // Run toastr notification with Welcome message
         setTimeout(function(){
             toastr.options = {
                 "positionClass": "toast-top-right",
@@ -422,10 +460,49 @@
                 "timeOut": "6000"
             };
             toastr.warning('<strong>You entered to MOBIG</strong> <br/><small>test</small>');
-        },1600)
+        },1600)*/
 
 
     });
-</script>
+    
+    
+    /*버튼 동시 hover*/
+    $(function () {
+        $('.test').hover(
+            function () {
+                $(this).children('.btn').css({"border-color":"#616779", "color":"#ffffff", "background-color":"#3d404c"});
+            },
+            function () {
+                $(this).children('.btn').css({"border-color":"#616779", "color":"#949ba2", "background-color":"transparent"});
+            }
+        );
+    });
 
+    // 미완료 에러 토스터
+    function Unfinished(){
+        toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-center",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "3000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        } 
+        Command: toastr["error"]("잠시 기다려 주세요", "아직 분석 중입니다")
+    }
+    
+</script>
+    <style>
+        .items a:hover {text-decoration:none;}
+
+    </style>
 </body>
