@@ -109,7 +109,7 @@ module.exports = function(app, connectionPool) {
                             }
                         }
 
-                        // console.log("itemList=" + itemList);
+                        //console.log("itemList=" + itemList);
                         
                         res.send({itemList : itemList, session : req.session});
                         connection.release();
