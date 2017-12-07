@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <% include ./partials/css.ejs %>
+    
+    <% include ./partials/script.ejs %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+
+    <script>
+      // 차트객체가  로딩된 후 데이터를 다시 조회해서 차트를 update 해야 함
+      $(document).ready(function() { updateChart(); });
+    </script>
+  
+</head>
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+	<!-- Header/Navigation -->
+	<% include ./partials/navigation.ejs %>
+
+    <!-- Main content-->
+    <section class="content">
+            <div class="container-fluid">
+
+
+                <div class="row">
+
+                      <!-- 2.select items -->
+                      <div class="text-center py-5">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h3>Get your MVNO Big Data Reults</h3>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- 6.show result -->
+                      <div class="text-center d-flex align-items-center py-5" id="div_rslt">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-lg-12 bg-faded" align="center">
+                              
+                              <input type="hidden" id="req_id" value=<%=req_id %>>
+                              
+                              <!-- 결과차트 -->
+                              <canvas id="myChart" width="400" height="400"></canvas>
+                              
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 bg-faded">
+                              
+                              <!-- 결과테이블 -->
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>req_id</th>
+                                    <th>cond_dt</th>
+                                    <th>cond_dt_nm</th>
+                                    <th>rslt_cnt</th>
+                                    <th>rslt_cnt_nm</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  
+                                  <% for (var i=0; i < rslt_list.length; i++) { %>
+                                    <tr>
+                                      <td><%=rslt_list[i].req_id %></td>
+                                      <td><%=rslt_list[i].cond_dt %></td>
+                                      <td><%=rslt_list[i].cond_dt_nm %></td>
+                                      <td><%=rslt_list[i].rslt_cnt %></td>
+                                      <td><%=rslt_list[i].rslt_cnt_nm %></td>
+                                    </tr>
+                                  <% } %>
+                                  
+                                </tbody>
+                              </table>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                </div>
+
+
+
+
+
+            </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+  <script>
+    // 차트설정
+    var chart_data = {
+        labels: [
+            "1", "2", "3", "4", "5"
+        ],
+        datasets: [
+            {
+                label: '가입자수',
+                data: [
+                    0, 0, 0, 0, 0
+                ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)'
+                ],
+                borderWidth: 1
+            }
+        ]
+    };
+
+    var options = {
+        animation: {
+            animateScale: true
+        },
+        responsive: false,
+        scales: {
+            yAxes: [
+                {
+                    ticks: {
+                        beginAtZero: true                                                                    
+                    }
+                }
+            ]
+        }
+    };
+    
+    var ctx = document.getElementById("myChart").getContext('2d');                                           
+    var myBarChart = new Chart(ctx, {
+        type: 'line',
+        data: chart_data,
+        options: options
+    });
+    
+
+    function updateChart() {
+      
+      $.ajax({
+        type: "post",
+        url : "/complete",
+        data: {
+          id: $("#req_id").val()
+        }, 
+          success:function(data){
+            
+            // 결과div
+            $("#div_rslt").show();
+            
+            var result = data.responseData;
+            var score = result.score;
+            var comp_data = chart_data.datasets[0].data;
+            
+            for (var i = 0; i < comp_data.length; i++) {
+                comp_data[i] = score[i];
+            }
+     
+            chart_data.datasets[0].data = comp_data;
+            myBarChart.update();
+            
+          },
+          error:function(e){  
+            alert(e.responseText);  
+          }  
+      });
+
+    }
+  </script>
+
+
+</body>

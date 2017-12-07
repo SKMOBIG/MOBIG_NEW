@@ -5,18 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+    <!--<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>-->
 
     <% include ./partials/css.ejs %>
     
     <% include ./partials/script.ejs %>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
-
-    <script>
-      // 차트객체가  로딩된 후 데이터를 다시 조회해서 차트를 update 해야 함
-      $(document).ready(function() { updateChart(); });
-    </script>
-  
 </head>
 <body>
 
@@ -26,163 +19,638 @@
 	<!-- Header/Navigation -->
 	<% include ./partials/navigation.ejs %>
 
+
     <!-- Main content-->
     <section class="content">
-            <div class="container-fluid">
+        <div class="container-fluid">
 
+            <div class="row m-t-sm">
 
-                <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-filled">
 
-                      <!-- 2.select items -->
-                      <div class="text-center py-5">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <h3>Get your MVNO Big Data Reults</h3>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="media">
+                                        <i class="pe pe-7s-graph2 c-accent fa-3x"></i>
+                                        <h2 class="m-t-xs m-b-none">
+                                            MVNO Big Data Report
+                                        </h2>
+                                        <small>
+                                            Results of Data Analysing
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <table class="table small m-t-sm">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                사업자코드 <strong class="c-white">122</strong> raw data
+                                            </td>
+                                            <td>
+                                                단말기모델코드 <strong class="c-white">42</strong> raw data
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                신규가입월 <strong class="c-white">61</strong> raw data
+                                            </td>
+                                            <td>
+                                                요금제코드 <strong class="c-white">84</strong> raw data
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                음성 <strong class="c-white">244</strong> raw data
+                                            </td>
+                                            <td>
+                                                DATA <strong class="c-white">42</strong> raw data
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-3 m-t-sm">
+                                <span class="c-white">
+                                    <i class="pe pe-7s-share c-accent fa-1x"></i> Share this report
+                                </span>
+                                    <br>
+                                    <small>
+                                         
+                                    </small>
+                                    <div class="btn-group m-t-sm">
+                                        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal1"><i class="fa fa-envelope"></i> mvno_tester@sk.com</button>
+                                        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal2"><i class="fa fa-check"></i> Other email</button>
+                                        <!--<a href="#" class="btn btn-default btn-sm"><i class="fa fa-envelope"></i> mvno_tester@sk.com</a>-->
+                                        <!--<a href="#" class="btn btn-default btn-sm"><i class="fa fa-check"></i> Other e-mail</a>-->
+                                    </div>
+
+                                    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center">
+                                                    <h4 class="modal-title"><i class="pe pe-7s-share c-accent fa-1x"></i> Share this report</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Send this report to <a href="mailto:#">mvno_tester@sk.com</a></p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-accent">Confirm</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center">
+                                                    <h4 class="modal-title"><i class="pe pe-7s-share c-accent fa-1x"></i> Share this report</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>
+                                                      Enter new email address
+                                                      <form class="form-horizontal">
+                                                          <div class="form-group"><label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                                                              <div class="col-sm-10"><input type="email" class="form-control" id="inputEmail3" placeholder="Email"></div>
+                                                          </div>
+                                                      </form>
+                                                    </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-accent">Confirm</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
                             </div>
-                          </div>
+
                         </div>
-                      </div>
-                      
-                      <!-- 6.show result -->
-                      <div class="text-center d-flex align-items-center py-5" id="div_rslt">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col-lg-12 bg-faded" align="center">
-                              
-                              <input type="hidden" id="req_id" value=<%=req_id %>>
-                              
-                              <!-- 결과차트 -->
-                              <canvas id="myChart" width="400" height="400"></canvas>
-                              
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+                <!-- start main_report -->
+                <div class="col-md-8">
+                    <div class="panel">
+
+                        <div class="panel-body">
+                            <h4> Main report</h4>
+
+                            <p class="small">This is the main report of selected items.
+                            </p>
+
+                            <div class="flot-chart  m-t-md m-b-xl" style="height: 200px">
+                                <div class="flot-chart-content" id="flotProfile"></div>
                             </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-12 bg-faded">
-                              
-                              <!-- 결과테이블 -->
-                              <table class="table">
+
+                            <table class="table table-striped">
                                 <thead>
-                                  <tr>
-                                    <th>req_id</th>
-                                    <th>cond_dt</th>
-                                    <th>cond_dt_nm</th>
-                                    <th>rslt_cnt</th>
-                                    <th>rslt_cnt_nm</th>
-                                  </tr>
+                                <tr>
+
+                                    <th>#</th>
+                                    <th>Project</th>
+                                    <th>Company</th>
+                                    <th>Task</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                  
-                                  <% for (var i=0; i < rslt_list.length; i++) { %>
-                                    <tr>
-                                      <td><%=rslt_list[i].req_id %></td>
-                                      <td><%=rslt_list[i].cond_dt %></td>
-                                      <td><%=rslt_list[i].cond_dt_nm %></td>
-                                      <td><%=rslt_list[i].rslt_cnt %></td>
-                                      <td><%=rslt_list[i].rslt_cnt_nm %></td>
-                                    </tr>
-                                  <% } %>
-                                  
+                                <tr>
+                                    <td>1</td>
+                                    <td>Project
+                                        <small>This is example of project</small>
+                                    </td>
+                                    <td>Inceptos Hymenaeos Ltd</td>
+                                    <td>20%</td>
+                                    <td>Jul 14, 2016</td>
+                                    <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Alpha project</td>
+                                    <td>Nec Euismod In Company</td>
+                                    <td>40%</td>
+                                    <td>Jul 16, 2016</td>
+                                    <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Betha project</td>
+                                    <td>Erat Volutpat</td>
+                                    <td>75%</td>
+                                    <td>Jul 18, 2016</td>
+                                    <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Gamma project</td>
+                                    <td>Tellus Ltd</td>
+                                    <td>18%</td>
+                                    <td>Jul 22, 2016</td>
+                                    <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Alpha project</td>
+                                    <td>Nec Euismod In Company</td>
+                                    <td>40%</td>
+                                    <td>Jul 16, 2016</td>
+                                    <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+
+
                                 </tbody>
-                              </table>
-                              
-                            </div>
-                          </div>
+                            </table>
+
                         </div>
-                      </div>
-
+                    </div>
                 </div>
+                <!-- end main_report -->
+                
+                <!--start activity-->
+                <div class="col-md-4">
 
+                    <div class="panel">
+                        <div class="panel-body">
+                            <h4> Data Analysing Activity</h4>
 
+                            <div class="v-timeline vertical-container">
+                              
+                                <div class="vertical-timeline-block">
+                                    <div class="vertical-timeline-icon">
+                                        <i class="fa fa-cloud-download"></i>
+                                    </div>
+                                    <div class="vertical-timeline-content">
+                                        <div class="p-sm">
+                                            <span class="vertical-date pull-right"> <small><i class="fa fa-clock-o"></i> 2017-12-04 12:40:10</small> </span>
 
+                                            <h2>Dowload Big Data results</h2>
 
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="vertical-timeline-block">
+                                    <div class="vertical-timeline-icon">
+                                        <i class="fa fa-cogs"></i>
+                                    </div>
+                                    <div class="vertical-timeline-content">
+                                        <div class="p-sm">
+                                            <span class="vertical-date pull-right"> <small><i class="fa fa-clock-o"></i> 2017-12-04 12:40:00</small> </span>
 
+                                            <h2>Analyse Big Data</h2>
+
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="vertical-timeline-block">
+                                    <div class="vertical-timeline-icon">
+                                        <i class="fa fa-cloud-upload"></i>
+                                    </div>
+                                    <div class="vertical-timeline-content">
+                                        <div class="p-sm">
+                                            <span class="vertical-date pull-right"> <small><i class="fa fa-clock-o"></i> 2017-12-04 12:30:20</small> </span>
+
+                                            <h2>Upload items to Cloud</h2>
+
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="vertical-timeline-block">
+                                    <div class="vertical-timeline-icon">
+                                        <i class="fa fa-cart-plus"></i>
+                                    </div>
+                                    <div class="vertical-timeline-content">
+                                        <div class="p-sm">
+                                            <span class="vertical-date pull-right"> <small><i class="fa fa-clock-o"></i> 2017-12-04 12:30:00</small> </span>
+
+                                            <h2>Check out selected items</h2>
+                                            <p><code>사업자코드</code> <code>단말기모델코드</code> <code>신규가입월</code> <code>요금제코드</code> <code>음성</code> <code>DATA</code></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end activity-->
+                
             </div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="panel panel-filled">
+
+                        <div class="panel-body">
+                          <h4> Sub report</h4>
+                          
+                          <p class="small">Additional reports for you.
+                          </p>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            Points type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="flot-chart">
+                                                <div class="flot-chart-content" id="flotExample1"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            Line type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="flot-chart">
+                                                <div class="flot-chart-content" id="flotExample2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="background-color: #FFFFFF">
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Points type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/2graphs.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Line type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/Rplot_1.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="background-color: #FFFFFF">
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Line type chart with tension
+                                        </div>
+                                        <div class="panel-body">
+                                            <!--<div class="flot-chart">-->
+                                            <!--    <div class="flot-chart-content" id="flotExample5"></div>-->
+                                            <!--</div>-->
+                                            <img class="img" src="/images/rstudio-export/Rplot_2.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Line type chart with steps
+                                        </div>
+                                        <div class="panel-body">
+                                            <!--<div class="flot-chart">-->
+                                            <!--    <div class="flot-chart-content" id="flotExample4"></div>-->
+                                            <!--</div>-->
+                                            <img class="img" src="/images/rstudio-export/Rplot_3.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" style="background-color: #FFFFFF">
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Bar type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <!--<div class="flot-chart">-->
+                                            <!--    <div class="flot-chart-content" id="flotExample3"></div>-->
+                                            <!--</div>-->
+                                            <img class="img" src="/images/rstudio-export/Rplot_4.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Filled Area type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <!--<div class="flot-chart">-->
+                                            <!--    <div class="flot-chart-content" id="flotExample6"></div>-->
+                                            <!--</div>-->
+                                            <img class="img" src="/images/rstudio-export/scatter matrix.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" style="background-color: #FFFFFF">
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Bar type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/scatter_plot.jpg" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Filled Area type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/ScatterPlot_1.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" style="background-color: #FFFFFF">
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Bar type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/ScatterPlot_2.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Filled Area type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/ScatterPlot_3.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" style="background-color: #FFFFFF">
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Bar type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/ScatterPlot_4.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel">
+                                        <div class="panel-heading" style="color: #000000">
+                                            Filled Area type chart
+                                        </div>
+                                        <div class="panel-body">
+                                            <img class="img" src="/images/rstudio-export/ScatterPlot_5.png" width="90%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </section>
     <!-- End main content-->
 
 </div>
 <!-- End wrapper-->
 
-  <script>
-    // 차트설정
-    var chart_data = {
-        labels: [
-            "1", "2", "3", "4", "5"
-        ],
-        datasets: [
+<script>
+    $(document).ready(function () {
+
+
+        var data = [
             {
-                label: '가입자수',
-                data: [
-                    0, 0, 0, 0, 0
-                ],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)'
-                ],
-                borderWidth: 1
+                data: [ [1, 4], [2, 5], [3, 7], [4, 4], [5, 8], [6, 9],[7, 11], [8, 10], [9, 8], [10, 5], [11, 4], [12, 3] ]
             }
-        ]
-    };
+        ];
 
-    var options = {
-        animation: {
-            animateScale: true
-        },
-        responsive: false,
-        scales: {
-            yAxes: [
-                {
-                    ticks: {
-                        beginAtZero: true                                                                    
-                    }
-                }
-            ]
-        }
-    };
-    
-    var ctx = document.getElementById("myChart").getContext('2d');                                           
-    var myBarChart = new Chart(ctx, {
-        type: 'line',
-        data: chart_data,
-        options: options
+        var chartUsersOptions2 = {
+            series: {
+                splines: {
+                    show: true,
+                    tension: 0.4,
+                    lineWidth: 2,
+                    fill: false
+                },
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                borderWidth: 0
+            }
+        };
+
+        $.plot($("#flotProfile"), data, chartUsersOptions2);
+
     });
-    
 
-    function updateChart() {
-      
-      $.ajax({
-        type: "post",
-        url : "/complete",
-        data: {
-          id: $("#req_id").val()
-        }, 
-          success:function(data){
-            
-            // 결과div
-            $("#div_rslt").show();
-            
-            var result = data.responseData;
-            var score = result.score;
-            var comp_data = chart_data.datasets[0].data;
-            
-            for (var i = 0; i < comp_data.length; i++) {
-                comp_data[i] = score[i];
+
+    $(document).ready(function () {
+
+        var data1 = [ [0, 3], [1, 6], [2, 8], [3, 9], [4, 12], [5, 14], [6, 15], [7, 12],
+            [8, 14], [9, 12], [10, 11], [11, 10], [12, 14], [13, 16], [14, 15], [15, 15],
+            [16, 16], [17, 12], [18, 13], [19, 15], [20, 16], [21, 18], [22, 20], [23, 23],
+            [24, 22], [25, 21], [26, 20], [27, 17], [28, 15], [29, 14], [30, 13], [31, 10]];
+
+        var chartUsersOptions = {
+            points: {
+                show: true,
+                fill: true,
+                lineWidth: 1,
+                fillColor: "#f6a821"
+            },
+            grid: {
+                borderWidth: 0
             }
-     
-            chart_data.datasets[0].data = comp_data;
-            myBarChart.update();
-            
-          },
-          error:function(e){  
-            alert(e.responseText);  
-          }  
-      });
+        };
 
-    }
-  </script>
+        $.plot($("#flotExample1"), [data1], chartUsersOptions);
 
+
+        var chartUsersOptions = {
+            lines: {
+                show: true,
+                fill: false,
+                lineWidth: 2,
+                fillColor: "#f6a821"
+            },
+            grid: {
+                borderWidth: 0
+            }
+        };
+
+        $.plot($("#flotExample2"), [data1], chartUsersOptions);
+
+/*
+        var data2 = [
+            {
+                label: "bar",
+                data: [ [1, 12], [2, 14], [3, 18], [4, 24], [5, 28], [6, 22],[7, 20], [8, 18], [9, 17], [10, 13], [11, 15], [12, 17] ]
+            }
+        ];
+
+        var chartUsersOptions2 = {
+            bars: {
+                show: true,
+                fill: false,
+                lineWidth: 2,
+                fillColor: "#f6a821"
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                borderWidth: 0
+            }
+        };
+
+        $.plot($("#flotExample3"), data2, chartUsersOptions2);
+
+
+        var chartUsersOptions2 = {
+            lines: {
+                show: true,
+                steps: true
+            },
+            grid: {
+                borderWidth: 0
+            }
+        };
+
+        $.plot($("#flotExample4"), data2, chartUsersOptions2);
+
+        var data2 = [
+            {
+                data: [ [1, 4], [2, 5], [3, 7], [4, 4], [5, 8], [6, 9],[7, 11], [8, 10], [9, 8], [10, 5], [11, 4], [12, 3] ]
+            }
+        ];
+
+        var chartUsersOptions2 = {
+            series: {
+                splines: {
+                    show: true,
+                    tension: 0.4,
+                    lineWidth: 2,
+                    fill: false
+                },
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                borderWidth: 0
+            }
+        };
+
+        $.plot($("#flotExample5"), data2, chartUsersOptions2);
+
+        var data2 = [
+            {
+                data: [ [1, 4], [2, 5], [3, 7], [4, 4], [5, 8], [6, 9],[7, 11], [8, 10], [9, 8], [10, 5], [11, 4], [12, 3] ]
+            }
+        ];
+
+        var chartUsersOptions2 = {
+            lines: {
+                show: true,
+                fill: 0.1
+            },
+            grid: {
+                borderWidth: 0
+            }
+        };
+
+        $.plot($("#flotExample6"), data2, chartUsersOptions2);
+*/        
+
+    });    
+</script>
 
 </body>
+
+</html>

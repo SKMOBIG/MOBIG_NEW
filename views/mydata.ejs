@@ -13,7 +13,7 @@
     
     <style>
         .items a:hover {text-decoration:none;}
-        
+
     </style>
     <script>
   
@@ -78,9 +78,19 @@
         }
     );
     });
-
-  </script>
-
+    // 미완료 에러 토스터
+    function Unfinished(){
+        toastr.options = {
+            "debug": false,
+            "newestOnTop": false,
+            "positionClass": "toast-top-right",
+            "closeButton": true,
+            "progressBar": false
+        } 
+        Command: toastr["info"]("잠시 기다려 주십시오.", "현재 데이터 분석 진행 중입니다.")
+    }
+</script>
+<script src="vendor/toastr/toastr.min.js"></script>
 </head>
 <body>
 
@@ -184,13 +194,17 @@
                                         MVNO Data
                                     </td>
                                     <td class="items">
-                                        <a href="result/<%=req_list[i].req_id%>" class="test">
-                                            <% for (var j=0; j < grpId[i].length; j++) { %>
-                                                <button class="btn btn-default btn-xs"><i class="fa fa-folder"></i> 
-                                                   <%=grpId[i][j]%>
-                                                </button>
-                                            <% } %>                                            
-                                        </a>
+                                        <% if(req_list[i].num!=0) { %>
+                                            <a href="result/<%=req_list[i].req_id%>" class="test">
+                                        <% } else { %>
+                                            <a href="javascript:Unfinished();" class="test">
+                                        <% } %>
+                                                <% for (var j=0; j < grpId[i].length; j++) { %>
+                                                    <button class="btn btn-default btn-xs"><i class="fa fa-folder"></i> 
+                                                       <%=grpId[i][j]%>
+                                                    </button>
+                                                <% } %>                                            
+                                            </a>
                                     </td>
                                     <td>
                                         <div class="small"><i class="fa fa-clock-o"></i> <%=req_list[i].req_dtm %> </div>
