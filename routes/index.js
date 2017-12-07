@@ -86,7 +86,7 @@ module.exports = function(app, connectionPool) {
                     (SELECT category_grp_dtl_nm FROM mvno_category_grp_lst WHERE category_grp_dtl_id=LPAD(a.category_grp_dtl_id2, 3, 0)) category_grp_dtl_nm2, \
                     (SELECT category_grp_dtl_nm FROM mvno_category_grp_lst WHERE category_grp_dtl_id=LPAD(a.category_grp_dtl_id3, 3, 0)) category_grp_dtl_nm3, \
                     (SELECT COUNT(*) FROM rslt_data m WHERE m.req_id=a.req_id) AS num \
-                    FROM mvno_req_data a, user b WHERE a.user_id = b.id ORDER BY a.req_id desc LIMIT 5 OFFSET 1;';
+                    FROM mvno_req_data a, user b WHERE a.user_id = b.id ORDER BY a.req_id desc LIMIT 5 OFFSET 0;';
                 connection.query(query, req.session.user_id, function(error, rows) {
                     if(error) {
                         connection.release();

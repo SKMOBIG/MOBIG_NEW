@@ -81,23 +81,13 @@
     // 미완료 에러 토스터
     function Unfinished(){
         toastr.options = {
-          "closeButton": true,
-          "debug": false,
-          "newestOnTop": false,
-          "progressBar": false,
-          "positionClass": "toast-top-center",
-          "preventDuplicates": false,
-          "onclick": null,
-          "showDuration": "300",
-          "hideDuration": "1000",
-          "timeOut": "3000",
-          "extendedTimeOut": "1000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
+            "debug": false,
+            "newestOnTop": false,
+            "positionClass": "toast-top-right",
+            "closeButton": true,
+            "progressBar": false
         } 
-        Command: toastr["error"]("잠시 기다려 주세요", "아직 분석 중입니다")
+        Command: toastr["info"]("잠시 기다려 주십시오.", "현재 데이터 분석 진행 중입니다.")
     }
 </script>
 <script src="vendor/toastr/toastr.min.js"></script>

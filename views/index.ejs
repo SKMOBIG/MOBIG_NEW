@@ -367,16 +367,20 @@
                                             <td>
                                                 <div class="small"><i class="fa fa-clock-o"></i> <%=req_list[i].req_dtm %> </div>
                                             </td>
+                                            
+                                        <% if(req_list[i].num!=0) { %>
+                                            <td><div class="sparkline10"></div></td>
+                                            <td><%=req_list[i].user_name%></td>
+                                            <td>
+                                                <a href="result/<%=req_list[i].req_id%>" class="btn btn-default btn-xs">
+                                        <% } else { %>
                                             <td><div class="sparkline<%=i+8%>"></div></td>
                                             <td><%=req_list[i].user_name%></td>
                                             <td>
-                                                <% if(req_list[i].num!=0) { %>
-                                                    <a href="result/<%=req_list[i].req_id%>" class="btn btn-default btn-xs">
-                                                <% } else { %>
-                                                    <a href="javascript:Unfinished();" class="btn btn-default btn-xs">
-                                                <% } %>
+                                                <a href="javascript:Unfinished();" class="btn btn-default btn-xs">
+                                        <% } %>
                                                     View
-                                                    </a>
+                                                </a>
                                             </td>
                                         </tr>
                                     <% } %>
@@ -860,6 +864,18 @@
         } 
         Command: toastr["error"]("잠시 기다려 주세요", "아직 분석 중입니다")
     }
+    
+    
+    $(document).ready(function () {
+        $("#sparkline3").sparkline([10, 2], {
+            type: 'pie',
+            sliceColors: ['#f6a821', '#ffffff'],
+            width: '150',
+            height: '20'
+        });
+
+    });
+
     
 </script>
     <style>
