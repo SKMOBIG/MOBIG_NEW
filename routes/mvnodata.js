@@ -37,7 +37,7 @@ module.exports = function(app, connectionPool) {
                         
                         // 카테고리
                         for(var i=0; i<rows.length; i++){
-                            categoryList += "<div class=\"col-md-2\"><i class=\"" + rows[i].category_grp_ui + "\" aria-hidden=\"true\" onClick=\"getCategory('" + rows[i].category_grp_id + "')\"></i><h4>" + rows[i].category_grp_nm + "</h4></div>"
+                            categoryList += "<div class=\"col-md-2\"><i class=\"" + rows[i].category_grp_ui + "\" aria-hidden=\"true\" onClick=\"getCategory('" + rows[i].category_grp_id + "')\"></i><h3>" + rows[i].category_grp_nm + "</h3></div>"
                         }
                         // console.log("categoryList=" + categoryList);
                         
@@ -89,32 +89,26 @@ module.exports = function(app, connectionPool) {
                                 
                                 if(i==0){
                                     // 아이템 헤더tag
-                                    itemList += "<div class=\"col-md-3\"><div class=\"panel panel-filled\"><div class=\"panel-heading \">" + rows[i].category_grp_nm + "</div><div class=\"panel-body\"><table class=\"table\"><tbody>";
+                                    itemList += "<div class=\"col-md-4\"><div class=\"card \"><div class=\"bg-primary card-block\"><h1 class=\"card-title text-white\">" + rows[i].category_grp_nm + "</h1></div><ul class=\"list-group list-group-flush \">";
                                 } else {
                                     // 아이템 종료tag + 헤더tag
-                                    itemList += "</tbody></table></div></div></div>" 
-                                                + "<div class=\"col-md-3\"><div class=\"panel panel-filled\"><div class=\"panel-heading \">" + rows[i].category_grp_nm + "</div><div class=\"panel-body\"><table class=\"table\"><tbody>";
+                                    itemList += "</ul></div></div>" 
+                                                + "<div class=\"col-md-4\"><div class=\"card \"><div class=\"bg-primary card-block\"><h1 class=\"card-title text-white\">" + rows[i].category_grp_nm + "</h1></div><ul class=\"list-group list-group-flush \">";
                                 }
                                 
                                 categoryId = rows[i].category_grp_id;
                             }
                             
                             // 아이템 본문tag
-                            //itemList += "<tr><td align=\"left\"><button onClick=\"javascript:addItem('" +rows[i].category_grp_dtl_id + "', '" + rows[i].category_grp_dtl_nm + "')\">" + rows[i].category_grp_dtl_nm + "</button></td></tr>"
+                            itemList += "<li class=\"list-group-item\"><button onClick=\"javascript:addItem('" +rows[i].category_grp_dtl_id + "', '" + rows[i].category_grp_dtl_nm + "')\">" + rows[i].category_grp_dtl_nm + "</button></li>";
                             
-                            itemList += "<tr><td align=\"left\"><div class=\"checkbox\"><input type=\"checkbox\" id=\"checkbox1\"><label for=\"checkbox1\">" + rows[i].category_grp_dtl_nm + "</label></div></td></tr>"
-
                             // 마지막 아이템이면 종료tag 닫아준다
                             if(i == rows.length-1){
                                 // 아이템 종료tag
-                                itemList += "</tbody></table></div></div></div>" 
+                                itemList += "</ul></div></div>" 
                             }
                         }
-<<<<<<< HEAD
 
-=======
-                        
->>>>>>> 960e64a6d273e83f87e3bb918a73844510ff992e
                         //console.log("itemList=" + itemList);
                         
                         res.send({itemList : itemList, session : req.session});
