@@ -270,16 +270,6 @@
                 <div class="col-md-2">
                     <div class="panel panel-filled panel-c-success">
                         <div class="panel-heading">
-                            번호이동
-                        </div>
-                        <div class="panel-body">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="panel panel-filled panel-c-success">
-                        <div class="panel-heading">
                             상품
                         </div>
                         <div class="panel-body">
@@ -287,6 +277,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-2">
                     <div class="panel panel-filled panel-c-success">
                         <div class="panel-heading">
@@ -297,6 +288,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <div class="panel panel-filled panel-c-success">
+                        <div class="panel-heading">
+                            정산
+                        </div>
+                        <div class="panel-body">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        </div>
+                    </div>
+                </div>                
               </div>
               
               <div class="row">
@@ -347,11 +348,13 @@
                                 <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
                                 <a class="panel-close"><i class="fa fa-times"></i></a>
                             </div>
-                            <h5 class="m-b-none"><a href=""> 고객유형 </a></h5>
+                            <h5 class="m-b-none"><a href=""> 고객 </a></h5>
                         </div>
                         <div class="panel-body buttons-margin">
                             <div>
-                                <button type="button" class="btn btn-default" onClick="addItem('006', '명의자주민번호')">명의자주민번호</button>
+                                <button type="button" class="btn btn-default" onClick="addItem('006', '생년월일')">생년월일</button>
+                                <button type="button" class="btn btn-default" onClick="addItem('014', '성별')">성별</button>
+                                <button type="button" class="btn btn-default" onClick="addItem('015', '고객유형')">고객유형</button>
                             </div>
                         </div>
                     </div>
@@ -385,23 +388,6 @@
                                 <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
                                 <a class="panel-close"><i class="fa fa-times"></i></a>
                             </div>
-                            <h5 class="m-b-none"><a href=""> 번호이동 </a></h5>
-                        </div>
-                        <div class="panel-body buttons-margin">
-                            <div>
-                                <button type="button" class="btn btn-default" onClick="addItem('003', 'MNP이전사업자')">MNP이전사업자</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('004', '010/MNP')">010/MNP</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-filled">
-                        <div class="panel-heading">
-                            <div class="panel-tools">
-                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
-                                <a class="panel-close"><i class="fa fa-times"></i></a>
-                            </div>
                             <h5 class="m-b-none"><a href=""> 상품 </a></h5>
                         </div>
                         <div class="panel-body buttons-margin">
@@ -428,6 +414,24 @@
                                 <button type="button" class="btn btn-default" onClick="addItem('103', '메시지')">메시지</button>
                                 <button type="button" class="btn btn-default" onClick="addItem('104', '합계')">기타</button>
                                 <button type="button" class="btn btn-default" onClick="addItem('105', '합계')">합계</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+                <div class="col-md-4">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                            <h5 class="m-b-none"><a href=""> 정산 </a></h5>
+                        </div>
+                        <div class="panel-body buttons-margin">
+                            <div>
+                                <button type="button" class="btn btn-default" onClick="addItem('201', '인프라이용대가')">인프라이용대가</button>
+                                <button type="button" class="btn btn-default" onClick="addItem('202', '정액대가(3G)')">정액대가(3G)</button>
+                                <button type="button" class="btn btn-default" onClick="addItem('203', '정액료(RS)')">정액료(RS)</button>
                             </div>
                         </div>
                     </div>
