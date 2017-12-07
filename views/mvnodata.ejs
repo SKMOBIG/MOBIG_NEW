@@ -95,6 +95,8 @@
   				},
   				success: function(data) {
   				  
+  				  alert(data.categoryList);
+  				  
   				  // 카테고리세팅
   				  $('#div_category').html(data.categoryList);
   				  
@@ -229,7 +231,7 @@
                       </div>
                     </div>
                     
-                    <div class="text-center bg-primary py-5">
+                    <div class="text-center py-5">
                       <div class="container">
                         <div class="row">
                           <div class="col-md-12"><br>
