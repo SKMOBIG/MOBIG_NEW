@@ -229,16 +229,20 @@
                                             <td>
                                                 <div class="small"><i class="fa fa-clock-o"></i> <%=req_list[i].req_dtm %> </div>
                                             </td>
+                                            
+                                        <% if(req_list[i].num!=0) { %>
+                                            <td><div class="sparkline10"></div></td>
+                                            <td><%=req_list[i].user_name%></td>
+                                            <td>
+                                                <a href="result/<%=req_list[i].req_id%>" class="btn btn-default btn-xs">
+                                        <% } else { %>
                                             <td><div class="sparkline<%=i+8%>"></div></td>
                                             <td><%=req_list[i].user_name%></td>
                                             <td>
-                                                <% if(req_list[i].num!=0) { %>
-                                                    <a href="result/<%=req_list[i].req_id%>" class="btn btn-default btn-xs">
-                                                <% } else { %>
-                                                    <a href="javascript:Unfinished();" class="btn btn-default btn-xs">
-                                                <% } %>
+                                                <a href="javascript:Unfinished();" class="btn btn-default btn-xs">
+                                        <% } %>
                                                     View
-                                                    </a>
+                                                </a>
                                             </td>
                                         </tr>
                                     <% } %>
@@ -333,57 +337,7 @@
 
         // Sparkline charts
         var sparklineCharts = function () {
-            $(".sparkline").sparkline([20, 34, 43, 43, 35, 44, 32, 44, 52, 45], {
-                type: 'line',
-                lineColor: '#FFFFFF',
-                lineWidth: 3,
-                fillColor: '#404652',
-                height: 47,
-                width: '100%'
-            });
 
-            $(".sparkline7").sparkline([10, 34, 13, 33, 35, 24, 32, 24, 52, 35], {
-                type: 'line',
-                lineColor: '#FFFFFF',
-                lineWidth: 3,
-                fillColor: '#f7af3e',
-                height: 75,
-                width: '100%'
-            });
-
-            $(".sparkline1").sparkline([0, 6, 8, 3, 2, 4, 3, 4, 9, 5, 3, 4, 4, 5, 1, 6, 7, 15, 6, 4, 0], {
-                type: 'line',
-                lineColor: '#2978BB',
-                lineWidth: 3,
-                fillColor: '#2978BB',
-                height: 170,
-                width: '100%'
-            });
-
-            $(".sparkline3").sparkline([-8, 2, 4, 3, 5, 4, 3, 5, 5, 6, 3, 9, 7, 3, 5, 6, 9, 5, 6, 7, 2, 3, 9, 6, 6, 7, 8, 10, 15, 16, 17, 15], {
-
-                type: 'line',
-                lineColor: '#fff',
-                lineWidth: 3,
-                fillColor: '#393D47',
-                height: 70,
-                width: '100%'
-            });
-
-            $(".sparkline5").sparkline([0, 6, 8, 3, 2, 4, 3, 4, 9, 5, 3, 4, 4, 5], {
-                type: 'line',
-                lineColor: '#f7af3e',
-                lineWidth: 2,
-                fillColor: '#2F323B',
-                height: 20,
-                width: '100%'
-            });
-            $(".sparkline6").sparkline([0, 1, 4, 2, 2, 4, 1, 4, 3, 2, 3, 4, 4, 2, 4, 2, 1, 3], {
-                type: 'bar',
-                barColor: '#f7af3e',
-                height: 20,
-                width: '100%'
-            });
 
             $(".sparkline8").sparkline([4, 2], {
                 type: 'pie',
@@ -393,7 +347,7 @@
                 type: 'pie',
                 sliceColors: ['#f7af3e', '#404652']
             });
-            $(".sparkline10").sparkline([4, 1], {
+            $(".sparkline10").sparkline([10, 0], {
                 type: 'pie',
                 sliceColors: ['#f7af3e', '#404652']
             });
@@ -402,10 +356,6 @@
                 sliceColors: ['#f7af3e', '#404652']
             });
             $(".sparkline12").sparkline([3, 5], {
-                type: 'pie',
-                sliceColors: ['#f7af3e', '#404652']
-            });
-            $(".sparkline13").sparkline([6, 2], {
                 type: 'pie',
                 sliceColors: ['#f7af3e', '#404652']
             });
@@ -499,6 +449,18 @@
         } 
         Command: toastr["error"]("잠시 기다려 주세요", "아직 분석 중입니다")
     }
+    
+    
+    $(document).ready(function () {
+        $("#sparkline3").sparkline([10, 2], {
+            type: 'pie',
+            sliceColors: ['#f6a821', '#ffffff'],
+            width: '150',
+            height: '20'
+        });
+
+    });
+
     
 </script>
     <style>
