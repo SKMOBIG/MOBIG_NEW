@@ -151,63 +151,107 @@
                             <p class="small">This is the main report of selected items.
                             </p>
 
-                            <div class="flot-chart  m-t-md m-b-xl" style="height: 200px">
-                                <div class="flot-chart-content" id="flotProfile"></div>
-                            </div>
+                            <!--<div class="flot-chart  m-t-md m-b-xl" style="height: 200px">-->
+                            <!--    <div class="flot-chart-content" id="flotProfile"></div>-->
+                            <!--</div>-->
+                            <div>
+                                <canvas id="lineOptions" height="100"></canvas>
+                            </div>                            
 
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
 
-                                    <th>#</th>
-                                    <th>Project</th>
-                                    <th>Company</th>
-                                    <th>Task</th>
-                                    <th>Date</th>
+                                    <th>월</th>
+                                    <th>가입자수(1000명)</th>
+                                    <th>청구금액(1천만원)(</th>
+                                    <th>정산금액(1천만원)</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Project
-                                        <small>This is example of project</small>
-                                    </td>
-                                    <td>Inceptos Hymenaeos Ltd</td>
-                                    <td>20%</td>
-                                    <td>Jul 14, 2016</td>
+                                    <td>201701</td>
+                                    <td>131</td>
+                                    <td>2688</td>
+                                    <td>322</td>
                                     <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
                                 </tr>
                                 <tr>
-                                    <td>2</td>
-                                    <td>Alpha project</td>
-                                    <td>Nec Euismod In Company</td>
-                                    <td>40%</td>
-                                    <td>Jul 16, 2016</td>
+                                    <td>201702</td>
+                                    <td>117</td>
+                                    <td>2667</td>
+                                    <td>325</td>
                                     <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
                                 </tr>
                                 <tr>
-                                    <td>3</td>
-                                    <td>Betha project</td>
-                                    <td>Erat Volutpat</td>
-                                    <td>75%</td>
-                                    <td>Jul 18, 2016</td>
+                                    <td>201703</td>
+                                    <td>141</td>
+                                    <td>2757</td>
+                                    <td>325</td>
                                     <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
                                 </tr>
                                 <tr>
-                                    <td>4</td>
-                                    <td>Gamma project</td>
-                                    <td>Tellus Ltd</td>
-                                    <td>18%</td>
-                                    <td>Jul 22, 2016</td>
+                                    <td>201704</td>
+                                    <td>104</td>
+                                    <td>2735</td>
+                                    <td>323</td>
                                     <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
                                 </tr>
                                 <tr>
-                                    <td>2</td>
-                                    <td>Alpha project</td>
-                                    <td>Nec Euismod In Company</td>
-                                    <td>40%</td>
-                                    <td>Jul 16, 2016</td>
+                                    <td>201705</td>
+                                    <td>105</td>
+                                    <td>2807</td>
+                                    <td>317</td>
+                                    <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>201706</td>
+                                    <td>118</td>
+                                    <td>2777</td>
+                                    <td>313</td>
+                                    <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>201707</td>
+                                    <td>115</td>
+                                    <td>2779</td>
+                                    <td>285</td>
+                                    <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>201708</td>
+                                    <td>112</td>
+                                    <td>2737</td>
+                                    <td>280</td>
+                                    <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>201709</td>
+                                    <td>99</td>
+                                    <td>2669/td>
+                                    <td>276</td>
+                                    <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>201710</td>
+                                    <td>103</td>
+                                    <td>2631</td>
+                                    <td>272</td>
+                                    <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>201711</td>
+                                    <td>108</td>
+                                    <td>211</td>
+                                    <td>0</td>
+                                    <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>201712</td>
+                                    <td>19</td>
+                                    <td>30</td>
+                                    <td>0</td>
                                     <td class="text-right"><a href="#"><i class="fa fa-edit"></i></a></td>
                                 </tr>
 
@@ -513,152 +557,180 @@
     $(document).ready(function () {
 
 
-        var data = [
-            {
-                data: [ [1, 4], [2, 5], [3, 7], [4, 4], [5, 8], [6, 9],[7, 11], [8, 10], [9, 8], [10, 5], [11, 4], [12, 3] ]
-            }
-        ];
+        /**
+         * Options for Line chart
+         */
 
-        var chartUsersOptions2 = {
-            series: {
-                splines: {
-                    show: true,
-                    tension: 0.4,
-                    lineWidth: 2,
-                    fill: false
-                },
-            },
+        var globalOptions = {
+            responsive: true,
             legend: {
-                show: false
+                labels:{
+                    fontColor:"#90969D"
+                }
             },
-            grid: {
-                borderWidth: 0
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        fontColor: "#90969D"
+                    },
+                    gridLines: {
+                        color: "#37393F"
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        fontColor: "#90969D"
+                    },
+                    gridLines: {
+                        color: "#37393F"
+                    }
+                }]
             }
         };
 
-        $.plot($("#flotProfile"), data, chartUsersOptions2);
+        var lineData = {
+            labels: ["201701","201702","201703","201704","201705","201706","201707","201708","201709","201710","201711","201712"],
+            datasets: [
+                {
+                    label: "월별가입자(1000명)",
+                    backgroundColor: 'transparent',
+                    borderColor: "#f6a821",
+                    pointBorderWidth: 0,
+                    pointRadius: 2,
+                    pointBorderColor: '#f6a821',
+                    borderWidth: 1,
+                    data:  [131,
+                            117,
+                            141,
+                            104,
+                            105,
+                            118,
+                            115,
+                            112,
+                            993,
+                            103,
+                            108,
+                            19] 
+                },
+                {
+                    label: "청구금액(1억원)",
+                    backgroundColor: 'transparent',
+                    borderColor: "#676B73",
+                    pointBorderWidth: 0,
+                    pointRadius: 2,
+                    pointBorderColor: '#676B73',
+                    borderWidth: 1,
+                    data:  [268,
+                            266,
+                            275,
+                            273,
+                            280,
+                            277,
+                            277,
+                            273,
+                            266,
+                            263,
+                            21,
+                            3]
+                }
+                ,
+                {
+                    label: "정산금액(1천만원)",
+                    backgroundColor: 'transparent',
+                    borderColor: 'rgba(255,99,132,1)',
+                    pointBorderWidth: 0,
+                    pointRadius: 2,
+                    pointBorderColor: 'rgba(255,99,132,1)',
+                    borderWidth: 1,
+                    data:  [322,
+                            321,
+                            325,
+                            323,
+                            317,
+                            313,
+                            285,
+                            280,
+                            276,
+                            272,
+                            0,
+                            0]
+                }
+            ]
+        };
 
+        var c1 = document.getElementById("lineOptions").getContext("2d");
+        new Chart(c1, {type: 'line', data: lineData, options: globalOptions});
     });
+    
+    // $(document).ready(function () {
 
 
-    $(document).ready(function () {
+    //     var data = [
+    //         {
+    //             data: [ [1, 4], [2, 5], [3, 7], [4, 4], [5, 8], [6, 9],[7, 11], [8, 10], [9, 8], [10, 5], [11, 4], [12, 3] ]
+    //         }
+    //     ];
 
-        var data1 = [ [0, 3], [1, 6], [2, 8], [3, 9], [4, 12], [5, 14], [6, 15], [7, 12],
-            [8, 14], [9, 12], [10, 11], [11, 10], [12, 14], [13, 16], [14, 15], [15, 15],
-            [16, 16], [17, 12], [18, 13], [19, 15], [20, 16], [21, 18], [22, 20], [23, 23],
-            [24, 22], [25, 21], [26, 20], [27, 17], [28, 15], [29, 14], [30, 13], [31, 10]];
+    //     var chartUsersOptions2 = {
+    //         series: {
+    //             splines: {
+    //                 show: true,
+    //                 tension: 0.4,
+    //                 lineWidth: 2,
+    //                 fill: false
+    //             },
+    //         },
+    //         legend: {
+    //             show: false
+    //         },
+    //         grid: {
+    //             borderWidth: 0
+    //         }
+    //     };
 
-        var chartUsersOptions = {
-            points: {
-                show: true,
-                fill: true,
-                lineWidth: 1,
-                fillColor: "#f6a821"
-            },
-            grid: {
-                borderWidth: 0
-            }
-        };
+    //     $.plot($("#flotProfile"), data, chartUsersOptions2);
 
-        $.plot($("#flotExample1"), [data1], chartUsersOptions);
-
-
-        var chartUsersOptions = {
-            lines: {
-                show: true,
-                fill: false,
-                lineWidth: 2,
-                fillColor: "#f6a821"
-            },
-            grid: {
-                borderWidth: 0
-            }
-        };
-
-        $.plot($("#flotExample2"), [data1], chartUsersOptions);
-/*
-        var data2 = [
-            {
-                label: "bar",
-                data: [ [1, 12], [2, 14], [3, 18], [4, 24], [5, 28], [6, 22],[7, 20], [8, 18], [9, 17], [10, 13], [11, 15], [12, 17] ]
-            }
-        ];
-
-        var chartUsersOptions2 = {
-            bars: {
-                show: true,
-                fill: false,
-                lineWidth: 2,
-                fillColor: "#f6a821"
-            },
-            legend: {
-                show: false
-            },
-            grid: {
-                borderWidth: 0
-            }
-        };
-
-        $.plot($("#flotExample3"), data2, chartUsersOptions2);
+    // });
 
 
-        var chartUsersOptions2 = {
-            lines: {
-                show: true,
-                steps: true
-            },
-            grid: {
-                borderWidth: 0
-            }
-        };
+    // $(document).ready(function () {
 
-        $.plot($("#flotExample4"), data2, chartUsersOptions2);
+    //     var data1 = [ [0, 3], [1, 6], [2, 8], [3, 9], [4, 12], [5, 14], [6, 15], [7, 12],
+    //         [8, 14], [9, 12], [10, 11], [11, 10], [12, 14], [13, 16], [14, 15], [15, 15],
+    //         [16, 16], [17, 12], [18, 13], [19, 15], [20, 16], [21, 18], [22, 20], [23, 23],
+    //         [24, 22], [25, 21], [26, 20], [27, 17], [28, 15], [29, 14], [30, 13], [31, 10]];
 
-        var data2 = [
-            {
-                data: [ [1, 4], [2, 5], [3, 7], [4, 4], [5, 8], [6, 9],[7, 11], [8, 10], [9, 8], [10, 5], [11, 4], [12, 3] ]
-            }
-        ];
+    //     var chartUsersOptions = {
+    //         points: {
+    //             show: true,
+    //             fill: true,
+    //             lineWidth: 1,
+    //             fillColor: "#f6a821"
+    //         },
+    //         grid: {
+    //             borderWidth: 0
+    //         }
+    //     };
 
-        var chartUsersOptions2 = {
-            series: {
-                splines: {
-                    show: true,
-                    tension: 0.4,
-                    lineWidth: 2,
-                    fill: false
-                },
-            },
-            legend: {
-                show: false
-            },
-            grid: {
-                borderWidth: 0
-            }
-        };
+    //     $.plot($("#flotExample1"), [data1], chartUsersOptions);
 
-        $.plot($("#flotExample5"), data2, chartUsersOptions2);
 
-        var data2 = [
-            {
-                data: [ [1, 4], [2, 5], [3, 7], [4, 4], [5, 8], [6, 9],[7, 11], [8, 10], [9, 8], [10, 5], [11, 4], [12, 3] ]
-            }
-        ];
+    //     var chartUsersOptions = {
+    //         lines: {
+    //             show: true,
+    //             fill: false,
+    //             lineWidth: 2,
+    //             fillColor: "#f6a821"
+    //         },
+    //         grid: {
+    //             borderWidth: 0
+    //         }
+    //     };
 
-        var chartUsersOptions2 = {
-            lines: {
-                show: true,
-                fill: 0.1
-            },
-            grid: {
-                borderWidth: 0
-            }
-        };
+    //     $.plot($("#flotExample2"), [data1], chartUsersOptions);
 
-        $.plot($("#flotExample6"), data2, chartUsersOptions2);
-*/        
 
-    });    
+    // });    
 </script>
 
 </body>
