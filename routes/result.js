@@ -1,4 +1,12 @@
 module.exports = function(app, connectionPool) {
+
+    app.get('/result/logout', function(req, res, next) {
+        console.log("logout:" + req.session.user_name);
+        req.session.destroy(function(err){
+            // 세션 정보 파괴
+            res.redirect('/');
+        })
+    });
     
     app.get('/result/:id', function(req, res, next) {
 
@@ -32,7 +40,6 @@ module.exports = function(app, connectionPool) {
             });            
         }
     });
-    
 
     app.post('/complete', function(req, res){
         
