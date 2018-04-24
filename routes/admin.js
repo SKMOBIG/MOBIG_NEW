@@ -129,6 +129,10 @@ module.exports = function(app, connectionPool) {
         }
         
        connectionPool.getConnection(function(err, connection) {
+           if(err) {
+                connection.release();
+                throw err;
+           }
             connection.beginTransaction(function(err) {
                 if(err) {
                     connection.release();
@@ -147,52 +151,6 @@ module.exports = function(app, connectionPool) {
                     var insertItem = "insert into mvno_category_grp_lst(category_grp_id, category_grp_dtl_nm, category_grp_dtl_id, table_nm, column_nm)  values (?, ?, ?, 'Admin Data', ?);";
                     var selectNewDtlId = "SELECT IFNULL((SELECT MAX(category_grp_dtl_id) FROM mvno_category_grp_lst WHERE category_grp_id = ?), 0)+1 AS dtlId FROM DUAL;";
 
-                    connection.query(selectNewDtlId, grpId, function(error, rows1) {
-                        if(error){
-                            connection.release();
-                            throw error;
-                        } else {
-                            if(rows1.length >= 0){
-                                    connection.query(insertItem,
-                                    [grpId, dtlNm, rows1[0].dtlId, colNm], function(error, rows) { 
-                                        if(error) {
-                                            console.log("Admin - Insert Err");
-                                            connection.rollback(function() {
-                                                connection.release();
-                                                console.error("Admin - Insert Rollback Err");
-                                                throw error;
-                                            });
-                                            connection.release();
-                                            throw error;
-                                        }else {
-                                            if(rows.affectedRows > 0) {
-                                                    connection.commit(function(err) {
-                                                        if(err) {
-                                                            console.error("Admin : " + err);
-                                                            connection.rollback(function() {
-                                                                connection.release();
-                                                                console.error("Admin - commit Rollback err");
-                                                                throw error;
-                                                            });
-                                                        }
-                                                        else{
-                                                            console.log('insert completed');
-                                                            connection.release();
-                                                        }
-                                                    });
-                                            }else {
-                                                console.log('??');
-                                                connection.release();
-                                            }    
-                                        }
-                                    });   
-                            }else {
-                                res.render('error', { title: 'MOBIG', session : req.session });
-                                connection.release();
-                            }
-                        }
-                    });
-                 
                     connection.query(selectNewDtlId, grpId, function(error, rows1) {
                         if(error){
                             connection.release();
