@@ -28,6 +28,7 @@ module.exports = function(app, connectionPool) {
                     }
                     else {
                         if (rows.length >= 0) {
+                            // console.log('rows/', rows);                            
                             res.render('result', { rslt_list: rows, req_id: req_id, session: req.session });
                             connection.release();
                         }

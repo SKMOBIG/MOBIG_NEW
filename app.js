@@ -63,7 +63,7 @@ connectionPool = mysql.createPool({
     user : 'admin',
     password : 'sktngm12!',
     database : 'mobig',
-    host : 'mobig.ch71hvh7pyfc.ap-northeast-2.rds.amazonaws.com',
+    host : 'mobig.czi2danpmvxm.us-east-2.rds.amazonaws.com',
     port : '3306',
     connectionLimit : 20,
     waitForConnections : false
