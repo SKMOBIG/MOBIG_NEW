@@ -86,6 +86,7 @@ var myaccount = require('./routes/myaccount')(app, connectionPool);
 var mydata = require('./routes/mydata')(app, connectionPool);
 var progress = require('./routes/progress')(app, connectionPool);
 var result = require('./routes/result')(app, connectionPool);
+var admin = require('./routes/admin')(app, connectionPool);
 
 //sample routes
 var sample = require('./routes/sample')(app, connectionPool);

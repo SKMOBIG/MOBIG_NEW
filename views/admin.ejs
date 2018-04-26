@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <% include ./partials/css.ejs %>
+
+    <% include ./partials/script.ejs %>
+  <script src="vendor/nestable/jquery.nestable.js"></script>
+  <script src="vendor/select2/dist/js/select2.js"></script>
+
+  <script type="text/javascript">
+
+    var ITEM_MAX_SIZE = 10;  // 선택가능 갯수
+
+    NMap = function(){
+      this.map = new Object();
+     };
+    NMap.prototype = {   
+      put : function(key, value){   
+          this.map[key] = value;
+      },
+      putMap : function(key, value){
+        this.map[key] = value.map;
+      },
+      putMapList : function(key, value){
+        var list = new Array();
+        for(var i=0;i<value.length;i++){
+         list.push(value[i].map);
+        }
+        this.map[key] = list;
+      },
+      get : function(key){   
+          return this.map[key];
+      },
+      containsKey : function(key){    
+        return key in this.map;
+      },
+      containsValue : function(value){    
+        for(var prop in this.map){
+         if(this.map[prop] == value) return true;
+        }
+        return false;
+      },
+      isEmpty : function(key){    
+        return (this.size() == 0);
+      },
+      clear : function(){   
+        for(var prop in this.map){
+         delete this.map[prop];
+        }
+      },
+      remove : function(key){    
+        delete this.map[key];
+      },
+      keys : function(){
+          var keys = new Array();
+          for(var prop in this.map){
+              keys.push(prop);
+          }
+          return keys;
+      },
+      values : function(){   
+        var values = new Array();   
+          for(var prop in this.map){   
+            values.push(this.map[prop]);
+          }   
+          return values;
+      },
+      size : function() {
+      var count = 0;
+      for (var prop in this.map) {
+         count++;
+      }
+      return count;
+      },
+      jsonString: function(){
+        return JSON.stringify(this.map);    
+      }
+    };
+
+    // 선택된 아이템Map
+    var itemMap = new NMap();  
+
+    // 아이템세팅 
+    function getAdminList(){
+
+  			$.ajax({
+  				type: "get",
+  				url: "/getAdminList",
+  				data: {
+  				},
+  				success: function(data) {
+  				  // 아이템세팅
+  					$('#div_item').html(data.itemList);
+  					
+  					// 아이템버튼div
+  					$("#div_item_cnt_row").show();
+  					// checkout버튼div
+  					$("#div_checkout").show();
+  					
+  				},
+  				error: function(e) {
+  					alert(e.responseText);
+  				}
+  			});
+
+      reset();
+    }
+    
+    // 페이지 초기화 
+    function reset() {
+      // TO-DO : Map, div 초기화
+    }
+    
+    // 페이지 초기화 
+    function editItem(grpId, lstId) {
+      // TO-DO : 하나만 상세 조회하여 우측에 표현
+      $.ajax({
+        type: "post",
+        url : "/getOne",
+        data: {
+          grpId : grpId,
+          lstId : lstId,
+        }, 
+          success:function(data){ 
+            $(".editForm").show();
+            $("#grpId").val(grpId);
+            $("#lstId").val(lstId);
+            $("#grpNm").html(data.row.grpNm);
+            $("#dtlNm").val(data.row.lstNm);
+            $("#colNm").val(data.row.colNm);
+          },
+          error:function(e){  
+            alert(e.responseText);  
+          }  
+      });
+    }
+    
+    // 항목 추가 창 Show
+    function addItem (grpId, grpNm){
+        $(".editForm").show();
+        $("#grpId").val(grpId);
+        $("#grpNm").html(grpNm);
+        $("#dtlNm").html("");
+        $("#colNm").html("");
+    }
+    
+    // 선택 아이템을 Map & div 삭제
+    function removeItem(id){
+      
+      itemMap.remove(id);
+      
+      $("#item_"+ id).remove();
+      
+      document.getElementById('span_total_cnt').innerHTML = itemMap.size();
+    }
+    
+    // 저장완료 후 초기화
+    function closeBar() {
+        $(".editForm").hide();
+    }
+    
+    // 선택 아이템 목록 INSERT
+    function saveItem() {
+        if(!confirm("변경 사항을 저장하시겠습니까?")){
+        return;
+        }
+        var grpNm = $("#grpNm").text();
+        var dtlNm = $("#dtlNm").val();
+        var colNm = $("#colNm").val();
+        var grpId = $("#grpId").val();
+      
+      $.ajax({
+        type: "post",
+        url : "/saveItem",
+        data: {
+          grpId : grpId,
+          grpNm : grpNm,
+          dtlNm : dtlNm,
+          colNm : colNm,
+        }, 
+          success:function(data){   
+            // TO-DO : SQL 완료된 이후, 리셋 및 화면새로
+            closeBar();
+            getAdminList();
+          },
+          error:function(e){  
+            alert(e.responseText);  
+          }  
+      });
+      
+    }
+    
+    // 선택 삭제
+    function deleteItem(divId) {
+        var grpCd = substr(divId, 0, 3);
+        var id = substr(divId, 4);
+        
+        if (grpCd == "grp"){
+            // grp 삭제
+        } else if (grpCd == "dtl") {
+            // dtl 삭제
+        } else {
+            console.log('delete error');
+        }
+        // TO-DO : 카테고리 삭제 / 항목 삭제 구분해서 
+        // TO-DO : 각각 Alert 및 ajax 트리로 다른 메소드 호출
+        
+    }
+  </script>
+  
+  <script>
+    // 페이지로딩시 카테고리 display
+    $(document).ready(function() { closeBar(); getAdminList(); });
+  </script>
+  
+</head>
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+	<!-- Header/Navigation -->
+	<% include ./partials/navigation.ejs %>
+
+    <!-- Main content-->
+    <section class="content">
+            <div class="container-fluid">
+              
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+                            <small>App Pages<br>Basic<br> <span class="c-white">Contacts</span></small>
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-users"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>Setting Page</h3>
+                            <small>
+                                CRUD for Data Items 
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+              </div>
+              
+              <div class="row">
+                <!-- 항목 List -->
+                <div class="col-md-5">
+                    <div class="panel panel-c-warning">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                            </div>
+                            Data Lists
+                        </div>
+                        <div class="panel-body">
+
+
+                            <p class="m-b-lg">
+                                <code>Warning</code> 카테고리 삭제 시, 하위 항목들이 전부 삭제됩니다.
+                            </p>
+
+                            <div class="dd" id="nestable">
+                                <ol class="dd-list" id="div_item">
+                                    <!-- 카테고리 리스트 -->
+                                    </li>
+                                    
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 우측 에디터 column -->
+                <div class="col-md-4 editForm">
+                    <div class="panel panel-filled panel-c-warning">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                            </div>
+                            Edit Form
+                        </div>
+                        <div class="panel-body">
+                            <p style="margin_bottom:5px;"> 신규 항목을 생성하거나, 기존 항목을 편집할 수 있습니다. <br>
+                            아래 사항을 입력 후 저장하세요. <br> .
+                            </p>
+                            <form>
+                                <input type="hidden" id="grpId" />
+                                <input type="hidden" id="lstId" />
+                                <div class="form-group"><label for="grpNm">카테고리명(고정)</label> <label class="form-control" id="grpNm"> </label>  </div>
+                                <div class="form-group"><label for="dtlNm">상세항목명</label> <input type="text" class="form-control" id="dtlNm"/></div>
+                                <div class="form-group"><label for="colNm">DB칼럼명</label> <input type="text" class="form-control" id="colNm"/>
+                                    <p class="help-block">* 추출 데이터의 칼럼명을 입력하세요.</p></div>
+
+                                <div><label> <input type="checkbox"> Check me out </label></div>
+                                <div class="pull-right">
+                                    <a href="#" onClick="saveItem(); return false;" class="btn btn-w-sm btn-accent"><i class="fa fa-upload" style="margin-right:5px;"></i>Save</a>
+                                    <a href="#" onClick="closeBar(); return false;" class="btn btn-w-sm btn-danger"><i class="fa fa-paste" style="margin-right:5px;"></i>Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                
+              </div>
+              
+            </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+
+
+</body>
