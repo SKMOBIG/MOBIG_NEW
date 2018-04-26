@@ -189,21 +189,13 @@
       
     }
     
+    function addRow(dtlId) {
+      $("#dtl"+dtlId).next().html();
+    }
+    
     // 선택 삭제
-    function deleteItem(divId) {
-        var grpCd = substr(divId, 0, 3);
-        var id = substr(divId, 4);
-        
-        if (grpCd == "grp"){
-            // grp 삭제
-        } else if (grpCd == "dtl") {
-            // dtl 삭제
-        } else {
-            console.log('delete error');
-        }
-        // TO-DO : 카테고리 삭제 / 항목 삭제 구분해서 
-        // TO-DO : 각각 Alert 및 ajax 트리로 다른 메소드 호출
-        
+    function delRow(dtlId) {
+      $("#dtl"+dtlId).hide();
     }
     
     
@@ -297,26 +289,29 @@
                 </div>
               </div>
 
-              <table id ="adminTable" class="table table-bordered" style="table-layout:fixed">
+              <table id ="adminTable" class="table table-bordered" style="table-layout:fixed;">
                   <thead>
                   <tr>
-                      <th>/</th>
-                      <th>파일명</th>
-                      <th>칼럼명</th>
-                      <th>칼럼번호</th>
-                      <th>칼럼상세</th>
-                      <th>분류</th>
+                      <th style="width:10%;" >/</th>
+                      <th style="width:15%;" >파일명</th>
+                      <th style="width:25%;" >칼럼명</th>
+                      <th style="width:10%;" >칼럼번호</th>
+                      <th style="width:20%;" >칼럼상세</th>
+                      <th style="width:10%;" >분류</th>
                   </tr>
                   </thead>
                   <tbody>
                      <% for (var i=0; i<itemList.length; i++) { %>
-                        <tr class="editables" id="<%=itemList[i]%>">
-                            <td><input type="button" value="+"/>  <input type="button" value="-"/> </td>
-                            <td style="width:15%;" class="edit"><%= itemList[i].table_nm %></td>
-                            <td style="width:25%;" class="edit"><%= itemList[i].column_nm %></td>
-                            <td style="width:15%;" class="noedit"><%= itemList[i].category_grp_dtl_id %></td>
-                            <td style="width:25%;" class="edit"><%= itemList[i].category_grp_dtl_nm %></td>
-                            <td style="width:20%;" class="edit"><%= itemList[i].category_grp_nm %></td>
+                        <tr class="editables" id="dtl<%=itemList[i].category_grp_dtl_id%>">
+                            <td class="noedit">
+                              <input type="button" value="+" onClick="addRow(<%=itemList[i].category_grp_dtl_id%>);"/>  
+                              <input type="button" value="-" onClick="delRow(<%=itemList[i].category_grp_dtl_id%>);"/> 
+                            </td>
+                            <td class="edit"><%= itemList[i].table_nm %></td>
+                            <td class="edit"><%= itemList[i].column_nm %></td>
+                            <td class="noedit"><%= itemList[i].category_grp_dtl_id %></td>
+                            <td class="edit"><%= itemList[i].category_grp_dtl_nm %></td>
+                            <td class="edit"><%= itemList[i].category_grp_nm %></td>
                         </tr>
                      <% } %>
                   </tbody>
