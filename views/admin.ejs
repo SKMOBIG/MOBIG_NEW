@@ -85,7 +85,7 @@
 
     // 선택된 아이템Map
     var itemMap = new NMap();  
-
+    
     // 아이템세팅 
     function getAdminList(){
 
@@ -96,20 +96,13 @@
   				},
   				success: function(data) {
   				  // 아이템세팅
-  					$('#div_item').html(data.itemList);
-  					
-  					// 아이템버튼div
-  					$("#div_item_cnt_row").show();
-  					// checkout버튼div
-  					$("#div_checkout").show();
+  					adminList = data.itemList;
   					
   				},
   				error: function(e) {
   					alert(e.responseText);
   				}
   			});
-
-      reset();
     }
     
     // 페이지 초기화 
@@ -212,12 +205,64 @@
         // TO-DO : 각각 Alert 및 ajax 트리로 다른 메소드 호출
         
     }
+    
+    
+    function contenteditable(){
+      var editBtn = document.getElementById('editBtn');
+      // var editables = document.querySelectorAll('tr td')
+      // var editables = document.getElementById("editables");
+      var editables = document.getElementsByClassName("editables");
+      var noeditables = document.getElementsByClassName("noedit");
+      
+      
+      editBtn.addEventListener('click', function(e) {
+        if (editables[0].isContentEditable) {
+            if(!confirm("변경 사항을 저장하시겠습니까?")){
+              return;
+            }
+            // Validation Check
+            // 저장 func
+            
+        } else {
+          for(var j=0;j<noeditables.length;j++){
+            noeditables[j].contentEditable = 'false';
+          }
+        }
+        
+        for(var i=0;i<editables.length;i++){
+          if (editables[i].isContentEditable) {
+
+            editables[i].contentEditable = 'false';
+            editBtn.innerHTML = 'Enable Editing';
+            editBtn.style.backgroundColor = '#F96';
+            
+            // Save the data in localStorage 
+            // for (var j = 0; j < editables[i][j].length; i++) {
+            //   localStorage.setItem(editables[i][j].getAttribute('id'), editables[i][j].innerHTML);
+            // }
+            
+          } else {
+            editables[i].contentEditable = 'true';
+            editBtn.innerHTML = 'Save Changes';
+            editBtn.style.backgroundColor = '#6F9';
+          }
+        }
+        
+      }); 
+    }
+    
   </script>
   
   <script>
     // 페이지로딩시 카테고리 display
-    $(document).ready(function() { closeBar(); getAdminList(); });
+    // $(document).ready(function() { closeBar(); getAdminList(); });
+    
+    $(document).ready(function() { contenteditable(); });
   </script>
+  
+  <style>
+
+  </style>
   
 </head>
 <body>
@@ -251,70 +296,33 @@
                     <hr>
                 </div>
               </div>
-              
-              <div class="row">
-                <!-- 항목 List -->
-                <div class="col-md-5">
-                    <div class="panel panel-c-warning">
-                        <div class="panel-heading">
-                            <div class="panel-tools">
-                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
-                            </div>
-                            Data Lists
-                        </div>
-                        <div class="panel-body">
 
+              <table id ="adminTable" class="table table-bordered" style="table-layout:fixed">
+                  <thead>
+                  <tr>
+                      <th>/</th>
+                      <th>파일명</th>
+                      <th>칼럼명</th>
+                      <th>칼럼번호</th>
+                      <th>칼럼상세</th>
+                      <th>분류</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                     <% for (var i=0; i<itemList.length; i++) { %>
+                        <tr class="editables" id="<%=itemList[i]%>">
+                            <td><input type="button" value="+"/>  <input type="button" value="-"/> </td>
+                            <td style="width:15%;" class="edit"><%= itemList[i].table_nm %></td>
+                            <td style="width:25%;" class="edit"><%= itemList[i].column_nm %></td>
+                            <td style="width:15%;" class="noedit"><%= itemList[i].category_grp_dtl_id %></td>
+                            <td style="width:25%;" class="edit"><%= itemList[i].category_grp_dtl_nm %></td>
+                            <td style="width:20%;" class="edit"><%= itemList[i].category_grp_nm %></td>
+                        </tr>
+                     <% } %>
+                  </tbody>
+              </table>
+                      <button id="editBtn" type="button">Edit Document</button>
 
-                            <p class="m-b-lg">
-                                <code>Warning</code> 카테고리 삭제 시, 하위 항목들이 전부 삭제됩니다.
-                            </p>
-
-                            <div class="dd" id="nestable">
-                                <ol class="dd-list" id="div_item">
-                                    <!-- 카테고리 리스트 -->
-                                    </li>
-                                    
-                                </ol>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 우측 에디터 column -->
-                <div class="col-md-4 editForm">
-                    <div class="panel panel-filled panel-c-warning">
-                        <div class="panel-heading">
-                            <div class="panel-tools">
-                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
-                            </div>
-                            Edit Form
-                        </div>
-                        <div class="panel-body">
-                            <p style="margin_bottom:5px;"> 신규 항목을 생성하거나, 기존 항목을 편집할 수 있습니다. <br>
-                            아래 사항을 입력 후 저장하세요. <br> .
-                            </p>
-                            <form>
-                                <input type="hidden" id="grpId" />
-                                <input type="hidden" id="lstId" />
-                                <div class="form-group"><label for="grpNm">카테고리명(고정)</label> <label class="form-control" id="grpNm"> </label>  </div>
-                                <div class="form-group"><label for="dtlNm">상세항목명</label> <input type="text" class="form-control" id="dtlNm"/></div>
-                                <div class="form-group"><label for="colNm">DB칼럼명</label> <input type="text" class="form-control" id="colNm"/>
-                                    <p class="help-block">* 추출 데이터의 칼럼명을 입력하세요.</p></div>
-
-                                <div><label> <input type="checkbox"> Check me out </label></div>
-                                <div class="pull-right">
-                                    <a href="#" onClick="saveItem(); return false;" class="btn btn-w-sm btn-accent"><i class="fa fa-upload" style="margin-right:5px;"></i>Save</a>
-                                    <a href="#" onClick="closeBar(); return false;" class="btn btn-w-sm btn-danger"><i class="fa fa-paste" style="margin-right:5px;"></i>Cancel</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                
-                
-              </div>
-              
             </div>
     </section>
     <!-- End main content-->

@@ -1,6 +1,6 @@
 module.exports = function(app, connectionPool) {
     
-    app.get('/admin', function(req, res) {
+    app.get('/admint', function(req, res) {
         var sess = req.session
         
         /* session 없을 땐 로그인 화면으로 */
@@ -8,13 +8,13 @@ module.exports = function(app, connectionPool) {
             res.redirect('login');
         }
         else{
-            res.render('admin', { title: 'MOBIG', session : req.session });
+            res.render('admin', { title: 'MOBIG', itemList : null, session : req.session });
         }
         
     });
 
     // 처음 화면 조회
-    app.get('/getAdminList', function(req, res, next) {
+    app.get('/admin', function(req, res, next) {
 
         /* session 없을 땐 로그인 화면으로 */
         if (!req.session.user_name) {
@@ -24,10 +24,10 @@ module.exports = function(app, connectionPool) {
         connectionPool.getConnection(function(err, connection) {
 
             var sql = '';
-            sql = 'SELECT c.category_grp_id, c.category_grp_nm, l.category_grp_dtl_id, l.category_grp_dtl_nm, l.column_nm '
+            sql = 'SELECT c.category_grp_id, c.category_grp_nm, l.category_grp_dtl_id, l.category_grp_dtl_nm, l.column_nm, l.table_nm '
                     + 'FROM mvno_category_grp c, mvno_category_grp_lst l '
                     + 'WHERE c.category_grp_id = l.category_grp_id '
-                    + 'ORDER BY c.category_grp_id, l.category_grp_dtl_id;';
+                    + 'ORDER BY l.category_grp_dtl_id;';
                     
             // 카테고리목록 조회
             connection.query(sql, function(error, rows) {
@@ -37,47 +37,13 @@ module.exports = function(app, connectionPool) {
                 }
                 else {
                     if (rows.length >= 0) {
-                        var itemList='';
-                        var categoryId = 0;
-                        
-                        // 아이템태그 생성
-                        for(var i=0; i<rows.length; i++){
-                            // 그룹명, 아이템 Tag 설정
-                            var grpTag = "<li class=\"dd-item\"><div class=\"dd-handle\" id=\"grp" + rows[i].category_grp_id + "\"><span><i class=\"fa fa-cog m-r-xs\"></i></span>" 
-                                            + rows[i].category_grp_nm + "<span class=\"pull-right\"><a href=\"#\" onClick=\"addItem(" + rows[i].category_grp_id + ",'" 
-                                            + rows[i].category_grp_nm + "');\">추가</a> | <a href=\"#\" onClick=\"editItem(" + rows[i].category_grp_id + "," 
-                                            + rows[i].category_grp_dtl_id + ");\">편집</a> | <a href=\"javascript:deleteItem();\">삭제</a></span></div><ol class=\"dd-list\">";
-                            var dtlTag = "<li class=\"dd-item\" id=\"\"><div class=\"dd-handle\" id=\"dtl" + rows[i].category_grp_id + "\">" + rows[i].category_grp_dtl_nm + " - " 
-                                            + rows[i].column_nm + "<span class=\"pull-right\"><a href=\"#\" onClick=\"editItem(" + rows[i].category_grp_id + ","
-                                            + rows[i].category_grp_dtl_id + ");\">편집</a> | <a href=\"javascript:deleteItem();\">삭제</a></span></div></li>" ;
-                            
-                            // 그룹명 Tag 추가
-                            if(categoryId != rows[i].category_grp_id){
-                                if(i==0){  // 첫그룹인 경우 - 그룹 Tag만 추가
-                                    itemList += grpTag;
-                                } else {   // 그룹 종료 + 다음 그룹 Tag 추가
-                                    itemList += "</ol></li>" + grpTag;
-                                }
-                                categoryId = rows[i].category_grp_id;
-                            }
-                            // 아이템 Tag 추가
-                            itemList += dtlTag;
-                            
-                            // 마지막 아이템이면 종료tag 닫아준다
-                            if(i == rows.length-1){
-                                // 아이템 종료tag
-                                itemList += "" 
-                            }
-                        }
-
-                        //console.log("itemList=" + itemList);
-                        
-                        res.send({itemList : itemList, session : req.session});
+                        console.log('rows : ' + rows[0] + ', rowsleng' + rows.length + rows[0].category_grp_id);
+                        res.render('admin', {title: 'MOBIG', itemList : rows, session : req.session});
                         connection.release();
-                        console.log('good');
+
                     }
                     else {
-                        res.send({itemList : null, session : req.session});
+                       res.render('err', {title: 'MOBIG', itemList : null, session : req.session});
                         console.log('err');
                         connection.release();
                     }
