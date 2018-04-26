@@ -21,7 +21,7 @@ module.exports = function(app, connectionPool) {
             req_id = 1; // test
     
             connectionPool.getConnection(function(err, connection) {
-                connection.query('select * from rslt_data where req_id=?;', req_id, function(error, rows) {
+                connection.query('select * from mvno_rslt_data where req_id=?;', req_id, function(error, rows) {
                     if (error) {
                         connection.release();
                         throw error;
