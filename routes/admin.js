@@ -36,13 +36,16 @@ module.exports = function(app, connectionPool) {
                     throw error;
                 }
                 else {
-                    if (rows.length >= 0) {
+                    if (rows.length > 0) {
                         console.log('rows : ' + rows[0] + ', rowsleng' + rows.length + rows[0].category_grp_id);
                         res.render('admin', {title: 'MOBIG', itemList : rows, session : req.session});
                         connection.release();
 
-                    }
-                    else {
+                    } else if (rows.length == 0){
+                        console.log('no row');
+                        res.render('admin', {title: 'MOBIG', session : req.session});
+                        connection.release();
+                    } else {
                        res.render('err', {title: 'MOBIG', itemList : null, session : req.session});
                         console.log('err');
                         connection.release();

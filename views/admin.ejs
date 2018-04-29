@@ -86,7 +86,7 @@
     // 선택된 아이템Map
     var itemMap = new NMap();  
     
-    // 아이템세팅 
+    // 아이템 조회
     function getAdminList(){
 
   			$.ajax({
@@ -97,7 +97,6 @@
   				success: function(data) {
   				  // 아이템세팅
   					adminList = data.itemList;
-  					
   				},
   				error: function(e) {
   					alert(e.responseText);
@@ -105,142 +104,95 @@
   			});
     }
     
-    // 페이지 초기화 
-    function reset() {
-      // TO-DO : Map, div 초기화
-    }
-    
-    // 페이지 초기화 
-    function editItem(grpId, lstId) {
-      // TO-DO : 하나만 상세 조회하여 우측에 표현
-      $.ajax({
-        type: "post",
-        url : "/getOne",
-        data: {
-          grpId : grpId,
-          lstId : lstId,
-        }, 
-          success:function(data){ 
-            $(".editForm").show();
-            $("#grpId").val(grpId);
-            $("#lstId").val(lstId);
-            $("#grpNm").html(data.row.grpNm);
-            $("#dtlNm").val(data.row.lstNm);
-            $("#colNm").val(data.row.colNm);
-          },
-          error:function(e){  
-            alert(e.responseText);  
-          }  
-      });
-    }
-    
-    // 항목 추가 창 Show
-    function addItem (grpId, grpNm){
-        $(".editForm").show();
-        $("#grpId").val(grpId);
-        $("#grpNm").html(grpNm);
-        $("#dtlNm").html("");
-        $("#colNm").html("");
-    }
-    
-    // 선택 아이템을 Map & div 삭제
-    function removeItem(id){
+    function save(){
+
+      var editRows = document.getElementsByClassName("editRows");
       
-      itemMap.remove(id);
-      
-      $("#item_"+ id).remove();
-      
-      document.getElementById('span_total_cnt').innerHTML = itemMap.size();
-    }
-    
-    // 저장완료 후 초기화
-    function closeBar() {
-        $(".editForm").hide();
-    }
-    
-    // 선택 아이템 목록 INSERT
-    function saveItem() {
-        if(!confirm("변경 사항을 저장하시겠습니까?")){
+      alert(editRows.length);
+      // 확인 MSG
+      if(!confirm("변경 사항을 저장하시겠습니까?")){
         return;
-        }
-        var grpNm = $("#grpNm").text();
-        var dtlNm = $("#dtlNm").val();
-        var colNm = $("#colNm").val();
-        var grpId = $("#grpId").val();
+      }
       
-      $.ajax({
-        type: "post",
-        url : "/saveItem",
-        data: {
-          grpId : grpId,
-          grpNm : grpNm,
-          dtlNm : dtlNm,
-          colNm : colNm,
-        }, 
-          success:function(data){   
-            // TO-DO : SQL 완료된 이후, 리셋 및 화면새로
-            closeBar();
-            getAdminList();
-          },
-          error:function(e){  
-            alert(e.responseText);  
-          }  
-      });
+      // validation check
+
+
+      // table -> param setting
+      // var rowsMap[0].put("category", editRows[0].children[1].value);
+      // alert('rowsMap-'+rowsMap+'\nrowsMap[0]-'+rowsMap[0]);
       
+      // param = param + row[i];
+
+/*
+      // commit
+			$.ajax({
+        dataType: "json",
+				type: "post",
+				url: "/saveList",
+				data: {
+				  JSON.stringify(param)
+				},
+				success: function(data) {
+				  // 아이템세팅
+					alert(data);
+				},
+				error: function(e) {
+					alert(e.responseText);
+				}
+			});
+*/
+      // edit NO
+      editYN(false);
     }
     
-    function addRow(dtlId) {
-      $("#dtl"+dtlId).next().html();
+    function addRow(addBtn) {
+      var $this = $(addBtn);
+      var newRow = "<tr class=\"editRows\">"+
+                        "<td class=\"noedit\">"+
+                          "<input type=\"button\" class=\"addDelBtn\" value=\"+\" onClick=\"addRow(this);\"/> "+
+                          "<input type=\"button\" class=\"addDelBtn\" value=\"-\" onClick=\"delRow(this);\"/>"+
+                        "</td>"+
+                        "<td class=\"edit\"></td>"+
+                        "<td class=\"edit\"></td>"+
+                        "<td class=\"noedit\"></td>"+
+                        "<td class=\"edit\"></td>"+
+                        "<td class=\"edit\"></td>"+
+                    "</tr>";
+      $this.parent().parent().after(newRow);
+      editYN(true);      
     }
     
     // 선택 삭제
-    function delRow(dtlId) {
-      $("#dtl"+dtlId).hide();
+    function delRow(delBtn) {
+      var $this = $(delBtn);
+      $this.parent().parent().hide();
     }
     
-    
-    function contenteditable(){
-      var editBtn = document.getElementById('editBtn');
-      // var editables = document.querySelectorAll('tr td')
-      // var editables = document.getElementById("editables");
-      var editables = document.getElementsByClassName("editables");
+    function editYN(flag){
+      var editRows = document.getElementsByClassName("editRows");
       var noeditables = document.getElementsByClassName("noedit");
+      var addDelBtn = document.getElementsByClassName("addDelBtn");
       
-      
-      editBtn.addEventListener('click', function(e) {
-        if (editables[0].isContentEditable) {
-            if(!confirm("변경 사항을 저장하시겠습니까?")){
-              return;
-            }
-            // Validation Check
-            // 저장 func
-            
-        } else {
-          for(var j=0;j<noeditables.length;j++){
-            noeditables[j].contentEditable = 'false';
-          }
-        }
+      if(flag == true){    // EDITABLE Yes
         
-        for(var i=0;i<editables.length;i++){
-          if (editables[i].isContentEditable) {
+        for(var i=0;i<editRows.length;i++){
+          editRows[i].contentEditable = 'true';
+        }
+        // row 안의 noeditable은 고정.
+        for(var j=0;j<noeditables.length;j++){
+          noeditables[j].contentEditable = 'false';
+        }
+        // addDelBtn Yes
+        $(".addDelBtn").show();     
+          
+      } else {             // EDITABLE No
+        for(var i=0;i<editRows.length;i++){
+          editRows[i].contentEditable = 'false';
+        }
+        // addDelBtn No
+        $(".addDelBtn").hide();
+      }
 
-            editables[i].contentEditable = 'false';
-            editBtn.innerHTML = 'Enable Editing';
-            editBtn.style.backgroundColor = '#F96';
-            
-            // Save the data in localStorage 
-            // for (var j = 0; j < editables[i][j].length; i++) {
-            //   localStorage.setItem(editables[i][j].getAttribute('id'), editables[i][j].innerHTML);
-            // }
-            
-          } else {
-            editables[i].contentEditable = 'true';
-            editBtn.innerHTML = 'Save Changes';
-            editBtn.style.backgroundColor = '#6F9';
-          }
-        }
-        
-      }); 
     }
     
   </script>
@@ -249,11 +201,20 @@
     // 페이지로딩시 카테고리 display
     // $(document).ready(function() { closeBar(); getAdminList(); });
     
-    $(document).ready(function() { contenteditable(); });
+    $(document).ready(function(){ editYN(false); });
   </script>
   
   <style>
-
+    /*강제 CSS*/
+    .editables td {
+      padding:2px !important;
+      height:15px !important;
+    }
+    .addDelBtn {
+      height:20px;
+      width:10px;
+    }
+    
   </style>
   
 </head>
@@ -292,7 +253,7 @@
               <table id ="adminTable" class="table table-bordered" style="table-layout:fixed;">
                   <thead>
                   <tr>
-                      <th style="width:10%;" >/</th>
+                      <th style="width:10%;" >추가/삭제</th>
                       <th style="width:15%;" >파일명</th>
                       <th style="width:25%;" >칼럼명</th>
                       <th style="width:10%;" >칼럼번호</th>
@@ -301,11 +262,12 @@
                   </tr>
                   </thead>
                   <tbody>
+                    <% if (itemList != null){ %>
                      <% for (var i=0; i<itemList.length; i++) { %>
-                        <tr class="editables" id="dtl<%=itemList[i].category_grp_dtl_id%>">
+                        <tr class="editRows">
                             <td class="noedit">
-                              <input type="button" value="+" onClick="addRow(<%=itemList[i].category_grp_dtl_id%>);"/>  
-                              <input type="button" value="-" onClick="delRow(<%=itemList[i].category_grp_dtl_id%>);"/> 
+                              <input type="button" class="addDelBtn" value="+" onClick="addRow(this);"/>  
+                              <input type="button" class="addDelBtn" value="-" onClick="delRow(this);"/> 
                             </td>
                             <td class="edit"><%= itemList[i].table_nm %></td>
                             <td class="edit"><%= itemList[i].column_nm %></td>
@@ -314,10 +276,25 @@
                             <td class="edit"><%= itemList[i].category_grp_nm %></td>
                         </tr>
                      <% } %>
+                    <% } else { %>
+                        <tr class="editRows">
+                            <td class="noedit">
+                              <input type="button" class="addDelBtn" value="+" onClick="addRow(this);"/>  
+                              <input type="button" class="addDelBtn" value="-" onClick="delRow(this);"/> 
+                            </td>
+                            <td class="edit"></td>
+                            <td class="edit"></td>
+                            <td class="noedit"></td>
+                            <td class="edit"></td>
+                            <td class="edit"></td>
+                        </tr>
+                    <% } %>
                   </tbody>
               </table>
-                      <button id="editBtn" type="button">Edit Document</button>
-
+                      <button id="editYes" type="button" onClick="editYN(true);">Edit</button>
+                      <button id="editNo" type="button" onClick="editYN(false);">EditNo</button>
+                      <button id="saveBtn" type="button" onClick="save();">Save</button>
+                      <button id="cancelBtn" type="button" onClick="window.location.reload();">Cancel</button>
             </div>
     </section>
     <!-- End main content-->
