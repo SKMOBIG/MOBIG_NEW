@@ -85,6 +85,7 @@
 
     // 선택된 아이템Map
     var itemMap = new NMap();  
+    var item = new NMap();  
     
     // 아이템 조회
     function getAdminList(){
@@ -105,44 +106,56 @@
     }
     
     function save(){
+      
+      // validation check
+      // null chk
 
       var editRows = document.getElementsByClassName("editRows");
+      var row = new Object();
+      var allRow = new Array();
       
-      alert(editRows.length);
+      $('.editRows').each(function (index, element) {
+        row = new Object();
+        row.table_nm = $(element).find('.fileNm').text();
+        row.column_nm = $(element).find('.colNm').text();
+        row.category_grp_dtl_id = $(element).find('.dtlId').text();
+        row.category_grp_dtl_nm = $(element).find('.dtlNm').text();
+        // row.category_grp_id = $(element).find('.grpId').text();
+        row.category_grp_nm = $(element).find('.grpNm').text();
+        allRow.push(row);
+      })
+      var testRow = new Object();
+      testRow = JSON.parse(JSON.stringify(row));
+      testRow.category_grp_dtl_id = $('.nono').text();
+      
+      allRow.push(testRow);
+      console.log(allRow);
+      console.log(allRow.length);
+      
       // 확인 MSG
       if(!confirm("변경 사항을 저장하시겠습니까?")){
         return;
       }
-      
-      // validation check
 
-
-      // table -> param setting
-      // var rowsMap[0].put("category", editRows[0].children[1].value);
-      // alert('rowsMap-'+rowsMap+'\nrowsMap[0]-'+rowsMap[0]);
-      
-      // param = param + row[i];
-
-/*
       // commit
 			$.ajax({
         dataType: "json",
 				type: "post",
 				url: "/saveList",
 				data: {
-				  JSON.stringify(param)
+				  saveList : allRow
 				},
 				success: function(data) {
-				  // 아이템세팅
-					alert(data);
+          // edit NO
+          editYN(false);
 				},
 				error: function(e) {
-					alert(e.responseText);
+					editYN(true);
+					alert('Ajax 전송 실패 : ' + e.responseText);
 				}
 			});
-*/
-      // edit NO
-      editYN(false);
+			
+
     }
     
     function addRow(addBtn) {
@@ -269,11 +282,11 @@
                               <input type="button" class="addDelBtn" value="+" onClick="addRow(this);"/>  
                               <input type="button" class="addDelBtn" value="-" onClick="delRow(this);"/> 
                             </td>
-                            <td class="edit"><%= itemList[i].table_nm %></td>
-                            <td class="edit"><%= itemList[i].column_nm %></td>
-                            <td class="noedit"><%= itemList[i].category_grp_dtl_id %></td>
-                            <td class="edit"><%= itemList[i].category_grp_dtl_nm %></td>
-                            <td class="edit"><%= itemList[i].category_grp_nm %></td>
+                            <td class="edit fileNm"><%= itemList[i].table_nm %></td>
+                            <td class="edit colNm"><%= itemList[i].column_nm %></td>
+                            <td class="noedit dtlId"><%= itemList[i].category_grp_dtl_id %></td>
+                            <td class="edit dtlNm"><%= itemList[i].category_grp_dtl_nm %></td>
+                            <td class="edit grpNm"><%= itemList[i].category_grp_nm %></td>
                         </tr>
                      <% } %>
                     <% } else { %>
@@ -282,7 +295,7 @@
                               <input type="button" class="addDelBtn" value="+" onClick="addRow(this);"/>  
                               <input type="button" class="addDelBtn" value="-" onClick="delRow(this);"/> 
                             </td>
-                            <td class="edit"></td>
+                            <td class="edit nono"></td>
                             <td class="edit"></td>
                             <td class="noedit"></td>
                             <td class="edit"></td>

@@ -91,7 +91,7 @@ module.exports = function(app, connectionPool) {
 
     
     // 항목 추가
-    app.post('/saveItem', function(req, res, next) {
+    app.post('/saveList', function(req, res, next) {
         /* session 없을 땐 로그인 화면으로 */
         if (!req.session.user_name) {
             res.redirect('login');
@@ -108,44 +108,61 @@ module.exports = function(app, connectionPool) {
                     throw err;
                 }
                 else {
-                    var grpId = req.body.grpId;
-                    var grpNm = req.body.grpNm;
-                    var dtlNm = req.body.dtlNm;
-                    var colNm = req.body.colNm;
+                    var saveList = req.body.saveList;
+                    console.log('saveList : ' + saveList);
                     
-                    console.log("grpId : " + grpId + ", grpNm : " + grpNm + ", dtlNm : " + dtlNm + ", colNm : " + colNm);
-                    
-                    var selectYN = "";
-                    var updateItem = "";
-                    var insertItem = "insert into mvno_category_grp_lst(category_grp_id, category_grp_dtl_nm, category_grp_dtl_id, table_nm, column_nm)  values (?, ?, ?, 'Admin Data', ?);";
-                    var selectNewDtlId = "SELECT IFNULL((SELECT MAX(category_grp_dtl_id) FROM mvno_category_grp_lst WHERE category_grp_id = ?), 0)+1 AS dtlId FROM DUAL;";
-
-                    connection.query(selectNewDtlId, grpId, function(error, rows1) {
-                        if(error){
-                            connection.release();
-                            throw error;
-                        } else {
-                            if(rows1.length >= 0){
-                                    connection.query(insertItem,
-                                    [grpId, dtlNm, rows1[0].dtlId, colNm], function(error, rows) { 
-                                        if(error) {
-                                            console.log("Admin - Insert Err");
-                                            connection.rollback(function() {
-                                                connection.release();
-                                                console.error("Admin - Insert Rollback Err");
-                                                throw error;
-                                            });
+                    for (var i=0;i<saveList.length;i++){
+                        var fileNm = saveList[i].table_nm;
+                        var columnNm = saveList[i].column_nm;
+                        var dtlId = saveList[i].category_grp_dtl_id;
+                        var dtlNm = saveList[i].category_grp_dtl_nm;
+                        var grpId = saveList[i].category_grp_id;
+                        var grpNm = saveList[i].category_grp_nm;
+                        var insertSQL = "";
+                        var updateSQL = "";
+                        
+                        // category id 없는 경우(신규 row) -> INSERT
+                        if(saveList[i].category_grp_dtl_id == null || saveList[i].category_grp_dtl_id == ''){
+                            console.log('insert query - ' + saveList[i].category_grp_dtl_id);
+                                connection.query(insertItem,
+                                [grpId, dtlNm, rows1[0].dtlId, colNm], function(error, rows) { 
+                                    if(error) {
+                                        console.log("Admin - Insert Err");
+                                        connection.rollback(function() {
                                             connection.release();
+                                            console.error("Admin - Insert Rollback Err");
                                             throw error;
-                                        }else {
-                                            if(rows.affectedRows > 0) {
+                                        });
+                                        connection.release();
+                                        throw error;
+                                    }
+                            //insert
+                                });
+                        // category id 있는 경우(있던 row) -> UPDATE
+                        } else {
+                            console.log('update query - ' + saveList[i].category_grp_dtl_id)
+                            //update
+                        }
+                    }
+                    
+                    // var updateItem = "";
+                    // var insertItem = "insert into mvno_category_grp_lst(category_grp_id, category_grp_dtl_nm, category_grp_dtl_id, table_nm, column_nm)  values (?, ?, ?, 'Admin Data', ?);";
+                    // var selectNewDtlId = "SELECT IFNULL((SELECT MAX(category_grp_dtl_id) FROM mvno_category_grp_lst WHERE category_grp_id = ?), 0)+1 AS dtlId FROM DUAL;";
+
+                    // connection.query(selectNewDtlId, grpId, function(error, rows1) {
+                    //     if(error){
+                    //         connection.release();
+                    //         throw error;
+                    //     } else {
+                    //         if(rows1.length >= 0){
+                    //                         if(rows.affectedRows > 0) {
                                                     connection.commit(function(err) {
                                                         if(err) {
                                                             console.error("Admin : " + err);
                                                             connection.rollback(function() {
                                                                 connection.release();
                                                                 console.error("Admin - commit Rollback err");
-                                                                throw error;
+                                                                throw err;
                                                             });
                                                         }
                                                         else{
@@ -153,18 +170,18 @@ module.exports = function(app, connectionPool) {
                                                             connection.release();
                                                         }
                                                     });
-                                            }else {
-                                                console.log('??');
-                                                connection.release();
-                                            }    
-                                        }
-                                    });   
-                            }else {
-                                res.render('error', { title: 'MOBIG', session : req.session });
-                                connection.release();
-                            }
-                        }
-                    });
+                    //                         }else {
+                    //                             console.log('??');
+                    //                             connection.release();
+                    //                         }    
+                    //                     }
+                    //                 });   
+                    //         }else {
+                    //             res.render('error', { title: 'MOBIG', session : req.session });
+                    //             connection.release();
+                    //         }
+                    //     }
+                    // });
                 }
                 
             });    
