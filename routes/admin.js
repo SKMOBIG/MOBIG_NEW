@@ -25,7 +25,7 @@ module.exports = function(app, connectionPool) {
 
             var sql = '';
             sql = 'SELECT c.category_grp_id, c.category_grp_nm, l.category_grp_dtl_id, l.category_grp_dtl_nm, l.column_nm, l.table_nm '
-                    + 'FROM mvno_category_grp c, mvno_category_grp_lst l '
+                    + 'FROM mvno_category_grp c, mvno_category_grp_lst_test l '
                     + 'WHERE c.category_grp_id = l.category_grp_id '
                     + 'ORDER BY l.category_grp_dtl_id;';
                     
@@ -37,7 +37,6 @@ module.exports = function(app, connectionPool) {
                 }
                 else {
                     if (rows.length > 0) {
-                        console.log('rows : ' + rows[0] + ', rowsleng' + rows.length + rows[0].category_grp_id);
                         res.render('admin', {title: 'MOBIG', itemList : rows, session : req.session});
                         connection.release();
 
@@ -56,38 +55,25 @@ module.exports = function(app, connectionPool) {
         
     });
 
-    // 하나보기
-    app.post('/getOne', function(req, res, next) {
-        console.log(req.body.grpId);
-        console.log(req.body.lstId);
+
+    
+    app.post('/execShell', function(req, res, next) {
         
-        connectionPool.getConnection(function(err, connection) {
-            var sql = 'SELECT l.category_grp_id grpId, c.category_grp_nm grpNm, l.category_grp_dtl_id lstId, l.category_grp_dtl_nm lstNm, l.column_nm colNm '
-                    + 'FROM mvno_category_grp c, mvno_category_grp_lst l '
-                    + 'WHERE c.category_grp_id = l.category_grp_id AND l.category_grp_id = ? AND l.category_grp_dtl_id = ?;';
-                    
-            // 카테고리목록 조회
-            connection.query(sql, [req.body.grpId, req.body.lstId], function(error, rows) {
-                if (error) {
-                    connection.release();
-                    throw error;
-                }
-                else {
-                    if (rows.length == 1) {
-                        res.send({row : rows[0], session : req.session});
-                        connection.release();
-                        console.log(rows[0]);
+        var shNm = 'sh test.sh';
+        
+        const exec = require('child_process').exec;
+        var yourscript = exec(shNm,
+                (error, stdout, stderr) => {
+                    console.log(`Output From Shell : ${stdout}`);
+                    if (error !== null) {
+                        console.log(`exec error: ${error}`);
                     }
-                    else {
-                        res.send({row : rows, session : req.session});
-                        console.log('err');
-                        connection.release();
-                    }
-                }
-            });
         });
+        res.send({shNm:shNm});
         
-    });
+    });    
+    
+
 
     
     // 항목 추가
@@ -109,8 +95,18 @@ module.exports = function(app, connectionPool) {
                 }
                 else {
                     var saveList = req.body.saveList;
-                    console.log('saveList : ' + saveList);
+                    var uCnt = 0;
+                    var iCnt = 0;
+                    var dCnt = 0;
+                    console.log('saveList.lengt : ' + saveList.length);
                     
+                    var query = "";
+                    var insertSQL = "";
+                    var updateSQL = "";  
+                    
+                    
+                    // 1차쿼리 묶음 : Insert or Update
+                    var dtlArr = [];
                     for (var i=0;i<saveList.length;i++){
                         var fileNm = saveList[i].table_nm;
                         var columnNm = saveList[i].column_nm;
@@ -118,70 +114,87 @@ module.exports = function(app, connectionPool) {
                         var dtlNm = saveList[i].category_grp_dtl_nm;
                         var grpId = saveList[i].category_grp_id;
                         var grpNm = saveList[i].category_grp_nm;
-                        var insertSQL = "";
-                        var updateSQL = "";
+
+                        var delSQL = "DELETE FROM `mvno_category_grp_lst_test` WHERE category_grp_dtl_id NOT IN (?);";
+                        var selectSQL = "SELECT category_grp_dtL_id FROM 'mvno_category_grp_lst_test' where category_grp_dtL_id not in (?)";
+                        
+                        console.log('[' + fileNm + ',' + columnNm + ',' + dtlId + ',' + dtlNm + ',' + grpId + ',' + grpNm + ']');
                         
                         // category id 없는 경우(신규 row) -> INSERT
-                        if(saveList[i].category_grp_dtl_id == null || saveList[i].category_grp_dtl_id == ''){
-                            console.log('insert query - ' + saveList[i].category_grp_dtl_id);
-                                connection.query(insertItem,
-                                [grpId, dtlNm, rows1[0].dtlId, colNm], function(error, rows) { 
-                                    if(error) {
-                                        console.log("Admin - Insert Err");
-                                        connection.rollback(function() {
-                                            connection.release();
-                                            console.error("Admin - Insert Rollback Err");
-                                            throw error;
-                                        });
-                                        connection.release();
-                                        throw error;
-                                    }
-                            //insert
-                                });
+                        if(dtlId == null || dtlId == ''){
+                            console.log('no id => Insert Row');
+
+                            insertSQL = "INSERT INTO `mvno_category_grp_lst_test` (table_nm, column_nm, category_grp_dtl_nm, category_grp_id, category_grp_nm) VALUES ('" + fileNm + "','" + columnNm + "','" + dtlNm + "','" + grpId + "','" + grpNm + "');";
+                            query = query + insertSQL;
+                            iCnt++;
+                                
                         // category id 있는 경우(있던 row) -> UPDATE
                         } else {
-                            console.log('update query - ' + saveList[i].category_grp_dtl_id)
-                            //update
-                        }
+                            console.log('yes id => Update Row, dtlId : ' + dtlId);
+                            
+                            dtlArr.push(dtlId);
+                            updateSQL = "UPDATE `mvno_category_grp_lst_test` SET table_nm = '" + fileNm + "', column_nm = '" + columnNm + "', category_grp_dtl_nm = '" + dtlNm + "', category_grp_id = '" + "1" + "', category_grp_nm = '" + grpNm + "' WHERE category_grp_dtl_id = '" + dtlId +"';" ;
+                            query = query + updateSQL;
+                            uCnt++;
+                        } 
                     }
                     
-                    // var updateItem = "";
-                    // var insertItem = "insert into mvno_category_grp_lst(category_grp_id, category_grp_dtl_nm, category_grp_dtl_id, table_nm, column_nm)  values (?, ?, ?, 'Admin Data', ?);";
-                    // var selectNewDtlId = "SELECT IFNULL((SELECT MAX(category_grp_dtl_id) FROM mvno_category_grp_lst WHERE category_grp_id = ?), 0)+1 AS dtlId FROM DUAL;";
-
-                    // connection.query(selectNewDtlId, grpId, function(error, rows1) {
-                    //     if(error){
-                    //         connection.release();
-                    //         throw error;
-                    //     } else {
-                    //         if(rows1.length >= 0){
-                    //                         if(rows.affectedRows > 0) {
-                                                    connection.commit(function(err) {
-                                                        if(err) {
-                                                            console.error("Admin : " + err);
-                                                            connection.rollback(function() {
-                                                                connection.release();
-                                                                console.error("Admin - commit Rollback err");
-                                                                throw err;
-                                                            });
-                                                        }
-                                                        else{
-                                                            console.log('insert completed');
-                                                            connection.release();
-                                                        }
-                                                    });
-                    //                         }else {
-                    //                             console.log('??');
-                    //                             connection.release();
-                    //                         }    
-                    //                     }
-                    //                 });   
-                    //         }else {
-                    //             res.render('error', { title: 'MOBIG', session : req.session });
+                    console.log('query : ' + query);
+                                                
+                    connection.query(query, function(error, rows) {
+                        if (error) {
+                            console.log("Admin - Update&Insert Err");
+                            connection.rollback(function() {
+                                connection.release();
+                                console.error("Admin - Update&Insert Rollback Err");
+                                throw error;
+                            });
+                            connection.release();
+                            throw error;
+                        } else {
+                            
+                            console.log('insert&update End -- iCnt : '+iCnt+', uCnt : '+uCnt);
+                            
+                            // 최종 Commit 처리
+                            connection.commit(function(err) {
+                                if(err) {
+                                    console.error("Admin : " + err);
+                                    connection.rollback(function() {
+                                        connection.release();
+                                        console.error("Admin - commit Rollback err");
+                                        throw err;
+                                    });
+                                }
+                                else{
+                                    console.log('Commit End ----- Insert:'+iCnt+', Update:'+uCnt+', Delete:'+dCnt);
+                                    connection.release();
+                                    res.send({uCnt:uCnt});
+                                }
+                            });
+                        }
+                    });
+                    
+                    // //2차 쿼리 묶음 : Delete (받아온 값에 기존값이 없다면)
+                    // if(dtlArr.length>=1){
+                    //     connection.query(delSQL, [dtlArr], function(error, rows) {
+                    //         if (error) {
+                    //             console.log("Admin - Delete Err");
+                    //             connection.rollback(function() {
+                    //                 connection.release();
+                    //                 console.error("Admin - Delete Rollback Err");
+                    //                 throw error;
+                    //             });
                     //             connection.release();
+                    //             throw error;
+                    //         } else {
+                    //             if (rows.length > 0){
+                    //                 dCnt = rows.length;
+                    //             }
+                    //             console.log('delete End -- dCnt:' + dCnt);
                     //         }
-                    //     }
-                    // });
+                    //     });
+                    // }
+
                 }
                 
             });    

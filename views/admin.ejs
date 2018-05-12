@@ -15,78 +15,6 @@
 
   <script type="text/javascript">
 
-    var ITEM_MAX_SIZE = 10;  // 선택가능 갯수
-
-    NMap = function(){
-      this.map = new Object();
-     };
-    NMap.prototype = {   
-      put : function(key, value){   
-          this.map[key] = value;
-      },
-      putMap : function(key, value){
-        this.map[key] = value.map;
-      },
-      putMapList : function(key, value){
-        var list = new Array();
-        for(var i=0;i<value.length;i++){
-         list.push(value[i].map);
-        }
-        this.map[key] = list;
-      },
-      get : function(key){   
-          return this.map[key];
-      },
-      containsKey : function(key){    
-        return key in this.map;
-      },
-      containsValue : function(value){    
-        for(var prop in this.map){
-         if(this.map[prop] == value) return true;
-        }
-        return false;
-      },
-      isEmpty : function(key){    
-        return (this.size() == 0);
-      },
-      clear : function(){   
-        for(var prop in this.map){
-         delete this.map[prop];
-        }
-      },
-      remove : function(key){    
-        delete this.map[key];
-      },
-      keys : function(){
-          var keys = new Array();
-          for(var prop in this.map){
-              keys.push(prop);
-          }
-          return keys;
-      },
-      values : function(){   
-        var values = new Array();   
-          for(var prop in this.map){   
-            values.push(this.map[prop]);
-          }   
-          return values;
-      },
-      size : function() {
-      var count = 0;
-      for (var prop in this.map) {
-         count++;
-      }
-      return count;
-      },
-      jsonString: function(){
-        return JSON.stringify(this.map);    
-      }
-    };
-
-    // 선택된 아이템Map
-    var itemMap = new NMap();  
-    var item = new NMap();  
-    
     // 아이템 조회
     function getAdminList(){
 
@@ -108,13 +36,23 @@
     function save(){
       
       // validation check
-      // null chk
+      var cellChk = true;
+      $('.edit').each(function (index, element) {
+          var cell = $(element).text();
+          
+          if (cell == null || cell == ""){
+            cellChk = false;
+          }
+      });
+      if(!cellChk) {
+        alert('Error : 미입력 셀이 있습니다.');
+        return;
+      }
 
-      var editRows = document.getElementsByClassName("editRows");
-      var row = new Object();
+      // Json으로 세팅
       var allRow = new Array();
-      
       $('.editRows').each(function (index, element) {
+        
         row = new Object();
         row.table_nm = $(element).find('.fileNm').text();
         row.column_nm = $(element).find('.colNm').text();
@@ -123,12 +61,8 @@
         // row.category_grp_id = $(element).find('.grpId').text();
         row.category_grp_nm = $(element).find('.grpNm').text();
         allRow.push(row);
-      })
-      var testRow = new Object();
-      testRow = JSON.parse(JSON.stringify(row));
-      testRow.category_grp_dtl_id = $('.nono').text();
+      });
       
-      allRow.push(testRow);
       console.log(allRow);
       console.log(allRow.length);
       
@@ -137,7 +71,7 @@
         return;
       }
 
-      // commit
+      // ajax 전송
 			$.ajax({
         dataType: "json",
 				type: "post",
@@ -147,7 +81,10 @@
 				},
 				success: function(data) {
           // edit NO
+          alert(data.uCnt);
           editYN(false);
+          execShell();
+          window.location.reload();
 				},
 				error: function(e) {
 					editYN(true);
@@ -158,6 +95,24 @@
 
     }
     
+    function execShell(){
+
+  			$.ajax({
+  				type: "post",
+  				url: "/execShell",
+  				data: {
+  				},
+  				success: function(data) {
+  				  // 아이템세팅
+  					alert('서버 실행 쉘 : ' + data.shNm);
+  				},
+  				error: function(e) {
+  					alert(e.responseText);
+  				}
+  			});
+    }
+    
+                    
     function addRow(addBtn) {
       var $this = $(addBtn);
       var newRow = "<tr class=\"editRows\">"+
@@ -165,11 +120,11 @@
                           "<input type=\"button\" class=\"addDelBtn\" value=\"+\" onClick=\"addRow(this);\"/> "+
                           "<input type=\"button\" class=\"addDelBtn\" value=\"-\" onClick=\"delRow(this);\"/>"+
                         "</td>"+
-                        "<td class=\"edit\"></td>"+
-                        "<td class=\"edit\"></td>"+
-                        "<td class=\"noedit\"></td>"+
-                        "<td class=\"edit\"></td>"+
-                        "<td class=\"edit\"></td>"+
+                        "<td class=\"edit fileNm\"></td>"+
+                        "<td class=\"edit colNm\"></td>"+
+                        "<td class=\"noedit dtlId\"></td>"+
+                        "<td class=\"edit dtlNm\"></td>"+
+                        "<td class=\"edit grpNm\"></td>"+
                     "</tr>";
       $this.parent().parent().after(newRow);
       editYN(true);      
@@ -177,8 +132,12 @@
     
     // 선택 삭제
     function delRow(delBtn) {
-      var $this = $(delBtn);
-      $this.parent().parent().hide();
+      var lenChk = document.getElementsByClassName("editRows").length;
+      var delRows = $(delBtn).parent().parent();
+      
+      if(lenChk == 1) { addRow(delBtn); }      
+      delRows.remove();
+
     }
     
     function editYN(flag){
@@ -295,11 +254,11 @@
                               <input type="button" class="addDelBtn" value="+" onClick="addRow(this);"/>  
                               <input type="button" class="addDelBtn" value="-" onClick="delRow(this);"/> 
                             </td>
-                            <td class="edit nono"></td>
-                            <td class="edit"></td>
-                            <td class="noedit"></td>
-                            <td class="edit"></td>
-                            <td class="edit"></td>
+                            <td class="edit fileNm"></td>
+                            <td class="edit colNm"></td>
+                            <td class="noedit dtlId"></td>
+                            <td class="edit dtlNm"></td>
+                            <td class="edit grpNm"></td>
                         </tr>
                     <% } %>
                   </tbody>
