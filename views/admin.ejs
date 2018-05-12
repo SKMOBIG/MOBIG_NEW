@@ -58,8 +58,9 @@
         row.column_nm = $(element).find('.colNm').text();
         row.category_grp_dtl_id = $(element).find('.dtlId').text();
         row.category_grp_dtl_nm = $(element).find('.dtlNm').text();
-        // row.category_grp_id = $(element).find('.grpId').text();
-        row.category_grp_nm = $(element).find('.grpNm').text();
+        row.category_grp_id = $(element).find(".combo option:selected").val();
+        row.category_grp_nm = $.trim($(element).find(".combo option:selected").text());
+        
         allRow.push(row);
       });
       
@@ -112,22 +113,21 @@
   			});
     }
     
-                    
+    
+    
+    // 한줄 증가
     function addRow(addBtn) {
       var $this = $(addBtn);
-      var newRow = "<tr class=\"editRows\">"+
-                        "<td class=\"noedit\">"+
-                          "<input type=\"button\" class=\"addDelBtn\" value=\"+\" onClick=\"addRow(this);\"/> "+
-                          "<input type=\"button\" class=\"addDelBtn\" value=\"-\" onClick=\"delRow(this);\"/>"+
-                        "</td>"+
-                        "<td class=\"edit fileNm\"></td>"+
-                        "<td class=\"edit colNm\"></td>"+
-                        "<td class=\"noedit dtlId\"></td>"+
-                        "<td class=\"edit dtlNm\"></td>"+
-                        "<td class=\"edit grpNm\"></td>"+
-                    "</tr>";
-      $this.parent().parent().after(newRow);
-      editYN(true);      
+      var thisRow = $this.parent().parent();
+
+      var cl = thisRow.clone();
+      cl.find('.fileNm').empty();
+      cl.find('.colNm').empty();
+      cl.find('.dtlId').empty();
+      cl.find('.dtlNm').empty();
+      thisRow.after(cl);
+      
+      editYN(true);     
     }
     
     // 선택 삭제
@@ -146,7 +146,6 @@
       var addDelBtn = document.getElementsByClassName("addDelBtn");
       
       if(flag == true){    // EDITABLE Yes
-        
         for(var i=0;i<editRows.length;i++){
           editRows[i].contentEditable = 'true';
         }
@@ -167,13 +166,17 @@
 
     }
     
+    function setCommbo(){
+      // $('#combo').hide();
+    }
+    
   </script>
   
   <script>
     // 페이지로딩시 카테고리 display
     // $(document).ready(function() { closeBar(); getAdminList(); });
     
-    $(document).ready(function(){ editYN(false); });
+    $(document).ready(function(){ editYN(false); setCommbo(); });
   </script>
   
   <style>
@@ -245,7 +248,16 @@
                             <td class="edit colNm"><%= itemList[i].column_nm %></td>
                             <td class="noedit dtlId"><%= itemList[i].category_grp_dtl_id %></td>
                             <td class="edit dtlNm"><%= itemList[i].category_grp_dtl_nm %></td>
-                            <td class="edit grpNm"><%= itemList[i].category_grp_nm %></td>
+                            <td class="edit grpNm">
+                              <select class="combo">
+                                <% for (var j=0; j<grpRows.length; j++) { 
+                                %>
+                                      <option class="grpCombo" value="<%=grpRows[j].category_grp_id%>" <%= (itemList[i].category_grp_id == j+1)?'selected':'' %>>
+                                        <%=grpRows[j].category_grp_nm%>
+                                      </option>
+                                <% } %>
+                              </select>
+                            </td>
                         </tr>
                      <% } %>
                     <% } else { %>
@@ -258,7 +270,13 @@
                             <td class="edit colNm"></td>
                             <td class="noedit dtlId"></td>
                             <td class="edit dtlNm"></td>
-                            <td class="edit grpNm"></td>
+                            <td class="edit grpNm">
+                              <select class="combo">
+                                <% for (var j=0; j<grpRows.length; j++) { %>
+                                  <option class="grpCombo" value="<%=grpRows[j].category_grp_id%>"><%=grpRows[j].category_grp_nm%></option>
+                                <% } %>
+                              </select>
+                            </td>
                         </tr>
                     <% } %>
                   </tbody>
@@ -267,6 +285,14 @@
                       <button id="editNo" type="button" onClick="editYN(false);">EditNo</button>
                       <button id="saveBtn" type="button" onClick="save();">Save</button>
                       <button id="cancelBtn" type="button" onClick="window.location.reload();">Cancel</button>
+                      
+                      <select class="#comboSet">
+                        <% for (var j=0; j<grpRows.length; j++) { %>
+                          <option class="grpCombo" value="<%=grpRows[j].category_grp_id%>"><%=grpRows[j].category_grp_nm%></option>
+                        <% } %>
+                          <option class="grpCombo" value="9" selected="false">124124</option>
+                      </select>
+           
             </div>
     </section>
     <!-- End main content-->
