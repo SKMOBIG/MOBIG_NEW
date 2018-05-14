@@ -69,16 +69,26 @@ module.exports = function(app, connectionPool) {
     
     app.post('/execShell', function(req, res, next) {
         
+        // 쉘 경로 + 파일명
         var shNm = 'sh test.sh';
+        // var shNm = 'sh src-commonflow1.sh';
         
-        const exec = require('child_process').exec;
+        // 쉘 실행
+        var exec = require('child_process').exec;
+        // var options = {
+        //     cwd : 'ec2-13-209-33-8.ap-northeast-2.compute.amazonaws.com/user/mobig01/'
+        // }
+        
         var yourscript = exec(shNm,
                 (error, stdout, stderr) => {
+                    console.log('Shell Exec Success!!!!!')
                     console.log(`Output From Shell : ${stdout}`);
                     if (error !== null) {
                         console.log(`exec error: ${error}`);
                     }
         });
+        
+        // 쉘 이름 Send
         res.send({shNm:shNm});
         
     });    

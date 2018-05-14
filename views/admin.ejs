@@ -82,7 +82,6 @@
 				},
 				success: function(data) {
           // edit NO
-          alert(data.uCnt);
           editYN(false);
           execShell();
           window.location.reload();
@@ -105,7 +104,7 @@
   				},
   				success: function(data) {
   				  // 아이템세팅
-  					alert('서버 실행 쉘 : ' + data.shNm);
+  					alert('서버 쉘 실행 완료 : ' + data.shNm);
   				},
   				error: function(e) {
   					alert(e.responseText);
@@ -158,6 +157,8 @@
           
       } else {             // EDITABLE No
         for(var i=0;i<editRows.length;i++){
+          // var comboVal = $(editRows[i]).find(".grpCombo option:selected").text();
+          // $(".nocombo").html(comboVal);
           editRows[i].contentEditable = 'false';
         }
         // addDelBtn No
@@ -167,7 +168,6 @@
     }
     
     function setCommbo(){
-      // $('#combo').hide();
     }
     
   </script>
@@ -187,7 +187,17 @@
     }
     .addDelBtn {
       height:20px;
-      width:10px;
+      width:20px;
+      padding:0px;
+    }
+    .tdBtn {
+      text-align:center;
+    }
+    .left {
+      float:left;
+    }
+    .right {
+      float:right;
     }
     
   </style>
@@ -228,10 +238,10 @@
               <table id ="adminTable" class="table table-bordered" style="table-layout:fixed;">
                   <thead>
                   <tr>
-                      <th style="width:10%;" >추가/삭제</th>
+                      <th style="width:60px;" >변경</th>
                       <th style="width:15%;" >파일명</th>
                       <th style="width:25%;" >칼럼명</th>
-                      <th style="width:10%;" >칼럼번호</th>
+                      <th style="width:10%;" >칼럼번호 (자동)</th>
                       <th style="width:20%;" >칼럼상세</th>
                       <th style="width:10%;" >분류</th>
                   </tr>
@@ -240,15 +250,15 @@
                     <% if (itemList != null){ %>
                      <% for (var i=0; i<itemList.length; i++) { %>
                         <tr class="editRows">
-                            <td class="noedit">
-                              <input type="button" class="addDelBtn" value="+" onClick="addRow(this);"/>  
-                              <input type="button" class="addDelBtn" value="-" onClick="delRow(this);"/> 
+                            <td class="noedit tdBtn">
+                              <button id="editYes" class="addDelBtn btn btn-default " type="button" onClick="addRow(this);"><i class="fa fa-plus"></i></button>
+                              <button id="editNo" class="addDelBtn btn btn-default " type="button" onClick="delRow(this);"><i class="fa fa-minus"></i></button>
                             </td>
                             <td class="edit fileNm"><%= itemList[i].table_nm %></td>
                             <td class="edit colNm"><%= itemList[i].column_nm %></td>
                             <td class="noedit dtlId"><%= itemList[i].category_grp_dtl_id %></td>
                             <td class="edit dtlNm"><%= itemList[i].category_grp_dtl_nm %></td>
-                            <td class="edit grpNm">
+                            <td class="noedit grpNm">
                               <select class="combo">
                                 <% for (var j=0; j<grpRows.length; j++) { 
                                 %>
@@ -257,20 +267,23 @@
                                       </option>
                                 <% } %>
                               </select>
+                              <span class="nocombo">
+                                
+                              </span>
                             </td>
                         </tr>
                      <% } %>
                     <% } else { %>
                         <tr class="editRows">
-                            <td class="noedit">
-                              <input type="button" class="addDelBtn" value="+" onClick="addRow(this);"/>  
-                              <input type="button" class="addDelBtn" value="-" onClick="delRow(this);"/> 
+                            <td class="noedit tdBtn">
+                              <button id="editYes" class="addDelBtn btn btn-default " type="button" onClick="addRow(this);"><i class="fa fa-plus"></i></button>
+                              <button id="editNo" class="addDelBtn btn btn-default " type="button" onClick="delRow(this);"><i class="fa fa-minus"></i></button>
                             </td>
                             <td class="edit fileNm"></td>
                             <td class="edit colNm"></td>
                             <td class="noedit dtlId"></td>
                             <td class="edit dtlNm"></td>
-                            <td class="edit grpNm">
+                            <td class="noedit grpNm">
                               <select class="combo">
                                 <% for (var j=0; j<grpRows.length; j++) { %>
                                   <option class="grpCombo" value="<%=grpRows[j].category_grp_id%>"><%=grpRows[j].category_grp_nm%></option>
@@ -281,18 +294,17 @@
                     <% } %>
                   </tbody>
               </table>
-                      <button id="editYes" type="button" onClick="editYN(true);">Edit</button>
-                      <button id="editNo" type="button" onClick="editYN(false);">EditNo</button>
-                      <button id="saveBtn" type="button" onClick="save();">Save</button>
-                      <button id="cancelBtn" type="button" onClick="window.location.reload();">Cancel</button>
-                      
-                      <select class="#comboSet">
-                        <% for (var j=0; j<grpRows.length; j++) { %>
-                          <option class="grpCombo" value="<%=grpRows[j].category_grp_id%>"><%=grpRows[j].category_grp_nm%></option>
-                        <% } %>
-                          <option class="grpCombo" value="9" selected="false">124124</option>
-                      </select>
-           
+              
+              <div class="row">
+                <div class="left">
+                      <button id="editYes" class="btn btn-default " type="button" onClick="editYN(true);"><i class="fa fa-wrench"></i> <span class="bold">Edit Mode</span></button>
+                      <button id="editNo" class="btn btn-default " type="button" onClick="editYN(false);"><i class="fa fa-file"></i> <span class="bold">Fix Mode</span></button>
+                </div>
+                <div class="right">
+                      <button id="cancelBtn" class="btn btn-default btn-danger" type="button" onClick="window.location.reload();"><i class="fa fa-ban"></i> <span class="bold">Cancel</span></button>
+                      <button id="saveBtn" class="btn btn-default btn-primary " type="button" onClick="save();"><i class="fa fa-upload"></i> <span class="bold">Save</span></button>
+                </div>
+              </div>
             </div>
     </section>
     <!-- End main content-->
