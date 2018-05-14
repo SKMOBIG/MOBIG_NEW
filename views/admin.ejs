@@ -144,7 +144,8 @@
       var noeditables = document.getElementsByClassName("noedit");
       var addDelBtn = document.getElementsByClassName("addDelBtn");
       
-      if(flag == true){    // EDITABLE Yes
+      // EDITABLE Yes
+      if(flag == true){    
         for(var i=0;i<editRows.length;i++){
           editRows[i].contentEditable = 'true';
         }
@@ -153,16 +154,21 @@
           noeditables[j].contentEditable = 'false';
         }
         // addDelBtn Yes
-        $(".addDelBtn").show();     
+        $(".addDelBtn").show();
+        $(".combo").show();
+        $(".nocombo").hide();
           
-      } else {             // EDITABLE No
+      // EDITABLE No
+      } else {             
         for(var i=0;i<editRows.length;i++){
-          // var comboVal = $(editRows[i]).find(".grpCombo option:selected").text();
-          // $(".nocombo").html(comboVal);
+          var comboVal = $.trim($(editRows[i]).find(".combo option:selected").text());
+          $(editRows[i]).find(".nocombo").html(comboVal);
           editRows[i].contentEditable = 'false';
         }
         // addDelBtn No
         $(".addDelBtn").hide();
+        $(".combo").hide();
+        $(".nocombo").show();
       }
 
     }
