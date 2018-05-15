@@ -69,27 +69,49 @@ module.exports = function(app, connectionPool) {
     
     app.post('/execShell', function(req, res, next) {
         
-        // 쉘 경로 + 파일명
+        // SSH 통신
+        var Connection = require('ssh2');
         var shNm = 'sh test.sh';
-        // var shNm = 'sh src-commonflow1.sh';
+        var c = new Connection();
         
-        // 쉘 실행
-        var exec = require('child_process').exec;
-        // var options = {
-        //     cwd : 'ec2-13-209-33-8.ap-northeast-2.compute.amazonaws.com/user/mobig01/'
-        // }
-        
-        var yourscript = exec(shNm,
-                (error, stdout, stderr) => {
-                    console.log('Shell Exec Success!!!!!')
-                    console.log(`Output From Shell : ${stdout}`);
-                    if (error !== null) {
-                        console.log(`exec error: ${error}`);
-                    }
+        c.on('connect', function() {
+          console.log('Connection :: connect');
         });
-        
-        // 쉘 이름 Send
-        res.send({shNm:shNm});
+        c.on('ready', function() {
+          console.log('Connection :: ready');
+          c.exec(shNm,  { cwd: '/var/www/html' }, function(err, stream) {
+            if (err) throw err;
+            stream.on('data', function(data, extended) {
+              console.log((extended === 'stderr' ? 'STDERR: ' : 'STDOUT: ')
+                          + data);
+            });
+            stream.on('end', function() {
+              console.log('Stream :: EOF');
+            });
+            stream.on('close', function() {
+              console.log('Stream :: close');
+            });
+            stream.on('exit', function(code, signal) {
+              console.log('Stream :: exit :: code: ' + code + ', signal: ' + signal);
+              c.end();
+            });
+          });
+        });
+        c.on('error', function(err) {
+          console.log('Connection :: error :: ' + err);
+        });
+        c.on('end', function() {
+          console.log('Connection :: end');
+        });
+        c.on('close', function(had_error) {
+          console.log('Connection :: close');
+        });
+        c.connect({
+          host: '13.209.33.8',
+          username: 'root',
+          password: '#skcc2010'
+        //   privateKey: require('fs').readFileSync('/home/ubuntu/.ssh/id_rsa')
+        });
         
     });    
     
