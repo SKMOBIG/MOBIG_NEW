@@ -91,13 +91,25 @@
   			$.ajax({
   				type: "get",
   				url: "/getCategory",
-  				data: { 
-  				},
+  		// 		data: { 
+  		// 		},
   				success: function(data) {
-  				  
   				  // 카테고리세팅
   				 //$('#div_category').html(data.categoryList);
-  				  
+  				  // alert(data.categoryList.length);
+  				   var innerTxt = "";
+  				   if(data.categoryList.length > 0){
+  				       for (var i=0; i < data.categoryList.length; i++) {
+  				          innerTxt += "<div class=\"col-md-2\"><div class=\"panel panel-filled panel-c-success\"><div class=\"panel-heading\">"
+  				                  + data.categoryList[i].category_grp_nm 
+  				                  + "</div><div class=\"panel-body\">"
+  				                  + data.categoryList[i].category_grp_desc 
+  				                  +"</div></div></div>";
+  				       }
+  				        //alert(innerTxt);
+  				       $("#div_category").append(innerTxt);
+  				   }
+  				 
   				  getItem();
   				},
   				error: function(e) {
@@ -115,6 +127,7 @@
   				data: {
   				},
   				success: function(data) {
+  				   // alert(data.itemList);
   				  // 아이템세팅
   					$('#div_item').html(data.itemList);
   					
@@ -236,7 +249,8 @@
                 </div>
               </div>
             
-              <div class="row">
+              <div class="row" id ="div_category">
+                <!--카테고리 목록 가져오기 시작
                 <div class="col-md-2">
                     <div class="panel panel-filled panel-c-success">
                         <div class="panel-heading">
@@ -297,7 +311,8 @@
                             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                         </div>
                     </div>
-                </div>                
+                </div> 
+                카테고리 목록 가져오기 끝-->
               </div>
               
               <div class="row">
@@ -320,8 +335,8 @@
                 </div>
               </div>
               
-              <div class="row">
-
+              <div class="row" id ="div_item">
+                <!--카테고리 목록 가져오기 시작
                 <div class="col-md-4">
                     <div class="panel panel-filled">
                         <div class="panel-heading">
@@ -435,7 +450,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
               </div>
               
               <div class="row m-t-sm">

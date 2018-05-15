@@ -23,7 +23,7 @@ module.exports = function(app, connectionPool) {
         connectionPool.getConnection(function(err, connection) {
 
             var sqlStr = '';
-            sqlStr = "SELECT category_grp_id, category_grp_nm, category_grp_ui FROM mvno_category_grp ORDER BY category_grp_id;";
+            sqlStr = "SELECT category_grp_id, category_grp_nm, category_grp_ui, category_grp_desc FROM mvno_category_grp where use_yn = 'Y' ORDER BY category_grp_id;";
             
             // 카테고리목록 조회
             connection.query(sqlStr, function(error, rows) {
@@ -32,16 +32,18 @@ module.exports = function(app, connectionPool) {
                     throw error;
                 }
                 else {
+                    var categoryList = "";
                     if (rows.length >= 0) {
-                        var categoryList='';
                         
-                        // 카테고리
-                        for(var i=0; i<rows.length; i++){
-                            categoryList += "<div class=\"col-md-2\"><i class=\"" + rows[i].category_grp_ui + "\" aria-hidden=\"true\" onClick=\"getCategory('" + rows[i].category_grp_id + "')\"></i><h3>" + rows[i].category_grp_nm + "</h3></div>"
-                        }
-                        // console.log("categoryList=" + categoryList);
+                       // 카테고리
+                       // for(var i=0; i<rows.length; i++){
+                            //categoryList += "<div class=\"col-md-2\"><i class=\"" + rows[i].category_grp_ui + "\" aria-hidden=\"true\" onClick=\"getCategory('" + rows[i].category_grp_id + "')\"></i><h3>" + rows[i].category_grp_nm + "</h3></div>"
+                   
+                       // }
+                         //console.log("rows=" + rows[1].category_grp_nm);
+                         //console.log("categoryList=" + categoryList[2].category_grp_nm);
                         
-                        res.send({categoryList : categoryList, session : req.session});
+                        res.send({categoryList : rows, session : req.session});
                         connection.release();
 
                     }
@@ -65,10 +67,10 @@ module.exports = function(app, connectionPool) {
         connectionPool.getConnection(function(err, connection) {
 
             var sql = '';
-            sql = 'SELECT c.category_grp_id, c.category_grp_nm, l.category_grp_dtl_id, l.category_grp_dtl_nm '
-                    + 'FROM mvno_category_grp c, mvno_category_grp_lst l '
-                    + 'WHERE c.category_grp_id = l.category_grp_id '
-                    + 'ORDER BY c.category_grp_id, l.category_grp_dtl_id;';
+            sql = "SELECT c.category_grp_id, c.category_grp_nm, l.category_grp_dtl_id, l.category_grp_dtl_nm "
+                    + "FROM mvno_category_grp c, mvno_category_grp_lst l "
+                    + "WHERE c.category_grp_id = l.category_grp_id and c.use_yn = 'Y'"
+                    + "ORDER BY c.category_grp_id, l.category_grp_dtl_id;";
                     
             // 카테고리목록 조회
             connection.query(sql, function(error, rows) {
@@ -78,39 +80,52 @@ module.exports = function(app, connectionPool) {
                 }
                 else {
                     if (rows.length >= 0) {
+                        //console.log("getItem==>"+rows);
                         var itemList='';
                         var categoryId = 0;
                         
                         // 카테고리
-                        for(var i=0; i<rows.length; i++){
+                         for(var i=0; i<rows.length; i++){
                             
                             // 카테고리 별로 아이템을 가져오기 위해 카테고리id로 식별
                             if(categoryId != rows[i].category_grp_id){
                                 
                                 if(i==0){
                                     // 아이템 헤더tag
-                                    itemList += "<div class=\"col-md-4\"><div class=\"card \"><div class=\"bg-primary card-block\"><h1 class=\"card-title text-white\">" + rows[i].category_grp_nm + "</h1></div><ul class=\"list-group list-group-flush \">";
+                                    //itemList += "<div class=\"col-md-4\"><div class=\"card \"><div class=\"bg-primary card-block\"><h1 class=\"card-title text-white\">" + rows[i].category_grp_nm + "</h1></div><ul class=\"list-group list-group-flush \">";
+                                    itemList += "<div class=\"col-md-4\"><div class=\"panel panel-filled\"><div class=\"panel-heading\"><div class=\"panel-tools\"><a class=\"panel-toggle\"><i class=\"fa fa-chevron-up\"></i></a>"
+                                    +"<a class=\"panel-close\"><i class=\"fa fa-times\"></i></a></div><h5 class=\"m-b-none\"><a href=\"\">" 
+                                    + rows[i].category_grp_nm + "</a></h5></div><div class=\"panel-body buttons-margin\"><div>";
+                                    
                                 } else {
                                     // 아이템 종료tag + 헤더tag
-                                    itemList += "</ul></div></div>" 
-                                                + "<div class=\"col-md-4\"><div class=\"card \"><div class=\"bg-primary card-block\"><h1 class=\"card-title text-white\">" + rows[i].category_grp_nm + "</h1></div><ul class=\"list-group list-group-flush \">";
+                                    // itemList += "</ul></div></div>" 
+                                    //             + "<div class=\"col-md-4\"><div class=\"card \"><div class=\"bg-primary card-block\"><h1 class=\"card-title text-white\">" + rows[i].category_grp_nm + "</h1></div><ul class=\"list-group list-group-flush \">";
+                                    itemList += "</div></div></div></div><div class=\"col-md-4\"><div class=\"panel panel-filled\"><div class=\"panel-heading\"><div class=\"panel-tools\"><a class=\"panel-toggle\"><i class=\"fa fa-chevron-up\"></i></a>"
+                                    +"<a class=\"panel-close\"><i class=\"fa fa-times\"></i></a></div><h5 class=\"m-b-none\"><a href=\"\">" 
+                                    + rows[i].category_grp_nm + "</a></h5></div><div class=\"panel-body buttons-margin\"><div>";
+                                    
+                                    
                                 }
                                 
                                 categoryId = rows[i].category_grp_id;
                             }
                             
                             // 아이템 본문tag
-                            itemList += "<li class=\"list-group-item\"><button onClick=\"javascript:addItem('" +rows[i].category_grp_dtl_id + "', '" + rows[i].category_grp_dtl_nm + "')\">" + rows[i].category_grp_dtl_nm + "</button></li>";
+                            //itemList += "<li class=\"list-group-item\"><button onClick=\"javascript:addItem('" +rows[i].category_grp_dtl_id + "', '" + rows[i].category_grp_dtl_nm + "')\">" + rows[i].category_grp_dtl_nm + "</button></li>";
+                            itemList += "<button type=\"button\" class=\"btn btn-default\" onClick=\"addItem('" +rows[i].category_grp_dtl_id + "', '" + rows[i].category_grp_dtl_nm + "')\">" + rows[i].category_grp_dtl_nm + "</button>";
+                            
                             
                             // 마지막 아이템이면 종료tag 닫아준다
                             if(i == rows.length-1){
                                 // 아이템 종료tag
-                                itemList += "</ul></div></div>" 
+                                //itemList += "</ul></div></div>" 
+                                itemList += "</div></div></div></div>"   
+                                
                             }
                         }
 
                         //console.log("itemList=" + itemList);
-                        
                         res.send({itemList : itemList, session : req.session});
                         connection.release();
 
