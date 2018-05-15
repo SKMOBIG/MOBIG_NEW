@@ -178,11 +178,22 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
+                                    <th>요청월</th>
+                                    
+                                    <% for (var i=0; i < req_list.length; i++) { %>
+                                        <th><%=req_list[i].column_nm%></th>
+                                        
+                                        <% if (req_list[i].table_nm == "CC_DATA" ){ %>
+                                            <!--요청 데이터 마지막이 CC_DATA이거나 다음 요청 유형이 CC_DATA가 아닌 경우 '건수'표기 -->
+                                            <% if (req_list.length == i+1){ %>
+                                                <th>건수</th>
+                                            <% }else if (req_list[i+1].table_nm != "CC_DATA"){ %>
+                                                <th>건수</th>
+                                            <% } %>    
+                                        <% } %>
+                                        
+                                    <% } %>
 
-                                    <th>월</th>
-                                    <th>가입자수(1000명)</th>
-                                    <th>청구금액(1천만원)</th>
-                                    <th>정산금액(1천만원)</th>
                                     <th>Detail</th>
                                 </tr>
                                 </thead>

@@ -66,7 +66,8 @@ connectionPool = mysql.createPool({
     host : 'mobig.czi2danpmvxm.us-east-2.rds.amazonaws.com',
     port : '3306',
     connectionLimit : 20,
-    waitForConnections : false
+    waitForConnections : false,
+    multipleStatements: true
 });
 
 // local DB
@@ -86,6 +87,7 @@ var myaccount = require('./routes/myaccount')(app, connectionPool);
 var mydata = require('./routes/mydata')(app, connectionPool);
 var progress = require('./routes/progress')(app, connectionPool);
 var result = require('./routes/result')(app, connectionPool);
+var admin = require('./routes/admin')(app, connectionPool);
 
 //sample routes
 var sample = require('./routes/sample')(app, connectionPool);
