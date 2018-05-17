@@ -71,7 +71,9 @@
       if(!confirm("변경 사항을 저장하시겠습니까?")){
         return;
       }
-
+      
+      $("#tableRow").attr('class', 'row ld-loading');
+      
       // ajax 전송
 			$.ajax({
         dataType: "json",
@@ -103,15 +105,26 @@
   				data: {
   				},
   				success: function(data) {
-  				  // 아이템세팅
-  					alert('서버 쉘 실행 완료 : ' + data.shNm);
+            alert('HDFS 기준정보 생성 완료');
+  				// 	finished(data.shNm);
   				},
   				error: function(e) {
-  					alert(e.responseText);
+  					alert('err execShell : ' + e.responseText);
   				}
   			});
     }
-    
+
+    // // 성공 토스터
+    // function finished(text){
+    //     toastr.options = {
+    //         "debug": false,
+    //         "newestOnTop": false,
+    //         "positionClass": "toast-top",
+    //         "closeButton": true,
+    //         "progressBar": false
+    //     } 
+    //     Command: toastr["success"]("Hadoop 시스템 기준정보가 변경되었습니다.", "서버로부터의 메시지 : " + text)
+    // }
     
     
     // 한줄 증가
@@ -207,6 +220,7 @@
     }
     .dtlId {
       color:yellow;
+      text-align:center;
     }
     
   </style>
@@ -223,7 +237,6 @@
     <!-- Main content-->
     <section class="content">
             <div class="container-fluid">
-              
               <div class="row">
                 <div class="col-lg-12">
                     <div class="view-header">
@@ -243,67 +256,73 @@
                     <hr>
                 </div>
               </div>
-
-              <table id ="adminTable" class="table table-bordered" style="table-layout:fixed;">
-                  <thead>
-                  <tr>
-                      <th style="width:60px;" >변경</th>
-                      <th style="width:15%;" >파일명</th>
-                      <th style="width:25%;" >칼럼명</th>
-                      <th style="width:10%;" >칼럼번호 (자동)</th>
-                      <th style="width:20%;" >칼럼상세</th>
-                      <th style="width:10%;" >분류</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <% if (itemList != null){ %>
-                     <% for (var i=0; i<itemList.length; i++) { %>
-                        <tr class="editRows">
-                            <td class="noedit tdBtn">
-                              <button id="editYes" class="addDelBtn btn btn-default " type="button" onClick="addRow(this);"><i class="fa fa-plus"></i></button>
-                              <button id="editNo" class="addDelBtn btn btn-default " type="button" onClick="delRow(this);"><i class="fa fa-minus"></i></button>
-                            </td>
-                            <td class="edit fileNm"><%= itemList[i].table_nm %></td>
-                            <td class="edit colNm"><%= itemList[i].column_nm %></td>
-                            <td class="noedit dtlId"><%= itemList[i].category_grp_dtl_id %></td>
-                            <td class="edit dtlNm"><%= itemList[i].category_grp_dtl_nm %></td>
-                            <td class="noedit grpNm">
-                              <select class="combo">
-                                <% for (var j=0; j<grpRows.length; j++) { 
-                                %>
-                                      <option class="grpCombo" value="<%=grpRows[j].category_grp_id%>" <%= (itemList[i].category_grp_id == j+1)?'selected':'' %>>
-                                        <%=grpRows[j].category_grp_nm%>
-                                      </option>
-                                <% } %>
-                              </select>
-                              <span class="nocombo">
-                                
-                              </span>
-                            </td>
-                        </tr>
-                     <% } %>
-                    <% } else { %>
-                        <tr class="editRows">
-                            <td class="noedit tdBtn">
-                              <button id="editYes" class="addDelBtn btn btn-default " type="button" onClick="addRow(this);"><i class="fa fa-plus"></i></button>
-                              <button id="editNo" class="addDelBtn btn btn-default " type="button" onClick="delRow(this);"><i class="fa fa-minus"></i></button>
-                            </td>
-                            <td class="edit fileNm"></td>
-                            <td class="edit colNm"></td>
-                            <td class="noedit dtlId"></td>
-                            <td class="edit dtlNm"></td>
-                            <td class="noedit grpNm">
-                              <select class="combo">
-                                <% for (var j=0; j<grpRows.length; j++) { %>
-                                  <option class="grpCombo" value="<%=grpRows[j].category_grp_id%>"><%=grpRows[j].category_grp_nm%></option>
-                                <% } %>
-                              </select>
-                            </td>
-                        </tr>
-                    <% } %>
-                  </tbody>
-              </table>
-              
+              <div class="row" style="padding-bottom:10px;">
+                <div class="left">
+                      <button id="editYes" class="btn btn-default " type="button" onClick="editYN(true);"><i class="fa fa-wrench"></i> <span class="bold">Edit Mode</span></button>
+                      <button id="editNo" class="btn btn-default " type="button" onClick="editYN(false);"><i class="fa fa-file"></i> <span class="bold">Fix Mode</span></button>
+                </div>
+              </div>
+              <div class="row">
+                <table id ="adminTable" class="table table-bordered" style="table-layout:fixed;">
+                    <thead>
+                    <tr>
+                        <th style="width:8%;" >번호 (자동)</th>
+                        <th style="width:60px;" >변경</th>
+                        <th style="width:15%;" >파일명</th>
+                        <th style="width:25%;" >칼럼명</th>
+                        <th style="width:20%;" >칼럼상세</th>
+                        <th style="width:10%;" >분류</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <% if (itemList != null){ %>
+                       <% for (var i=0; i<itemList.length; i++) { %>
+                          <tr class="editRows">
+                              <td class="noedit dtlId"><%= itemList[i].category_grp_dtl_id %></td>
+                              <td class="noedit tdBtn">
+                                <button id="editYes" class="addDelBtn btn btn-default " type="button" onClick="addRow(this);"><i class="fa fa-plus"></i></button>
+                                <button id="editNo" class="addDelBtn btn btn-default " type="button" onClick="delRow(this);"><i class="fa fa-minus"></i></button>
+                              </td>
+                              <td class="edit fileNm"><%= itemList[i].table_nm %></td>
+                              <td class="edit colNm"><%= itemList[i].column_nm %></td>
+                              <td class="edit dtlNm"><%= itemList[i].category_grp_dtl_nm %></td>
+                              <td class="noedit grpNm">
+                                <select class="combo">
+                                  <% for (var j=0; j<grpRows.length; j++) { 
+                                  %>
+                                        <option class="grpCombo" value="<%=grpRows[j].category_grp_id%>" <%= (itemList[i].category_grp_id == j+1)?'selected':'' %>>
+                                          <%=grpRows[j].category_grp_nm%>
+                                        </option>
+                                  <% } %>
+                                </select>
+                                <span class="nocombo">
+                                  
+                                </span>
+                              </td>
+                          </tr>
+                       <% } %>
+                      <% } else { %>
+                          <tr class="editRows">
+                              <td class="noedit dtlId"></td>
+                              <td class="noedit tdBtn">
+                                <button id="editYes" class="addDelBtn btn btn-default " type="button" onClick="addRow(this);"><i class="fa fa-plus"></i></button>
+                                <button id="editNo" class="addDelBtn btn btn-default " type="button" onClick="delRow(this);"><i class="fa fa-minus"></i></button>
+                              </td>
+                              <td class="edit fileNm"></td>
+                              <td class="edit colNm"></td>
+                              <td class="edit dtlNm"></td>
+                              <td class="noedit grpNm">
+                                <select class="combo">
+                                  <% for (var j=0; j<grpRows.length; j++) { %>
+                                    <option class="grpCombo" value="<%=grpRows[j].category_grp_id%>"><%=grpRows[j].category_grp_nm%></option>
+                                  <% } %>
+                                </select>
+                              </td>
+                          </tr>
+                      <% } %>
+                    </tbody>
+                </table>
+              </div>
               <div class="row">
                 <div class="left">
                       <button id="editYes" class="btn btn-default " type="button" onClick="editYN(true);"><i class="fa fa-wrench"></i> <span class="bold">Edit Mode</span></button>
@@ -314,9 +333,9 @@
                       <button id="saveBtn" class="btn btn-default btn-primary " type="button" onClick="save();"><i class="fa fa-upload"></i> <span class="bold">Save</span></button>
                 </div>
               </div>
-              <div class="row">
-                <button id="execShell" class="btn btn-default btn-primary " type="button" onClick="execShell();"><i class="fa fa-upload"></i> <span class="bold">쉘 실행 테스트</span></button>
-              </div>
+              <!--<div class="row">-->
+              <!--  <button id="execShell" class="btn btn-default btn-primary " type="button" onClick="execShell();"><i class="fa fa-upload"></i> <span class="bold">쉘 실행 테스트</span></button>-->
+              <!--</div>-->
             </div>
     </section>
     <!-- End main content-->
