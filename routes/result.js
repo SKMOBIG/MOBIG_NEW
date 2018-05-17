@@ -61,7 +61,7 @@ module.exports = function(app, connectionPool) {
                                     else {
                                         console.log('req_rows/', req_rows);            
                                         // 한방에 렌더
-                                        res.render('result', { rslt_list: rows, req_list:req_rows, req_id: req_id, session: req.session });
+                                        res.render('result', { rslt_list: rows, rslt_json:JSON.stringify(rows), req_list:req_rows, req_id: req_id, session: req.session });
                                         connection.release();
                                     }
                             });
