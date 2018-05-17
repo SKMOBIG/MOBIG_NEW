@@ -31,21 +31,22 @@
 
     var form = function(rowId, val, rawObject, cm, rdata) {
     
-        var result;
-        if (prevCellVal.value == val) {
-           result = ' style="display: none" rowspanid="' + prevCellVal.cellId + '"';
-        } else {
-           var cellId = this.id + '_row_' + rowId + '_' + cm.name;
-           result = ' rowspan="1" id="' + cellId + '"';
-           prevCellVal = { cellId: cellId, value: val };
-        }
-        return result;
+    //     var result;
+    //     if (prevCellVal.value == val) {
+    //       result = ' style="display: none" rowspanid="' + prevCellVal.cellId + '"';
+    //     } else {
+    //       var cellId = this.id + '_row_' + rowId + '_' + cm.name;
+    //       result = ' rowspan="1" id="' + cellId + '"';
+    //       prevCellVal = { cellId: cellId, value: val };
+    //     }
+    //     return result;
     
-    };
+     };
 
     $(function(){
          
-            
+        var pageWidth = $("#list").parent().width() - 100;
+
         var mydata = <%-rslt_json%>,
         $grid = $("#list");
         
@@ -68,33 +69,43 @@
             data : mydata,
             colNames: myHeader,
             colModel: [
-                {name:'data_yymm', index:'data_yymm', align:'center', frozen:true, formatter: yyyymm, cellattr:form, width:140}
+                {name:'data_yymm', index:'data_yymm', align:'center', frozen:true, formatter: yyyymm, width:140//, cellattr:form
+                    
+                }
+
+                
                 <% for (var i=0; i < req_list.length; i++) { %>
                     <% if (req_list[i].table_nm == "CC_DATA" ){ %>
                         ,{name:'rslt_ctt<%=i+1%>', index:'rslt_ctt<%=i+1%>', align:'center', frozen:true, width:240 }
                         <% if (req_list.length == i+1){ %>
-                            ,{name:'rslt_cnt<%=i+1%>', index:'rslt_cnt<%=i+1%>', align:'center', frozen:true, width:140, formatter:'currency', formatoptions:{thousandsSeparator:",", decimalPlaces: 0, defaultValue:0}}
+                            ,{
+                                name:'rslt_cnt<%=i+1%>', index:'rslt_cnt<%=i+1%>', align:'center', frozen:true, width:140, formatter:'currency', formatoptions:{thousandsSeparator:",", decimalPlaces: 0, defaultValue:0}
+                            }
                         <% }else if (req_list[i+1].table_nm != "CC_DATA"){ %>
-                            ,{name:'rslt_cnt<%=i+1%>', index:'rslt_cnt<%=i+1%>', align:'center', frozen:true, width:140,formatter:'currency', formatoptions:{thousandsSeparator:",", decimalPlaces: 0, defaultValue:0}}
+                            ,{
+                                name:'rslt_cnt<%=i+1%>', index:'rslt_cnt<%=i+1%>', align:'center', frozen:true, width:140,formatter:'currency', formatoptions:{thousandsSeparator:",", decimalPlaces: 0, defaultValue:0}
+                            }
                         <% } %>    
                     <% }else{ %>
-                        ,{name:'rslt_cnt<%=i+1%>', index:'rslt_cnt<%=i+1%>', align:'center', frozen:true, width:140,formatter:'currency', formatoptions:{thousandsSeparator:",", decimalPlaces: 0, defaultValue:0}}
+                        ,{
+                            name:'rslt_cnt<%=i+1%>', index:'rslt_cnt<%=i+1%>', align:'center', frozen:true, width:140,formatter:'currency', formatoptions:{thousandsSeparator:",", decimalPlaces: 0, defaultValue:0}
+                        }
                     <% } %>
                 <% } %>                
                 ],
-                gridComplete: function() {  // 그리드 생성 후 호출되는 이벤트
-                    var grid = this;
-                    $('td[rowspan="1"]', grid).each(function () {
-                      var spans = $('td[rowspanid="' + this.id + '"]', grid).length + 1;
-                      if (spans > 1) {
-                        $(this).attr('rowspan', spans);
-                      }
-                    });
-                },
+                // gridComplete: function() {  // rowspan 적용 용 그리드 생성 후 호출되는 이벤트
+                //     var grid = this;
+                //     $('td[rowspan="1"]', grid).each(function () {
+                //       var spans = $('td[rowspanid="' + this.id + '"]', grid).length + 1;
+                //       if (spans > 1) {
+                //         $(this).attr('rowspan', spans);
+                //       }
+                //     });
+                // },
                 cmTemplate: { sortable: false }, //sort false
                	rowNum:100,
                	rowList:[100,200,300],
-               	width: '100%',
+               	width: pageWidth ,
                	pager: '#pager',
                	gridview:true,
                	rownumbers:true,
@@ -108,7 +119,17 @@
                 caption:"",
                 height:'100%',
                 shrinkToFit:true,
-                loadonce:true
+                loadonce:true,
+                grouping: true,
+                groupingView: {
+                    groupField: ["data_yymm"],
+                    groupColumnShow: [true],
+                    groupText: ["<b>{0}</b>"],
+                    groupOrder: ["asc"],
+                    groupSummary: [true],
+                    groupCollapse: false
+                    
+                }                
         });
         
     });
@@ -272,29 +293,9 @@
                     <p class="small" style="color: #FFFFFF">2017년 1월~12월까지의 월별가입자, 정산금액, 청구금액 추이</p>
                     <canvas id="lineOptions" height="100px"></canvas>
                 </div>  
-                <!-- end chart -->                
-                <!-- start main_report -->
-                <div class="col-md-8" id="grid_div">
-                    <div class="panel">
-
-                        <div class="panel-body">
-                            <h4><i class="pe pe-7s-check c-accent fa-1x"></i> Results Data</h4>
-                            <!--<div class="flot-chart  m-t-md m-b-xl" style="height: 200px">-->
-                            <!--    <div class="flot-chart-content" id="flotProfile"></div>-->
-                            <!--</div>-->
-                            
-                            <!-- GRID -->
-                            <div style="clear:left">
-                                <table id="list"  class="table table-striped" style=" width:100%">
-                                    <tr><td/></tr>
-                                </table>
-                                <div id="pager"></div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- end main_report -->
+                <!-- end chart -->     
+                
+ 
                 
                 <!--start activity-->
                 <div class="col-md-4">
@@ -368,6 +369,30 @@
                     </div>
                 </div>
                 <!--end activity-->
+
+               <!-- start main_report -->
+                <div class="col-md-8" id="grid_div" style="align:center">
+                    <div class="panel">
+
+                        <div class="panel-body">
+                            <h4><i class="pe pe-7s-check c-accent fa-1x"></i> Results Data</h4>
+                            <!--<div class="flot-chart  m-t-md m-b-xl" style="height: 200px">-->
+                            <!--    <div class="flot-chart-content" id="flotProfile"></div>-->
+                            <!--</div>-->
+                            
+                            <!-- GRID -->
+                            <div style="clear:left">
+                                <table id="list"  class="table table-striped" style=" width:100%">
+                                    <tr><td/></tr>
+                                </table>
+                                <div id="pager"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end main_report -->
+
 
             </div>
 
