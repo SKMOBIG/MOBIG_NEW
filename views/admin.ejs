@@ -98,7 +98,8 @@
     }
     
     function execShell(){
-
+        console.log('execShell() start');
+          
   			$.ajax({
   				type: "post",
   				url: "/execShell",
@@ -204,6 +205,9 @@
       padding:2px !important;
       height:15px !important;
     }
+    th {
+      text-align:center;
+    }
     .addDelBtn {
       height:20px;
       width:20px;
@@ -219,7 +223,17 @@
       float:right;
     }
     .dtlId {
-      color:yellow;
+      color:white;
+      text-align:center;
+      font-weight:bold;
+    }
+    .fileNm {
+      font-weight:bold;
+    }
+    .colNm {
+      font-weight:bold;
+    }
+    .grpNm {
       text-align:center;
     }
     
@@ -266,7 +280,7 @@
                 <table id ="adminTable" class="table table-bordered" style="table-layout:fixed;">
                     <thead>
                     <tr>
-                        <th style="width:8%;" >번호 (자동)</th>
+                        <th style="width:5%;" >칼럼번호</th>
                         <th style="width:60px;" >변경</th>
                         <th style="width:15%;" >파일명</th>
                         <th style="width:25%;" >칼럼명</th>

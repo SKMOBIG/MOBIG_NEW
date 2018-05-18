@@ -1,17 +1,4 @@
 module.exports = function(app, connectionPool) {
-    
-    app.get('/admint', function(req, res) {
-        var sess = req.session
-        
-        /* session 없을 땐 로그인 화면으로 */
-        if (!req.session.user_name) {
-            res.redirect('login');
-        }
-        else{
-            res.render('admin', { title: 'MOBIG', itemList : null, session : req.session });
-        }
-        
-    });
 
     // 처음 화면 조회
     app.get('/admin', function(req, res, next) {
@@ -79,18 +66,21 @@ module.exports = function(app, connectionPool) {
           console.log('Client :: ready');
         //   conn.exec('su hdfs', function(err, stream) {
           conn.exec('su - hdfs -c "sh /user/mobig01/src/commonflow.sh"', function(err, stream) {
-            if (err) throw err;
+            if (err) {
+                console.log('error - ' + err);
+                throw err;
+            }
             stream.on('data', function(data) {
-              console.log('STDOUT: ' + data);
-              msg = msg + data;
-              
-            }).stderr.on('data', function(data) {
-              console.log('STDERR: ' + data);
-            }).on('close', function(code, signal) {
-              console.log('STREAM END');
-              conn.end();
-              res.send({shNm : code});
+              console.log('OUTPUT: ' + data);
             });
+            stream.on('end', function(data) {
+              console.log('STREAM END - ' + data);
+              res.send({msg : data});
+            });
+            stream.on('close', function(){
+                console.log('strend');
+                conn.end();
+            })
           });
         }).connect({
           host: '13.209.33.8',
