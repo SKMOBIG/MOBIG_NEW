@@ -1,0 +1,379 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <!-- Page title -->
+    <title>LUNA | Responsive Admin Theme</title>
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="vendor/animate.css/animate.css"/>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css"/>
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="styles/pe-icons/pe-icon-7-stroke.css"/>
+    <link rel="stylesheet" href="styles/pe-icons/helper.css"/>
+    <link rel="stylesheet" href="styles/stroke-icons/style.css"/>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body class="blank">
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+    <!-- Header-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">
+                    LUNA
+                    <span>v.1.3</span>
+                </a>
+            </div>
+
+        </div>
+    </nav>
+    <!-- End header-->
+
+    <!-- Main content-->
+    <section class="content">
+
+        <div class="container">
+
+            <div class="row" style="margin-top: 100px">
+                <div class="col-lg-12">
+
+
+                    <div class="panel panel-filled">
+                        <div class="panel-body">
+                            <h2 class="m-b-none">Luna documentation</h2>
+                            <p>Version 1.3</p>
+
+                            <p>
+                                Thank you for purchasing LUNA admin theme. If you have any questions about the template, please feel free to contact us via email: <a href="mailto:support@webapplayers.com">support@webapplayers.com</a>
+                            </p>
+
+                            <p>
+                                Documentation created: <span class="c-white">19/02/2016</span> <br>
+                                Latest update: <span class="c-white">10/03/2017</span> <br>
+                                By: <span class="c-white">WebAppLayers Team</span> <br>
+                            </p>
+                            <p>
+                                This documentation is focused on LUNA HTML/jQuery version. It assumes a minimum knowledge of html/css/js language. It describe mainly files and structure in project.
+                                Please note that this documentation is dedicated to the main element of the template. With each version, we will try to develop it.
+                                But if you have any questions going beyond what is described here don't hesitate to write to us on support email. We would love to help.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="panel panel-filled">
+                        <div class="panel-body">
+                            <h3 class="m-b-none">First run</h3>
+                            <p>File system or server
+
+                            </p>
+
+                            <p>
+                                To run HTML/jQuery version of LUNA you can run index.html file in your browser or run a local server under <span class="c-white">Luna_Full_Version_HTML folder.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Structure</h3>
+                                    <p>Folders and files</p>
+
+                                    <p>File pack consists for HTML/CSS/JS is located under Luna_Full_Version_HTML folder. Project structure presents as below.</p>
+
+                                    <div>
+                                <pre>
+/Luna_Full_Version_HTML
+  |- /images
+  |- /scripts
+  |- /styles
+  |- /vendor
+  |- activity.html
+  |- alerts.html
+  |- autocomplete.html
+  |- buttons.html
+  |- chartJs.html
+  |- contacts.html
+  |- datamaps.html
+  |- dataTables.html
+  |- draggable.html
+  |- error.html
+  |- flotCharts.html
+  |- forgotPassword.html
+  |- formElements.html
+  |- gridSystem.html
+  |- icons.html
+  |- index.html
+  |- loaders.html
+  |- login.html
+  |- metrics.html
+  |- modal.html
+  |- nestableList.html
+  |- panels.html
+  |- profile.html
+  |- projects.html
+  |- register.html
+  |- sparkline.html
+  |- support.html
+  |- tableStyles.html
+  |- tabs.html
+  |- textEditor.html
+  |- timeline.html
+  |- typography.html
+  |- usage.html
+  |- versions.html
+                                </pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Vendor structure</h3>
+                                    <p>Libraries folder</p>
+
+                                    <p>In Vendor folder we put all third party libraries. In current version there there are: </p>
+
+                                    <div>
+                                <pre>
+/Luna_Full_Version_HTML/vendor
+  |- /animate.css
+  |- /bootstrap
+  |- /bootstrap3-typeahead
+  |- /chart.js
+  |- /d3
+  |- /datamaps
+  |- /datatables
+  |- /flot
+  |- /fontawesome
+  |- /jquery
+  |- /jquery-ui
+  |- /moment
+  |- /nestable
+  |- /pacejs
+  |- /select2
+  |- /sparkline
+  |- /summernote
+  |- /switchery
+  |- /toastr
+  |- /topojson
+
+                                </pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Styles structure</h3>
+                                    <p>Styles folder</p>
+
+                                    <p>In styles folder there is main style.css file for Luna style and additional two libraries for icons:</p>
+
+                                    <div>
+                                <pre>
+/Luna_Full_Version_HTML/styles
+  |- /pe-icons
+  |- /stroke-icons
+  |- style.css
+                                </pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Layout structure</h3>
+                                    <p>Luna layout</p>
+
+                                    <p>
+                                        Main layout are created with few main elements:
+                                    </p>
+                                    <ol>
+                                        <li><code>wrapper</code> main page wrapper</li>
+                                        <li><code>navbar</code> top header with menu</li>
+                                        <li><code>left menu</code> left sidebar navigation.</li>
+                                        <li><code>content</code> main container for page elements.</li>
+                                    </ol>
+                                    <div>
+                                    <pre>
+    &lt;body&gt;
+
+    &lt;!-- Wrapper--&gt;
+    &lt;div class="wrapper"&gt;
+
+        &lt;!-- Header--&gt;
+        &lt;nav class="navbar navbar-default navbar-fixed-top"&gt;
+            ...
+        &lt;/nav&gt;
+
+        &lt;!-- Navigation--&gt;
+        &lt;aside class="navigation"&gt;
+            ...
+        &lt;/aside&gt;
+
+        &lt;!-- Main content--&gt;
+        &lt;section class="content"&gt;
+            ...
+        &lt;/section&gt;
+
+    &lt;/div&gt;
+    &lt;!-- End wrapper--&gt;
+
+    &lt;/body&gt;
+
+                                    </pre>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Luna styles</h3>
+                                    <p>Third party styles</p>
+
+                                    <p><code>head</code>
+                                        contains list for all CSS files of theme and for all plugins (vendor - used in view when specific plugin need it). In your app you can choose only those files that you will use.
+                                    </p>
+                                    <div>
+                                        <pre>
+&lt;head>
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+    &lt;link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'&gt;
+
+    &lt;!-- Page title --&gt;
+    &lt;title&gt;LUNA | Responsive Admin Theme&lt;/title&gt;
+
+    &lt;!-- Vendor styles --&gt;
+    &lt;link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.css"/&gt;
+    &lt;link rel="stylesheet" href="vendor/animate.css/animate.css"/&gt;
+    &lt;link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css"/&gt;
+
+    &lt;!-- App styles -->
+    &lt;link rel="stylesheet" href="styles/pe-icons/pe-icon-7-stroke.css"/&gt;
+    &lt;link rel="stylesheet" href="styles/pe-icons/helper.css"/&gt;
+    &lt;link rel="stylesheet" href="styles/stroke-icons/style.css"/&gt;
+    &lt;link rel="stylesheet" href="styles/style.css"&gt;
+&lt;/head>
+                                        </pre>
+                                        <span class="c-white">
+                                            Font Awesome, Animate, Bootstrap, pe-icons, stroke-icons and style.css minimum required files for Luna !
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Luna scripts</h3>
+                                    <p>Third party scripts</p>
+
+                                    <p>At the bottom of each file there are located third party scripts as well as Luna script: </p>
+
+                                    <div>
+                                        <pre>
+&lt;!-- Vendor scripts --&gt;
+&lt;script src="vendor/pacejs/pace.min.js"&gt;&lt;/script&gt;
+&lt;script src="vendor/jquery/dist/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="vendor/bootstrap/js/bootstrap.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- App scripts --&gt;
+&lt;script src="scripts/luna.js"&gt;&lt;/script&gt;
+                                        </pre>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-filled">
+                                <div class="panel-body">
+                                    <h3 class="m-b-none">Luna local scripts</h3>
+                                    <p>Initialise third party plugins</p>
+
+                                    <p>In some of the files where we use third party plugin initailise script is located at the bottom of the file in <code>script</code> section. For example: </p>
+
+                                    <div>
+                                        <pre>
+&lt;script&gt;
+    $(document).ready(function () {
+
+        // Activate Nestable for list 1
+        $('#nestable').nestable({
+            group: 1
+        });
+
+    });
+&lt;/script&gt;
+                                        </pre>
+
+                                    </div>
+                                    <span class="c-white">
+                                            Once you add link to the third aprty library you can initialise and put your code for plugins in local script section.
+                                        </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-filled">
+                                <div class="panel-body text-center">
+
+                                    <h3>Contact</h3>
+                                    <p>
+                                        If you have any question or find some issue feel free to contact with us on  <br><br><a href="mailto:support@webapplayers.com" class="btn btn-accent">support@webapplayers.com</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+<!-- Vendor scripts -->
+<script src="vendor/pacejs/pace.min.js"></script>
+<script src="vendor/jquery/dist/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- App scripts -->
+<script src="scripts/luna.js"></script>
+
+</body>
+
+</html>

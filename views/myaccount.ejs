@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <% include ./partials/css.ejs %>
+    
+    <% include ./partials/script.ejs %>
+    
+</head>
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+	<!-- Header/Navigation -->
+	<% include ./partials/navigation.ejs %>
+
+    <!-- Main content-->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+                            <!--<small>App Pages<br>Basic<br> <span class="c-white">Contacts</span></small>-->
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe pe-7s-user c-accent"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>My Account</h3>
+                            <small>
+                                Manage user account.
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-filled">
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    
+                                    <div class="panel panel-filled">
+                                        <div class="panel-heading">
+                                            <!--<div class="panel-tools">-->
+                                            <!--    <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>-->
+                                            <!--    <a class="panel-close"><i class="fa fa-times"></i></a>-->
+                                            <!--</div>-->
+                                            Basic information
+                                        </div>
+                                        <div class="panel-body">
+                
+                                            <p>You can change your account data.</p>
+                
+                                            <form>
+                                                <div class="form-group"><label for="exampleInputName">Username</label> <input type="text" class="form-control" id="exampleInputName" placeholder="Name" value="테스트사용자" readOnly></div>
+                                                <div class="form-group"><label for="exampleInputEmail1">Email address</label> <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value="mvno_tester@sk.com"></div>
+                                                <div class="form-group"><label for="exampleInputPassword1">Password</label> <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value="mvno_test">
+                                                    <p class="help-block">Example block-level help text here.</p></div>
+                
+                                                <div><label> <input type="checkbox"> Save changes </label></div>
+                                                <button type="submit" class="btn btn-default">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+
+
+</body>

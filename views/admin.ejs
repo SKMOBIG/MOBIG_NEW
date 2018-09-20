@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <% include ./partials/css.ejs %>
+
+    <% include ./partials/script.ejs %>
+  <script src="vendor/nestable/jquery.nestable.js"></script>
+  <script src="vendor/select2/dist/js/select2.js"></script>
+
+  <script type="text/javascript">
+
+    // 아이템 조회
+    function getAdminList(){
+
+  			$.ajax({
+  				type: "get",
+  				url: "/getAdminList",
+  				data: {
+  				},
+  				success: function(data) {
+  				  // 아이템세팅
+  					adminList = data.itemList;
+  				},
+  				error: function(e) {
+  					alert(e.responseText);
+  				}
+  			});
+    }
+    
+    function save(){
+      
+      // validation check
+      var cellChk = true;
+      $('.edit').each(function (index, element) {
+          var cell = $(element).text();
+          
+          if (cell == null || cell == ""){
+            cellChk = false;
+          }
+      });
+      if(!cellChk) {
+        alert('Error : 미입력 셀이 있습니다.');
+        return;
+      }
+
+      // Json으로 세팅
+      var allRow = new Array();
+      $('.editRows').each(function (index, element) {
+        
+        row = new Object();
+        row.table_nm = $(element).find('.fileNm').text();
+        row.column_nm = $(element).find('.colNm').text();
+        row.category_grp_dtl_id = $(element).find('.dtlId').text();
+        row.category_grp_dtl_nm = $(element).find('.dtlNm').text();
+        row.category_grp_id = $(element).find(".combo option:selected").val();
+        row.category_grp_nm = $.trim($(element).find(".combo option:selected").text());
+        
+        allRow.push(row);
+      });
+      
+      console.log(allRow);
+      console.log(allRow.length);
+      
+      // 확인 MSG
+      if(!confirm("변경 사항을 저장하시겠습니까?")){
+        return;
+      }
+      
+      $("#tableRow").attr('class', 'row ld-loading');
+      
+      // ajax 전송
+			$.ajax({
+        dataType: "json",
+				type: "post",
+				url: "/saveList",
+				data: {
+				  saveList : allRow
+				},
+				success: function(data) {
+          // edit NO
+          editYN(false);
+          execShell();
+          window.location.reload();
+				},
+				error: function(e) {
+					editYN(true);
+					alert('Ajax 전송 실패 : ' + e.responseText);
+				}
+			});
+			
+
+    }
+    
+    function execShell(){
+        console.log('execShell() start');
+          
+  			$.ajax({
+  				type: "post",
+  				url: "/execShell",
+  				data: {
+  				},
+  				success: function(data) {
+            alert('HDFS 기준정보 생성 완료');
+  				// 	finished(data.shNm);
+  				},
+  				error: function(e) {
+  					alert('err execShell : ' + e.responseText);
+  				}
+  			});
+    }
+
+    // // 성공 토스터
+    // function finished(text){
+    //     toastr.options = {
+    //         "debug": false,
+    //         "newestOnTop": false,
+    //         "positionClass": "toast-top",
+    //         "closeButton": true,
+    //         "progressBar": false
+    //     } 
+    //     Command: toastr["success"]("Hadoop 시스템 기준정보가 변경되었습니다.", "서버로부터의 메시지 : " + text)
+    // }
+    
+    
+    // 한줄 증가
+    function addRow(addBtn) {
+      var $this = $(addBtn);
+      var thisRow = $this.parent().parent();
+
+      var cl = thisRow.clone();
+      cl.find('.fileNm').empty();
+      cl.find('.colNm').empty();
+      cl.find('.dtlId').empty();
+      cl.find('.dtlNm').empty();
+      thisRow.after(cl);
+      
+      editYN(true);     
+    }
+    
+    // 선택 삭제
+    function delRow(delBtn) {
+      var lenChk = document.getElementsByClassName("editRows").length;
+      var delRows = $(delBtn).parent().parent();
+      
+      if(lenChk == 1) { addRow(delBtn); }      
+      delRows.remove();
+
+    }
+    
+    function editYN(flag){
+      var editRows = document.getElementsByClassName("editRows");
+      var noeditables = document.getElementsByClassName("noedit");
+      var addDelBtn = document.getElementsByClassName("addDelBtn");
+      
+      // EDITABLE Yes
+      if(flag == true){    
+        for(var i=0;i<editRows.length;i++){
+          editRows[i].contentEditable = 'true';
+        }
+        // row 안의 noeditable은 고정.
+        for(var j=0;j<noeditables.length;j++){
+          noeditables[j].contentEditable = 'false';
+        }
+        // addDelBtn Yes
+        $(".addDelBtn").show();
+        $(".combo").show();
+        $(".nocombo").hide();
+          
+      // EDITABLE No
+      } else {             
+        for(var i=0;i<editRows.length;i++){
+          var comboVal = $.trim($(editRows[i]).find(".combo option:selected").text());
+          $(editRows[i]).find(".nocombo").html(comboVal);
+          editRows[i].contentEditable = 'false';
+        }
+        // addDelBtn No
+        $(".addDelBtn").hide();
+        $(".combo").hide();
+        $(".nocombo").show();
+      }
+
+    }
+    
+    function setCommbo(){
+    }
+    
+  </script>
+  
+  <script>
+    // 페이지로딩시 카테고리 display
+    // $(document).ready(function() { closeBar(); getAdminList(); });
+    
+    $(document).ready(function(){ editYN(false); setCommbo(); });
+  </script>
+  
+  <style>
+    /*강제 CSS*/
+    .editables td {
+      padding:2px !important;
+      height:15px !important;
+    }
+    th {
+      text-align:center;
+    }
+    .addDelBtn {
+      height:20px;
+      width:20px;
+      padding:0px;
+    }
+    .tdBtn {
+      text-align:center;
+    }
+    .left {
+      float:left;
+    }
+    .right {
+      float:right;
+    }
+    .dtlId {
+      color:white;
+      text-align:center;
+      font-weight:bold;
+    }
+    .fileNm {
+      font-weight:bold;
+    }
+    .colNm {
+      font-weight:bold;
+    }
+    .grpNm {
+      text-align:center;
+    }
+    
+  </style>
+  
+</head>
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+	<!-- Header/Navigation -->
+	<% include ./partials/navigation.ejs %>
+
+    <!-- Main content-->
+    <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+                            <small>App Pages<br>Basic<br> <span class="c-white">Contacts</span></small>
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-users"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>Setting Page</h3>
+                            <small>
+                                CRUD for Data Items 
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+              </div>
+              <div class="row" style="padding-bottom:10px;">
+                <div class="left">
+                      <button id="editYes" class="btn btn-default " type="button" onClick="editYN(true);"><i class="fa fa-wrench"></i> <span class="bold">Edit Mode</span></button>
+                      <button id="editNo" class="btn btn-default " type="button" onClick="editYN(false);"><i class="fa fa-file"></i> <span class="bold">Fix Mode</span></button>
+                </div>
+              </div>
+              <div class="row">
+                <table id ="adminTable" class="table table-bordered" style="table-layout:fixed;">
+                    <thead>
+                    <tr>
+                        <th style="width:5%;" >칼럼번호</th>
+                        <th style="width:60px;" >변경</th>
+                        <th style="width:15%;" >파일명</th>
+                        <th style="width:25%;" >칼럼명</th>
+                        <th style="width:20%;" >칼럼상세</th>
+                        <th style="width:10%;" >분류</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <% if (itemList != null){ %>
+                       <% for (var i=0; i<itemList.length; i++) { %>
+                          <tr class="editRows">
+                              <td class="noedit dtlId"><%= itemList[i].category_grp_dtl_id %></td>
+                              <td class="noedit tdBtn">
+                                <button id="editYes" class="addDelBtn btn btn-default " type="button" onClick="addRow(this);"><i class="fa fa-plus"></i></button>
+                                <button id="editNo" class="addDelBtn btn btn-default " type="button" onClick="delRow(this);"><i class="fa fa-minus"></i></button>
+                              </td>
+                              <td class="edit fileNm"><%= itemList[i].table_nm %></td>
+                              <td class="edit colNm"><%= itemList[i].column_nm %></td>
+                              <td class="edit dtlNm"><%= itemList[i].category_grp_dtl_nm %></td>
+                              <td class="noedit grpNm">
+                                <select class="combo">
+                                  <% for (var j=0; j<grpRows.length; j++) { 
+                                  %>
+                                        <option class="grpCombo" value="<%=grpRows[j].category_grp_id%>" <%= (itemList[i].category_grp_id == j+1)?'selected':'' %>>
+                                          <%=grpRows[j].category_grp_nm%>
+                                        </option>
+                                  <% } %>
+                                </select>
+                                <span class="nocombo">
+                                  
+                                </span>
+                              </td>
+                          </tr>
+                       <% } %>
+                      <% } else { %>
+                          <tr class="editRows">
+                              <td class="noedit dtlId"></td>
+                              <td class="noedit tdBtn">
+                                <button id="editYes" class="addDelBtn btn btn-default " type="button" onClick="addRow(this);"><i class="fa fa-plus"></i></button>
+                                <button id="editNo" class="addDelBtn btn btn-default " type="button" onClick="delRow(this);"><i class="fa fa-minus"></i></button>
+                              </td>
+                              <td class="edit fileNm"></td>
+                              <td class="edit colNm"></td>
+                              <td class="edit dtlNm"></td>
+                              <td class="noedit grpNm">
+                                <select class="combo">
+                                  <% for (var j=0; j<grpRows.length; j++) { %>
+                                    <option class="grpCombo" value="<%=grpRows[j].category_grp_id%>"><%=grpRows[j].category_grp_nm%></option>
+                                  <% } %>
+                                </select>
+                              </td>
+                          </tr>
+                      <% } %>
+                    </tbody>
+                </table>
+              </div>
+              <div class="row">
+                <div class="left">
+                      <button id="editYes" class="btn btn-default " type="button" onClick="editYN(true);"><i class="fa fa-wrench"></i> <span class="bold">Edit Mode</span></button>
+                      <button id="editNo" class="btn btn-default " type="button" onClick="editYN(false);"><i class="fa fa-file"></i> <span class="bold">Fix Mode</span></button>
+                </div>
+                <div class="right">
+                      <button id="cancelBtn" class="btn btn-default btn-danger" type="button" onClick="window.location.reload();"><i class="fa fa-ban"></i> <span class="bold">Cancel</span></button>
+                      <button id="saveBtn" class="btn btn-default btn-primary " type="button" onClick="save();"><i class="fa fa-upload"></i> <span class="bold">Save</span></button>
+                </div>
+              </div>
+              <!--<div class="row">-->
+              <!--  <button id="execShell" class="btn btn-default btn-primary " type="button" onClick="execShell();"><i class="fa fa-upload"></i> <span class="bold">쉘 실행 테스트</span></button>-->
+              <!--</div>-->
+            </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+
+
+</body>

@@ -1,0 +1,209 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/styles/landing.css" type="text/css">
+    
+    <!-- happyapp css -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+
+    <!-- Page title -->
+    <title>MOBIG | MOVIOS Big Data</title>
+  
+  
+    <style type="text/css">
+    
+        #goBtn {
+          margin:auto;
+        }
+        #stBtn {
+          margin-bottom:0 !important;
+        }
+        .img {
+          width:45px; height:45px;
+        }
+
+        
+    </style>
+</head>
+
+<body class="text-center">
+  
+  <!--상단네비-->
+  <nav class="navbar navbar-inverse navbar-expand-md navbar-dark bg-warning">
+    <div class="container">
+      <a class="navbar-brand" href="/">MOBIG</a>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <!--로그인호출-->
+        <% if (session.user_name == null) {%>
+        <a class="btn navbar-btn btn-secondary mx-3" href="/login">Sign in</a>
+        <% } else { %>
+        <span class="navbar-brand"><%= session.user_name %></span>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+        
+  <!--cover-->
+  <div class="cover d-flex align-items-center py-3 bg-info" id="cover">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 text-md align-self-center my-5">
+          <h1 class="text-warning display-1">MOBIG</h1>
+          <h4 class="text-warning">MOVIOS Big Data</h4>
+          <div class="row mt-5">
+            <% if (session.user_name == null) {%>
+                <a href="/login" id="goBtn" class="btn btn-outline-primary"><H4 id="stBtn">Get Started</H4></a>
+            <% } else { %>
+                <a href="/index" id="goBtn" class="btn btn-outline-primary"><H4 id="stBtn">Get Started</H4></a>
+            <% } %>
+          </div>
+        </div>
+        <div class="col-md-6" style="margin:auto;">
+          <img class="img-fluid d-block mx-auto" style="width:80%" src="/images/bigdata.png"> </div>
+      </div>
+    </div>
+  </div>
+
+  <!--some div-->
+  <div class="section py-5" id="features">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="pb-4 text-info">MOBIG with MOVIOS Data</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="align-self-center text-right col-lg-4 col-md-6">
+          <div class="row my-5">
+            <div class="col-10">
+              <h4>Usage</h4>
+              <p>Check the customer's calling usage.
+                <br>Seperate the customer group.</p>
+            </div>
+            <div class="col-2"><img class="img" src="/images/usage.png"></div>
+          </div>
+          <div class="row my-5">
+            <div class="col-10">
+              <h4>Billing</h4>
+              <p>Analyse all bill.
+              <br>Bill for each customer group.</p>
+            </div>
+            <div class="col-2"><img class="img" src="/images/billing.png"></div>
+          </div>
+          <div class="row my-5">
+            <div class="col-10">
+              <h4>Calling Plan</h4>
+              <p>Compare calling plans' profits.
+                <br>Band plan, Teenager plan, PPS plan, etc.</p>
+            </div>
+            <div class="col-2"><img class="img" src="/images/plan.png"></div>
+          </div>
+        </div>
+        <div class="my-3 col-lg-4 col-md-6">
+          <img class="img-fluid d-block mx-auto" src="/images/iphone_features.png"> </div>
+        <div class="align-self-center text-left col-lg-4 col-md-12">
+          <div class="row my-5">
+            <div class="col-2"><img class="img" src="/images/model.png"></div>
+            <div class="col-9">
+              <h4>Phone Model</h4>
+              <p>Find diffrences between using IPhone and Galaxy.</p>
+            </div>
+          </div>
+          <div class="row my-5">
+            <div class="col-2"><img class="img" src="/images/customer.png"></div>
+            <div class="col-9">
+              <h4>Customer</h4>
+              <p>Use the basic elements to get more specific result. </p>
+            </div>
+          </div>
+          <div class="row my-5">
+            <div class="col-2"><img class="img" src="/images/services.png"></div>
+            <div class="col-9">
+              <h4>Services</h4>
+              <p>Service change logs or service relations can also be useful.
+                </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5 section bg-faded" id="reviews">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div id="carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+              <div class="carousel-item active flex-column mx-auto">
+                <!--<img src="https://pingendo.github.io/templates/app/reviews_logo_1.png" class="img-block mx-auto d-block" width="250">-->
+                <div class="blockquote">
+                  <p class="text-muted my-1">I can barely imagine my life without Pingendo</p>
+                  <div class="blockquote-footer">Alex Denver, Tech reviews</div>
+                </div>
+              </div>
+              <div class="carousel-item flex-column">
+                <!--<img src="https://pingendo.github.io/templates/app/reviews_logo_2.png" class="img-fluid mx-auto d-block">-->
+                <div class="blockquote">
+                  <p class="text-muted my-1">Pingendo set a new standard for mobile apps. It's time to move toward the future.</p>
+                  <div class="blockquote-footer">Sarah Krichko, APPetizer</div>
+                </div>
+              </div>
+              <div class="carousel-item flex-column">
+                <!--<img src="https://pingendo.github.io/templates/app/reviews_logo_3.png" class="img-fluid mx-auto d-block">-->
+                <div class="blockquote">
+                  <p class="text-muted my-1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+                  <div class="blockquote-footer">Miguel Barboso, NewsApps</div>
+                </div>
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span></a>
+            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- footer -->
+  <div class="bg-info py-3" id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <p class="text-left lead">Sign up to our newsletter for the latest news</p>
+          <form class="form-inline">
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="Your e-mail here"> </div>
+            <button type="submit" class="btn btn-warning">Subscribe</button>
+          </form>
+        </div>
+        <div class="col-4 col-md-1 align-self-center">
+          <a href="https://www.facebook.com" target="blank"><i class="fa fa-fw fa-facebook fa-3x text-white"></i></a>
+        </div>
+        <div class="col-4 col-md-1 align-self-center">
+          <a href="https://twitter.com" target="blank"><i class="fa fa-fw fa-twitter fa-3x text-white"></i></a>
+        </div>
+        <div class="col-4 col-md-1 align-self-center">
+          <a href="https://www.instagram.com" target="blank"><i class="fa fa-fw fa-instagram text-white fa-3x"></i></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 my-3">
+          <p>© Copyright 2017 SK MOBIG - All rights reserved. </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+  <script src="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-alpha.6.min.js"></script>
+  <script src="https://pingendo.com/assets/scripts/smooth-scroll.js"></script>
+  
+</body>
+
+</html>

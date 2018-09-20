@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <% include ./partials/css.ejs %>
+    <% include ./partials/script.ejs %>
+    
+    <script type="text/javascript">
+    // 페이지로딩시 카테고리 display
+    $(document).ready(function() { 
+ 
+    });
+
+    var settlGrpId;
+    var settlGrpNm;
+    var settlGrpDtl;
+    
+    
+    // 선택한 정산 그룹에 대한 정보
+    function selectStlGrp (id, nm){
+        
+        settlGrpId = id;
+        settlGrpNm = nm;
+
+        if(settlGrpId == 1){
+            settlGrpDtl = " MVNO 선불사업자 대상<br><br> - SK텔링크, CJ헬로, 큰사람, 아이즈비전, 유니컴즈, 에스원, 스마텔, 이마트, 조이텔, 프리텔레콤, KCT"
+        }else if(settlGrpId == 2){
+            settlGrpDtl = " MVNO 부분후불사업자 대상<br><br> - KCT"
+        }else if(settlGrpId == 4){
+            settlGrpDtl = " MVNO 재판매후불사업자 대상<br><br> - SK텔링크, CJ헬로, 큰사람, 아이즈비전, 유니컴즈, 에스원, 스마텔, 이마트, 조이텔, 프리텔레콤"
+        }else{
+            settlGrpDtl = " MVNO M2M DATA사업자 대상<br><br> - KICC(한국정보통신), 오픈SNS, 에스원"
+        }
+        
+        document.getElementById('settl_grp_nm').innerHTML = settlGrpNm;
+        document.getElementById('settl_grp_dtl').innerHTML = settlGrpDtl;
+    }
+    
+
+    // 선택 정보로 목록 INSERT
+    function reqPrediction() {
+      
+        if(settlGrpId == null){
+            alert("요청 정보를 선택하세요.");
+            return;
+        }
+      
+        if(!confirm("선택한 정보로 정산예측정보를 생성하시겠습니까?")){
+            return;
+        }
+        
+        $.ajax({
+            type: "post",
+            url : "/reqPrediction",
+            data: {
+                settlGrp : settlGrpId,
+                period : $("#selectPeriod").val()
+            }, 
+            success:function(data){   
+                //var id = data.datas.settl_pdct_req_num;
+                execPython(data.datas.settl_pdct_req_num);
+              //  alert("성공1");
+                location.href = 'settlelist/';
+                // makeProgressList(data.datas.settl_pdct_req_num, data.datas.co_settl_grp_id, data.datas.settl_pdct_prd, data.datas.op_proc_st_cd)
+                
+            },
+            error:function(e){  
+             //   alert("에러1");
+                // alert(e.responseText);  
+            }  
+        }); 
+    }
+    
+
+    // 파이썬 실행 요청
+    function execPython(reqNum){
+        
+        console.log("execPython");
+        // if(!confirm("선택한 아이템으로 빅데이터 생성을 요청하시겠습니까?2")){
+        //     return;
+        // }
+        
+        $.ajax({
+            type: "post",
+            url : "/execPython",
+            data: {
+                settlGrp : settlGrpId,
+                period : $("#selectPeriod").val(),
+                reqId : reqNum
+            }, 
+            success:function(data){   
+            // var id = data.datas.req_id;
+              //  alert("성공2");
+            // execPython( data.datas.settl_pdct_req_num, data.datas.co_settl_grp_id, data.datas.settl_pdct_prd)
+            },
+            error:function(e){  
+              //  alert("에러2");
+            }  
+        }); 
+        
+    }
+    
+    </script>
+  
+    <style>
+    #custom-handle {
+        width: 3em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+    }
+    
+    .funkyradio div {
+      clear: both;
+      overflow: hidden;
+      max-width: 20em;
+      margin-left: 1em;
+    }
+    
+    .funkyradio label {
+      width: 100%;
+      border-radius: 3px;
+      border: 1px solid #D1D3D4;
+      font-weight: normal;
+    }
+    
+    .funkyradio input[type="radio"]:empty {
+      display: none;
+    }
+    
+    .funkyradio input[type="radio"]:empty ~ label {
+      position: relative;
+      line-height: 2.5em;
+      text-indent: 3.25em;
+      margin-top: 0.5em;
+      cursor: pointer;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+    }
+    
+    .funkyradio input[type="radio"]:empty ~ label:before {
+      position: absolute;
+      display: block;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      content: '';
+      width: 2.5em;
+      /*background: #D1D3D4;*/
+      border-radius: 3px 0 0 3px;
+    }
+    
+    .funkyradio input[type="radio"]:hover:not(:checked) ~ label {
+      color: #ffb440;
+    }
+    
+    .funkyradio input[type="radio"]:hover:not(:checked) ~ label:before {
+      content: '\2714';
+      text-indent: .9em;
+      color: #ffb440;
+    }
+    
+    .funkyradio input[type="radio"]:checked ~ label{
+      color: #ffb440;
+    }
+    
+    .funkyradio input[type="radio"]:checked ~ label:before {
+      content: '\2714';
+      text-indent: .9em;
+      color: #333;
+      background-color: #ccc;
+    }
+    
+    .funkyradio input[type="radio"]:focus ~ label:before {
+      box-shadow: 0 0 0 3px #999;
+    }
+    
+    .funkyradio-1 input[type="radio"]:checked ~ label:before{
+      color: #fff;
+      background-color: #67b7dc;
+
+    }
+    
+    .funkyradio-2 input[type="radio"]:checked ~ label:before{
+      color: #fff;
+      /*background-color: #337ab7;*/
+      background-color: #67b7dc;
+    }
+    
+    .funkyradio-3 input[type="radio"]:checked ~ label:before {
+      color: #fff;
+      /*background-color: #5cb85c;*/
+      background-color: #67b7dc;
+    }
+    
+    .funkyradio-4 input[type="radio"]:checked ~ label:before {
+      color: #fff;
+      /*background-color: #d9534f;*/
+      background-color: #67b7dc;
+    }
+
+    #explain_settl_grp{
+        width: 100%;
+        height: 13.5em;
+        /*top: 50%;*/
+        margin-top: 0.3em;
+        /*text-align: center;*/
+        /*line-height: 1.6em;*/
+    }
+    
+    </style>
+</head>
+
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+	<!-- Header/Navigation -->
+	<% include ./partials/navigation.ejs %>
+
+    <!-- Main content-->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+                            <small>App Pages<br>Basic<br> <span class="c-white">Contacts</span></small>
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-albums"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>REQUEST PREDICTIVE SETTLEMENT</h3>
+                            <small>
+                                Select input data
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-15">
+                <div class="panel panel-filled">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                        </div>
+                    </div>
+                    
+                    <div class="panel-body buttons-margin">
+                        <i class="c-accent fa-x">- Select Settlement Group : </i>
+                        <div class="row">
+                            
+                            <div class="col-md-3">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-1">
+                                        <input type="radio" name="radio" id="radio1" onClick="selectStlGrp('7', '유형1DATA')"/>
+                                        <label for="radio1">유형1DATA</label>
+                                    </div>
+                                    <div class="funkyradio-2">
+                                        <input type="radio" name="radio" id="radio2" onClick="selectStlGrp('1', '유형1선불')"/>
+                                        <label for="radio2">유형1선불</label>
+                                    </div>
+                                    <div class="funkyradio-3">
+                                        <input type="radio" name="radio" id="radio3" onClick="selectStlGrp('4', '유형1후불')"/>
+                                        <label for="radio3">유형1후불</label>
+                                    </div>
+                                    <div class="funkyradio-4">
+                                        <input type="radio" name="radio" id="radio4" onClick="selectStlGrp('2', '유형2후불')"/>
+                                        <label for="radio4">유형2후불</label>
+                                    </div>
+                                </div>
+                            </div>
+  
+                            <div class="col-md-5">
+                                <div class="panel panel-filled" id="explain_settl_grp">
+                
+                                    <div class="panel-body">
+                
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="media">
+                                                    <div class="col-md-13 py-3">
+                                                        <a href="#" class="disabled"><b><span id="settl_grp_nm"></span></b></a>
+                                                        <div><span id="settl_grp_dtl"></span></div>
+                                                    </div>
+                                                    <hr/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <i class="c-accent fa-x">- Select Prediction Period : </i>
+                                <select name="selectPeriod" id="selectPeriod">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                </select> Month(s)
+                            </div>
+                        </div>
+                        
+                    </div> <!-- panel-body buttons-margin -->
+                </div>
+            </div> <!--End col-md-10 -->
+
+            <div class="row">
+                <div class="col-md-12 py-3">
+                    <a class="btn pull-right w-100 btn-success" onclick="reqPrediction()">Request <i class="fa fa-check fa-fw"></i></a>
+                </div>
+            </div>
+                
+            
+        </div> <!-- End container-fluid --> 
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+</body>

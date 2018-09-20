@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <% include ./partials/css.ejs %>
+    
+    <% include ./partials/script.ejs %>
+    
+    <style>
+        .items a:hover {text-decoration:none;}
+
+    </style>
+    <script>
+  
+    // 페이징 처리
+    function drawPage(goTo){      
+        var totalCount = <%=cnt[0].cnt%>; // 전체 Row 건수
+        var cntPerPage = <%=cntPerPage%>;                    // 한 페이지에 몇개씩 보여줄 지
+        var totalPage = Math.ceil(totalCount/cntPerPage); // 총 페이지 수
+        var PageNum;
+        var page;
+        page = goTo;    
+        var groupNum = 5;    // bar에 보여줄 페이지 버튼 개수
+        var pageGroup = Math.ceil(page/groupNum);    //페이지 그룹 넘버링
+        var next = pageGroup*groupNum;
+        var prev = next-(groupNum-1);            
+        var goNext = next+1;
+    
+        if(prev-1<=0){
+            var goPrev = 1;
+        }else{
+            var goPrev = prev-1;
+        }    
+    
+        if(next>totalPage){
+            var goNext = totalPage;
+            next = totalPage;
+        }else{
+            var goNext = next+1;
+        }
+    
+        // var prevStep = "<li class=\"\"> <a class=\"\" href='javascript:drawPage("+goPrev+");'> Prev </a> </li>";
+        // var nextStep = "<li class=\"\"> <a class=\"\" href='javascript:drawPage("+goNext+");'> Next </a> </li>";
+        
+        var prevStep = "<li class=\"\"> <a class=\"\" href=\"settlelist?page="+goPrev+"\"> Prev </a> </li>";
+        var nextStep = "<li class=\"\"> <a class=\"\" href=\"settlelist?page="+goNext+"\"> Next </a> </li>";        
+    
+        $("#pageZone").empty();
+        $("#pageZone").append(prevStep);
+    
+        for(var i=prev; i<=next;i++){
+            if(i==page){
+                PageNum = "<li class=\"active\"> <a class=\"\" href=\"settlelist?page="+i+"\">"+ i +"</a> </li>";
+            } else {
+                PageNum = "<li class=\"\"> <a class=\"\" href=\"settlelist?page="+i+"\">"+ i +"</a> </li>";
+            }
+            $("#pageZone").append(PageNum);
+        }    
+    
+        $("#pageZone").append(nextStep);    
+        
+    }    
+
+    $(document).ready(function() { drawPage(<%= page %>); });
+
+    $(function () {
+        $('.test').hover(
+        function () {
+            $(this).children('.btn').css({"border-color":"#616779", "color":"#ffffff", "background-color":"#3d404c"});
+        },
+        function () {
+            $(this).children('.btn').css({"border-color":"#616779", "color":"#949ba2", "background-color":"transparent"});
+        }
+    );
+    });
+    // 미완료 에러 토스터
+    function Unfinished(){
+        toastr.options = {
+            "debug": false,
+            "newestOnTop": false,
+            "positionClass": "toast-top-right",
+            "closeButton": true,
+            "progressBar": false
+        } 
+        Command: toastr["info"]("잠시 기다려 주십시오.", "현재 데이터 분석 진행 중입니다.")
+    }
+</script>
+<script src="vendor/toastr/toastr.min.js"></script>
+</head>
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+	<!-- Header/Navigation -->
+	<% include ./partials/navigation.ejs %>
+
+    <!-- Main content-->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+                            <small>App Pages<br>Basic<br> <span class="c-white">Projects</span></small>
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-box1"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>SETTLEMENT PREDICTION LIST</h3>
+                            <small>
+                                List of request
+                            </small>
+                        </div>
+                    </div>
+                    <!--<hr>-->
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="panel panel-filled">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group m-b-xs m-t-xs">
+                                        <input class="form-control" type="text" placeholder="Search by Company.." style="width: 100%">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <select class="form-control m-b-xs m-t-xs" name="account" style="width: 100%">
+                                        <option selected="">Select status</option>
+                                        <option>Option 1</option>
+                                        <option>Option 2</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <select class="form-control m-t-xs" name="account" style="width: 100%">
+                                        <option selected="">Sort by:</option>
+                                        <option>Option 1</option>
+                                        <option>Option 2</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                            <table class="table table-vertical-align-middle">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        Req No.
+                                    </th>
+                                    <th>
+                                        Category
+                                    </th>
+                                    <th>
+                                        Req Data
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        User Name
+                                    </th>
+                                    <th>
+                                        Progress
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                            <%  for (var i=0; i < req_list.length; i++) { %>
+                                <tr>
+                                    <td>
+                                        <a href="../settleresult/<%=req_list[i].settl_pdct_req_num%>"><%=req_list[i].settl_pdct_req_num %></a>
+                                    </td>
+                                    <td>
+                                        Settlement Prediction Data
+                                    </td>
+                                    <td class="items">
+                                        <% if(req_list[i].op_proc_st_cd == "FIN") { %>
+                                            <a href="../settleresult/<%=req_list[i].settl_pdct_req_num%>" class="test">
+                                        <% } else { %>
+                                            <a href="javascript:Unfinished();" class="test">
+                                        <% } %>
+                                                
+                                            <button class="btn btn-default btn-xs"><i class="fa fa-folder"></i> 
+                                               정산유형 : <%=req_list[i].co_settl_grp_nm%>  / 기간 : <%=req_list[i].settl_pdct_prd%> 개월
+                                            </button>
+
+                                            </a>
+                                    </td>
+                                    <td>
+                                        <div class="small"><i class="fa fa-clock-o"></i> <%=req_list[i].fst_cre_dtm %> </div>
+                                    </td>
+                                    <td><%=req_list[i].user_name%></td>
+                                    <td>
+                                        <% if(req_list[i].op_proc_st_cd == "FIN") { %>
+                                            <span class="label label-accent"> Finished </span>
+                                        <% } else { %>
+                                            <span class="label label-default"> Analysing </span>
+                                        <% } %>
+                                    </td>
+                                </tr>
+
+                            <% } %>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right">
+                <ul class="pagination pagination-sm" id="pageZone">
+                    
+                    
+                <!--<li class="disabled"><a href="#">Previous</a></li>-->
+                <!--    <li class="active"><a href="#">1</a></li>-->
+                <!--    <li><a href="#">2</a></li>-->
+                <!--    <li><a href="#">3</a></li>-->
+                <!--    <li><a href="#">Next</a></li>-->
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+
+</body>
+
+</html>

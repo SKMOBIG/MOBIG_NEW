@@ -1,0 +1,286 @@
+<script type="text/javascript">
+
+    function hover(element) {
+        element.setAttribute('src', '/images/logout_ho.jpg');
+    }
+    function unhover(element) {
+        element.setAttribute('src', '/images/logout.jpg');
+    }
+    
+    function mp(str){
+        // alert('move to ' + str);
+        location.href = str;
+    }
+    
+</script>
+
+
+    <!-- Header-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div id="mobile-menu">
+                    <div class="left-nav-toggle">
+                        <a href="#">
+                            <i class="stroke-hamburgermenu"></i>
+                        </a>
+                    </div>
+                </div>
+                <a class="navbar-brand" href="/index">
+                    MOBIG
+                    <span>v.0.1</span>
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <div class="left-nav-toggle">
+                    <a href="">
+                        <i class="stroke-hamburgermenu"></i>
+                    </a>
+                </div>
+                <form class="navbar-form navbar-left">
+                    <input type="text" class="form-control" placeholder="Search data for analysis" style="width: 175px">
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" >New messages
+                            <span class="label label-warning pull-right">2</span>
+                        </a>
+                    </li>
+                    <li class=" profil-link">
+                        <a href="#">
+                            <span class="profile-address" onclick="mp('myaccount');"><%=session.user_name%>님</span>
+                            <img src="/images/logout.jpg" onclick="mp('logout');" onmouseover="hover(this);" onmouseout="unhover(this);" class="img-circle" alt="Log out" title="Log out">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End header-->
+
+    <!-- Navigation-->
+    <aside class="navigation">
+        <nav>
+            <ul class="nav luna-nav">
+                <li class="nav-category">
+                    
+                </li>                
+                <li class="active">
+                    <a href="/index">Main</a>
+                </li>
+
+                <li>
+                    <a href="#mvno_data" data-toggle="collapse" aria-expanded="false">
+                        Make Big Data<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                    </a>
+                    <ul id="mvno_data" class="nav nav-second collapse">
+                        <li><a href="/mvnodata"> MVNO Big Data</a></li>
+                        <li><a href="/settledata"> Requests Prediction </a></li>
+                        <li><a href="#"> menu3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#data_history" data-toggle="collapse" aria-expanded="false">
+                        Data History<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                    </a>
+                    <ul id="data_history" class="nav nav-second collapse">
+                        <li><a href="/mydata"> My Data</a></li>
+                        <li><a href="/settlelist"> Prediction Results</a></li>
+                        <li><a href="#"> menu3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#my_account" data-toggle="collapse" aria-expanded="false">
+                        My Account<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                    </a>
+                    <ul id="my_account" class="nav nav-second collapse">
+                        <li><a href="/myaccount"> My Account</a></li>
+                        <li><a href="#"> menu2</a></li>
+                        <li><a href="#"> menu3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#admin" data-toggle="collapse" aria-expanded="false">
+                        Admin<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                    </a>
+                    <ul id="admin" class="nav nav-second collapse">
+                        <li><a href="/admin">Settings</a></li>
+                    </ul>
+                </li>
+                <li class="nav-info">
+                    <i class="pe pe-7s-shield text-accent"></i>
+                    <div class="m-t-xs">
+                        <span class="c-white">MOBIG</span> MVNO Big Data Market.
+                    </div>
+                </li>
+                
+            </ul>
+        </nav>
+    </aside>
+    <!-- End navigation-->
+    
+    
+    
+    
+    
+
+    <!-- Header-->
+    <!--<nav class="navbar navbar-default navbar-fixed-top">-->
+    <!--    <div class="container-fluid">-->
+    <!--        <div class="navbar-header">-->
+    <!--            <div id="mobile-menu">-->
+    <!--                <div class="left-nav-toggle">-->
+    <!--                    <a href="#">-->
+    <!--                        <i class="stroke-hamburgermenu"></i>-->
+    <!--                    </a>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <a class="navbar-brand" href="sample_index">-->
+    <!--                MOBIG-->
+    <!--                <span>v.0.1</span>-->
+    <!--            </a>-->
+    <!--        </div>-->
+    <!--        <div id="navbar" class="navbar-collapse collapse">-->
+    <!--            <div class="left-nav-toggle">-->
+    <!--                <a href="">-->
+    <!--                    <i class="stroke-hamburgermenu"></i>-->
+    <!--                </a>-->
+    <!--            </div>-->
+    <!--            <form class="navbar-form navbar-left">-->
+    <!--                <input type="text" class="form-control" placeholder="Search data for analysis" style="width: 175px">-->
+    <!--            </form>-->
+    <!--            <ul class="nav navbar-nav navbar-right">-->
+    <!--                <li class="dropdown">-->
+    <!--                    <a href="#" >New messages-->
+    <!--                        <span class="label label-warning pull-right">2</span>-->
+    <!--                    </a>-->
+    <!--                </li>-->
+    <!--                <li class=" profil-link">-->
+    <!--                    <a href="sample_login">-->
+    <!--                        <span class="profile-address">mobig@company.io</span>-->
+    <!--                        <img src="images/profile.jpg" class="img-circle" alt="">-->
+    <!--                    </a>-->
+    <!--                </li>-->
+    <!--            </ul>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--</nav>-->
+    <!-- End header-->
+
+     <!--Navigation-->
+    <!--<aside class="navigation">-->
+    <!--    <nav>-->
+    <!--        <ul class="nav luna-nav">-->
+    <!--            <li class="nav-category">-->
+    <!--                Main-->
+    <!--            </li>-->
+    <!--            <li class="active">-->
+    <!--                <a href="sample_index">Dashboard</a>-->
+    <!--            </li>-->
+
+    <!--            <li>-->
+    <!--                <a href="#monitoring" data-toggle="collapse" aria-expanded="false">-->
+    <!--                    Monitoring<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>-->
+    <!--                </a>-->
+    <!--                <ul id="monitoring" class="nav nav-second collapse">-->
+    <!--                    <li><a href="sample_metrics"> Metrics</a></li>-->
+    <!--                    <li><a href="sample_usage"> Usage</a></li>-->
+    <!--                    <li><a href="sample_activity"> Activity</a></li>-->
+    <!--                </ul>-->
+    <!--            </li>-->
+    <!--            <li class="nav-category">-->
+    <!--                UI Elements-->
+    <!--            </li>-->
+    <!--            <li>-->
+    <!--                <a href="#uielements" data-toggle="collapse" aria-expanded="false">-->
+    <!--                    General<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>-->
+    <!--                </a>-->
+    <!--                <ul id="uielements" class="nav nav-second collapse">-->
+    <!--                    <li><a href="sample_panels">Panels</a></li>-->
+    <!--                    <li><a href="sample_typography">Typography</a></li>-->
+    <!--                    <li><a href="sample_icons">Icons</a></li>-->
+    <!--                    <li><a href="sample_buttons">Buttons</a></li>-->
+    <!--                    <li><a href="sample_tabs">Tabs</a></li>-->
+    <!--                    <li><a href="sample_modals">Modals</a></li>-->
+    <!--                    <li><a href="sample_alerts">Alerts</a></li>-->
+    <!--                    <li><a href="sample_loaders">Loaders</a></li>-->
+    <!--                    <li><a href="sample_gridSystem">Grid system</a></li>-->
+    <!--                    <li><a href="sample_draggable">Draggable</a></li>-->
+    <!--                </ul>-->
+    <!--            </li>-->
+    <!--            <li>-->
+    <!--                <a href="#tables" data-toggle="collapse" aria-expanded="false">-->
+    <!--                    Tables design<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>-->
+    <!--                </a>-->
+    <!--                <ul id="tables" class="nav nav-second collapse">-->
+    <!--                    <li><a href="sample_tableStyles">Table styles</a></li>-->
+    <!--                    <li><a href="sample_dataTables">Data Tables</a></li>-->
+    <!--                </ul>-->
+    <!--            </li>-->
+    <!--            <li>-->
+    <!--                <a href="#forms" data-toggle="collapse" aria-expanded="false">-->
+    <!--                    From controls <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>-->
+    <!--                </a>-->
+    <!--                <ul id="forms" class="nav nav-second collapse">-->
+    <!--                    <li><a href="sample_formElements"> Basic elements </a></li>-->
+    <!--                    <li><a href="sample_autocomplete"> Autocomplete </a></li>-->
+    <!--                    <li><a href="sample_controls"> Selection controls </a></li>-->
+    <!--                    <li><a href="sample_textEditor"> Text editor </a></li>-->
+    <!--                </ul>-->
+    <!--            </li>-->
+    <!--            <li>-->
+    <!--                <a href="#charts" data-toggle="collapse" aria-expanded="false">-->
+    <!--                    Charts and graphs<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>-->
+    <!--                </a>-->
+    <!--                <ul id="charts" class="nav nav-second collapse">-->
+    <!--                    <li><a href="sample_flotCharts">Flot charts</a></li>-->
+    <!--                    <li><a href="sample_chartJs">ChartJS</a></li>-->
+    <!--                    <li><a href="sample_sparkline">Sparkline</a></li>-->
+    <!--                    <li><a href="sample_datamaps">Datamaps</a></li>-->
+    <!--                </ul>-->
+    <!--            </li>-->
+
+    <!--            <li class="nav-category">-->
+    <!--                App Pages-->
+    <!--            </li>-->
+    <!--            <li>-->
+    <!--                <a href="#extras" data-toggle="collapse" aria-expanded="false">-->
+    <!--                    Basic <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>-->
+    <!--                </a>-->
+    <!--                <ul id="extras" class="nav nav-second collapse">-->
+    <!--                    <li><a href="sample_profile">Profile</a></li>-->
+    <!--                    <li><a href="sample_contacts">Contacts</a></li>-->
+    <!--                    <li><a href="sample_projects">Projects</a></li>-->
+    <!--                    <li><a href="sample_support">Support</a></li>-->
+    <!--                    <li><a href="sample_nestableList">List</a></li>-->
+    <!--                    <li><a href="sample_timeline">Timeline</a></li>-->
+    <!--                </ul>-->
+    <!--            </li>-->
+    <!--            <li>-->
+    <!--                <a href="#common" data-toggle="collapse" aria-expanded="false">-->
+    <!--                    Common <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>-->
+    <!--                </a>-->
+    <!--                <ul id="common" class="nav nav-second collapse">-->
+    <!--                    <li><a href="sample_login">Login</a></li>-->
+    <!--                    <li><a href="sample_register">Register</a></li>-->
+    <!--                    <li><a href="sample_forgotPassword">Forgot password</a></li>-->
+    <!--                    <li><a href="sample_error">Error page</a></li>-->
+    <!--                </ul>-->
+    <!--            </li>-->
+    <!--            <li>-->
+    <!--                <a href="sample_versions">-->
+    <!--                    <span class="badge pull-right">2</span>-->
+    <!--                    Versions-->
+    <!--                </a>-->
+    <!--            </li>-->
+    <!--            <li class="nav-info">-->
+    <!--                <i class="pe pe-7s-shield text-accent"></i>-->
+
+    <!--                <div class="m-t-xs">-->
+    <!--                    <span class="c-white">MOBIG</span> admin theme with Dark UI style for monitoring and administration web applications.-->
+    <!--                </div>-->
+    <!--            </li>-->
+    <!--        </ul>-->
+    <!--    </nav>-->
+    <!--</aside>-->
+     <!--End navigation-->

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <!-- Page title -->
+    <title>MOBIG | MVNO Big Data Market</title>
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="vendor/animate.css/animate.css"/>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css"/>
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="styles/pe-icons/pe-icon-7-stroke.css"/>
+    <link rel="stylesheet" href="styles/pe-icons/helper.css"/>
+    <link rel="stylesheet" href="styles/stroke-icons/style.css"/>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+	<!-- Header/Navigation -->
+	<% include ../partials/sample_navigation.ejs %>
+
+
+    <!-- Main content-->
+    <section class="content">
+        <div class="container-fluid">
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+                            <small>Charts and graphs<br>UI Elements<br> <span class="c-white">Datamaps</span></small>
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-map-marker"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>Datamaps</h3>
+                            <small>
+                                Customizable SVG map visualizations for the web
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="panel panel-filledr">
+
+                        <div class="panel-body">
+                            <div class="text-center">
+                            <span class="m-r-lg">USA <i class="fa fa-long-arrow-right"></i> <span class="c-accent">RUS</span></span>
+                            <span class="m-r-lg">USA <i class="fa fa-long-arrow-right"></i> <span class="c-accent">DEU</span></span>
+                            <span class="m-r-lg">USA <i class="fa fa-long-arrow-right"></i> <span class="c-accent">POL</span></span>
+                            <span class="m-r-lg">USA <i class="fa fa-long-arrow-right"></i> <span class="c-accent">JAP</span></span>
+                            <span class="m-r-lg">USA <i class="fa fa-long-arrow-right"></i> <span class="c-accent">AUS</span></span>
+                            <span class="m-r-lg">USA <i class="fa fa-long-arrow-right"></i> <span class="c-accent">BRA</span></span>
+                            <hr />
+                            </div>
+                            <div id="arc_map"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                           Example with selected region
+                        </div>
+                        <div class="panel-body">
+                            <div id="select_map"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                            Example with bubbles
+                        </div>
+                        <div class="panel-body">
+                            <div id="bubble_map"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+<!-- Vendor scripts -->
+<script src="vendor/pacejs/pace.min.js"></script>
+<script src="vendor/jquery/dist/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/d3/d3.min.js"></script>
+<script src="vendor/topojson/topojson.min.js"></script>
+<script src="vendor/datamaps/datamaps.world.min.js"></script>
+
+<!-- App scripts -->
+<script src="scripts/luna.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        var arc_map = new Datamap({
+            element: document.getElementById("arc_map"),
+            responsive: true,
+            fills: {
+                defaultFill: "#3B3D46",
+                active: "#F8A900",
+                usa: "#F8A900"
+            },
+            geographyConfig: {
+                highlightOnHover: false,
+                borderWidth: 0
+            },
+            data: {
+                USA: {fillKey: "usa"},
+                RUS: {fillKey: "active"},
+                DEU: {fillKey: "active"},
+                POL: {fillKey: "active"},
+                JAP: {fillKey: "active"},
+                AUS: {fillKey: "active"},
+                BRA: {fillKey: "active"}
+            }
+        });
+//
+        arc_map.arc(
+                [
+                    { origin: 'USA', destination: 'RUS'},
+                    { origin: 'USA', destination: 'DEU'},
+                    { origin: 'USA', destination: 'POL'},
+                    { origin: 'USA', destination: 'JAP'},
+                    { origin: 'USA', destination: 'AUS'},
+                    { origin: 'USA', destination: 'BRA'}
+                ],
+                { strokeColor: '#F8A900', strokeWidth: 1, arcSharpness: 2}
+        );
+
+        var select_map = new Datamap({
+            element: document.getElementById("select_map"),
+            responsive: true,
+            fills: {
+                defaultFill: "#3B3D46",
+                active: "#F8A900"
+            },
+            geographyConfig: {
+                highlightOnHover: false,
+                borderWidth: 0
+            },
+            data: {
+                USA: {fillKey: "active"},
+                RUS: {fillKey: "active"},
+                DEU: {fillKey: "active"},
+                BRA: {fillKey: "active"}
+            }
+        });
+
+        var bubble_map = new Datamap({
+            element: document.getElementById("bubble_map"),
+            responsive: true,
+            fills: {
+                defaultFill: "#3B3D46",
+                active: "#F8A900"
+            },
+            geographyConfig: {
+                highlightOnHover: false,
+                borderWidth: 0
+            },
+            data: {
+                USA: {fillKey: "active"},
+                RUS: {fillKey: "active"},
+                DEU: {fillKey: "active"},
+                BRA: {fillKey: "active"}
+            }
+        });
+
+        bubble_map.bubbles([
+            {
+                name: 'Area 1',
+                radius: 23,
+                centered: 'BRA'
+            },
+            {
+                name: 'Area 2',
+                radius: 15,
+                centered: 'USA'
+            },{
+                name: 'Area 3',
+                radius: 50,
+                latitude: 73.482,
+                longitude: 54.5854
+            }
+        ], {
+            highlightBorderColor: '#FFFFFF',
+            highlightFillColor: '#F8A900',
+            popupTemplate: function(geo, data) {
+                return '<div class="hoverinfo">' + data.name + ' | Radius ' + data.radius + ''
+            }
+        });
+
+        // Resize map on window resize
+        $(window).on('resize', function() {
+            setTimeout(function(){
+                arc_map.resize();
+                select_map.resize();
+                bubble_map.resize();
+            },100)
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+    <!-- Page title -->
+    <title>MOBIG | MVNO Big Data Market</title>
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="vendor/animate.css/animate.css"/>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="vendor/toastr/toastr.min.css"/>
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="styles/pe-icons/pe-icon-7-stroke.css"/>
+    <link rel="stylesheet" href="styles/pe-icons/helper.css"/>
+    <link rel="stylesheet" href="styles/stroke-icons/style.css"/>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+<!-- Wrapper-->
+<div class="wrapper">
+
+	<!-- Header/Navigation -->
+	<% include ../partials/sample_navigation.ejs %>
+
+
+    <!-- Main content-->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="view-header">
+                        <div class="pull-right text-right" style="line-height: 14px">
+                            <small>UI Elements<br>General<br> <span class="c-white">Alerts</span></small>
+                        </div>
+                        <div class="header-icon">
+                            <i class="pe page-header-icon pe-7s-speaker"></i>
+                        </div>
+                        <div class="header-title">
+                            <h3>Alerts</h3>
+                            <small>
+                                Notification and custom alerts
+                            </small>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="panel panel-filled">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                                <a class="panel-close"><i class="fa fa-times"></i></a>
+                            </div>
+                            Toastr notifications
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                toastr is a Javascript library for non-blocking notifications. jQuery is required. The goal is to create a simple core library that can be customized and extended.
+                            </p>
+
+                            <div class="text-center float-e-margins">
+                                <div class="m c-white">Example with LUNA style</div>
+                                <button class="homerDemo3 btn btn-warning">Warning</button>
+                                <button class="homerDemo1 btn btn-info">Info</button>
+                                <button class="homerDemo2 btn btn-success">Success</button>
+                                <button class="homerDemo4 btn btn-danger">Error</button>
+                            </div>
+
+                            <div class="m-t-md">
+                                <p>
+                                    You can easy add any notification in your scripts by adding code like this:
+                                </p>
+                    <pre>
+Command: toastr["success"]("Example message ", "Example title")
+
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-center",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+} </pre>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+    <!-- End main content-->
+
+</div>
+<!-- End wrapper-->
+
+<!-- Vendor scripts -->
+<script src="vendor/pacejs/pace.min.js"></script>
+<script src="vendor/jquery/dist/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/toastr/toastr.min.js"></script>
+
+<!-- App scripts -->
+<script src="scripts/luna.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        toastr.options = {
+            "debug": false,
+            "newestOnTop": false,
+            "positionClass": "toast-bottom-right",
+            "closeButton": true,
+            "progressBar": true
+        };
+
+        $('.homerDemo1').on('click', function(event){
+            toastr.info('Info - This is a custom LUNA info notification');
+        });
+
+        $('.homerDemo2').on('click', function(event){
+            toastr.success('Success - This is a LUNA success notification');
+        });
+
+        $('.homerDemo3').on('click', function(event){
+            toastr.warning('Warning - This is a LUNA warning notification');
+        });
+
+        $('.homerDemo4').on('click', function(event){
+            toastr.error('Error - This is a LUNA error notification');
+        });
+
+
+    });
+</script>
+
+</body>
+
+</html>
