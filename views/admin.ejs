@@ -201,12 +201,30 @@
   
   <style>
     /*강제 CSS*/
+    .btn {
+      color:#dcdcdc;
+      border-color:#dcdcdc;
+    }
+    #adminTable td, th {
+      border-bottom: solid 1px #a7a7a7;
+      border-top: solid 1px white;
+      height:42px;
+    }
     .editables td {
       padding:2px !important;
       height:15px !important;
     }
     th {
       text-align:center;
+      font-size:18px;
+    }
+    .edit, .nocombo {
+      color:white;
+      font-size:17px;
+    }
+    .combo {
+      font-weight:bold;
+      font-size:16px;
     }
     .addDelBtn {
       height:20px;
@@ -227,10 +245,7 @@
       text-align:center;
       font-weight:bold;
     }
-    .fileNm {
-      font-weight:bold;
-    }
-    .colNm {
+    .fileNm, .colNm {
       font-weight:bold;
     }
     .grpNm {

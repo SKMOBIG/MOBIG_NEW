@@ -169,7 +169,7 @@ module.exports = function(app, connectionPool) {
                         for(var i=1; i<=itemArray.length; i++) {
                             valStr += itemArray[i-1] + ", " + "TBNAME(" + itemArray[i-1] + "), " + "CLNAME(" + itemArray[i-1] + "), " + "NULL,"; // TO-DO: item상세조건 입력받아 고칠것
                         }
-                        valStr += "'20170101','20170631', 'REQ');"; // TO-DO: 날짜조건 입력받아 고칠것
+                        valStr += "'201712','201802', 'REQ');"; // TO-DO: 날짜조건 입력받아 고칠것
                         
                         sqlStr = sqlStr + colStr + valStr;
                         // console.log(sqlStr);
