@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+    
+    <% include ./partials/css.ejs %>
+    <% include ./partials/script.ejs %>
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="/vendor/jquery-ui/themes/humanity/jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/vendor/jqGrid/css/ui.jqgrid.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/vendor/jqGrid/plugins/ui.multiselect.css"/>
+    
+    <!--<script src="/vendor/jqGrid/js/jquery-1.11.0.min.js" type="text/javascript"></script>-->
+    <!--<script src="/vendor/jqGrid/js/i18n/grid.locale-kr.js" type="text/javascript"></script>-->
+    <!--<script src="/vendor/jqGrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>-->
+    <!--<script type="text/javascript">-->
+    <!--    $.jgrid.no_legacy_api=true;-->
+    <!--    $.jgrid.useJSON = true;-->
+    <!--</script>-->
+    
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+    <!-- Basic style components -->
+    <!--<link rel="stylesheet" href="/vendor/jui/dist/ui.min.css" />-->
+    <!--<link rel="stylesheet" href="/vendor/jui/dist/ui-jennifer.min.css" />-->
+    
+    <!-- Grid style components -->
+    <link rel="stylesheet" href="/vendor/jui-grid/dist/grid.min.css" />
+    <link rel="stylesheet" href="/vendor/jui-grid/dist/grid-jennifer.min.css" />
+
+    <!-- Required script files -->
+    <script src="/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="/vendor/jui-core/dist/core.min.js"></script>
+    
+    <!-- Basic script components -->
+    <script src="/vendor/jui/dist/ui.min.js"></script>
+    
+    <!-- Grid script components -->
+    <script src="/vendor/jui-grid/dist/grid.min.js"></script>
+    
+    <script src="/vendor/jui-core/dist/core.min.js"></script>
+    <script src="/vendor/jui-chart/dist/chart.min.js"></script>
+    
+  
+    <script type="text/javascript">
+    
+
+    // var pieChartData = [];
+    var prodRt;
+    var prodNm;
+    
+    var chart3dData = [];
+    var overListData = [];
+    
+    // $(function() {
+    
+    // function drawPieChart(){
+
+    //     var chart = jui.include("chart.builder"); //P145PGIBON, PC0SB00002
+
+    //     var names = {
+    //         product: prodNm,
+    //         other: "Others"
+    //     };
+        
+    //     chart("#pieChart", {
+    //         padding : 150,
+    //         axis : {
+    //             // data : [
+    //             //     { product : 10, other : 90 }
+    //             // ]
+    //             data : pieChartData
+    //         },
+    //         brush : {
+    //             type : "pie",
+    //             showText : "outer",
+    //             active : "product",
+    //             activeEvent : "click",
+    //             format : function(k, v) {
+    //                 return names[k] + " : " + v + "%";
+    //             }
+    //         },
+    //         widget : [
+    //         // {
+    //         //     type : "title",
+    //         //     text : "Pie Sample"
+    //         // }, 
+    //           {
+    //             type : "tooltip",
+    //             orient : "left",
+    //             format : function(data, k) {
+    //                 return {
+    //                     key: names[k] + " :",
+    //                     value: data[k] + "%"
+    //                 }
+    //             }
+    //         }, {
+    //             type : "legend",
+    //             format : function(k) {
+    //                 return names[k];
+    //             }
+    //         }],
+            
+    //         style : {
+    //             titleFontColor : "white",
+    //             pieOuterFontColor : "white",
+    //             pieOuterFontSize : 13,
+    //             pieOuterLineColor : "white",
+    //             legendFontColor : "white",
+    //             legendFontSize : 13,
+    //             zoomBackgroundColor : "white",
+    //             backgroundColor : "#37393F" // 바탕화면 변경
+    //         }
+    //     });
+    // }
+    
+    function drawPieChart(){
+
+
+        Highcharts.theme = {
+            colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
+                '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+            chart: {
+                backgroundColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+                    stops: [
+                        [0, '#37393F'], // 바탕화면 변경
+                        [1, '#37393F']
+                    ]
+                },
+                style: {
+                    fontFamily: '\'Unica One\', sans-serif'
+                },
+                plotBorderColor: '#606063'
+            },
+            title: {
+                style: {
+                    color: '#E0E0E3',
+                    textTransform: 'uppercase',
+                    fontSize: '20px'
+                }
+            },
+            subtitle: {
+                style: {
+                    color: '#E0E0E3',
+                    textTransform: 'uppercase'
+                }
+            },
+            xAxis: {
+                gridLineColor: '#707073',
+                labels: {
+                    style: {
+                        color: '#E0E0E3'
+                    }
+                },
+                lineColor: '#707073',
+                minorGridLineColor: '#505053',
+                tickColor: '#707073',
+                title: {
+                    style: {
+                        color: '#A0A0A3'
+        
+                    }
+                }
+            },
+            yAxis: {
+                gridLineColor: '#707073',
+                labels: {
+                    style: {
+                        color: '#E0E0E3'
+                    }
+                },
+                lineColor: '#707073',
+                minorGridLineColor: '#505053',
+                tickColor: '#707073',
+                tickWidth: 1,
+                title: {
+                    style: {
+                        color: '#A0A0A3'
+                    }
+                }
+            },
+            tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                style: {
+                    color: '#F0F0F0'
+                }
+            },
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        color: '#B0B0B3'
+                    },
+                    marker: {
+                        lineColor: '#333'
+                    }
+                },
+                boxplot: {
+                    fillColor: '#505053'
+                },
+                candlestick: {
+                    lineColor: 'white'
+                },
+                errorbar: {
+                    color: 'white'
+                }
+            },
+            legend: {
+                itemStyle: {
+                    color: '#E0E0E3'
+                },
+                itemHoverStyle: {
+                    color: '#FFF'
+                },
+                itemHiddenStyle: {
+                    color: '#606063'
+                }
+            },
+            credits: {
+                style: {
+                    color: '#666'
+                }
+            },
+            labels: {
+                style: {
+                    color: '#707073'
+                }
+            },
+        
+            drilldown: {
+                activeAxisLabelStyle: {
+                    color: '#F0F0F3'
+                },
+                activeDataLabelStyle: {
+                    color: '#F0F0F3'
+                }
+            },
+        
+            navigation: {
+                buttonOptions: {
+                    symbolStroke: '#DDDDDD',
+                    theme: {
+                        fill: '#505053'
+                    }
+                }
+            },
+        
+            // scroll charts
+            rangeSelector: {
+                buttonTheme: {
+                    fill: '#505053',
+                    stroke: '#000000',
+                    style: {
+                        color: '#CCC'
+                    },
+                    states: {
+                        hover: {
+                            fill: '#707073',
+                            stroke: '#000000',
+                            style: {
+                                color: 'white'
+                            }
+                        },
+                        select: {
+                            fill: '#000003',
+                            stroke: '#000000',
+                            style: {
+                                color: 'white'
+                            }
+                        }
+                    }
+                },
+                inputBoxBorderColor: '#505053',
+                inputStyle: {
+                    backgroundColor: '#333',
+                    color: 'silver'
+                },
+                labelStyle: {
+                    color: 'silver'
+                }
+            },
+        
+            navigator: {
+                handles: {
+                    backgroundColor: '#666',
+                    borderColor: '#AAA'
+                },
+                outlineColor: '#CCC',
+                maskFill: 'rgba(255,255,255,0.1)',
+                series: {
+                    color: '#7798BF',
+                    lineColor: '#A6C7ED'
+                },
+                xAxis: {
+                    gridLineColor: '#505053'
+                }
+            },
+        
+            scrollbar: {
+                barBackgroundColor: '#808083',
+                barBorderColor: '#808083',
+                buttonArrowColor: '#CCC',
+                buttonBackgroundColor: '#606063',
+                buttonBorderColor: '#606063',
+                rifleColor: '#FFF',
+                trackBackgroundColor: '#404043',
+                trackBorderColor: '#404043'
+            },
+        
+            // special colors for some of the
+            legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+            background2: '#505053',
+            dataLabelsColor: '#B0B0B3',
+            textColor: '#C0C0C0',
+            contrastTextColor: '#F0F0F3',
+            maskColor: 'rgba(255,255,255,0.3)'
+        };
+        
+        // Apply the theme
+        Highcharts.setOptions(Highcharts.theme);
+        
+        Highcharts.chart('pieChart', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45,
+                    beta: 0
+                }
+            },
+            title: {
+                text: '요금제 사용현황'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    depth: 45,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}: '+'{point.y} %' 
+                    }
+                }
+            },    
+             series: [{
+                type: 'pie',
+                name: 'Rate',
+                data: [
+                    {
+                        name: prodNm,
+                        y: prodRt,
+                        sliced: true,
+                        selected: true,
+                        color : "#CCFF33"
+                        
+                    },
+                    {
+                        name : 'Others',
+                        y : 100-prodRt,
+                        color : "#3388ff"
+                    }
+                    // ,['Other', 100-prodRt]
+                ]
+            }]
+        });
+        
+    }
+    
+    function draw3dChart(){
+        
+        
+        // Highcharts.createElement('link', {
+        //     href: 'https://fonts.googleapis.com/css?family=Unica+One',
+        //     rel: 'stylesheet',
+        //     type: 'text/css'
+        // }, null, document.getElementsByTagName('head')[0]);
+
+        Highcharts.theme = {
+            colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
+                '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+            chart: {
+                backgroundColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+                    stops: [
+                        [0, '#37393F'],  // 바탕화면 변경 
+                        [1, '#37393F']
+                    ]
+                },
+                style: {
+                    fontFamily: '\'Unica One\', sans-serif'
+                },
+                plotBorderColor: '#606063'
+            },
+            title: {
+                style: {
+                    color: '#E0E0E3',
+                    textTransform: 'uppercase',
+                    fontSize: '20px'
+                }
+            },
+            subtitle: {
+                style: {
+                    color: '#E0E0E3',
+                    textTransform: 'uppercase'
+                }
+            },
+            xAxis: {
+                gridLineColor: '#707073',
+                labels: {
+                    style: {
+                        color: '#E0E0E3'
+                    }
+                },
+                lineColor: '#707073',
+                minorGridLineColor: '#505053',
+                tickColor: '#707073',
+                title: {
+                    style: {
+                        color: '#A0A0A3'
+        
+                    }
+                }
+            },
+            yAxis: {
+                gridLineColor: '#707073',
+                labels: {
+                    style: {
+                        color: '#E0E0E3'
+                    }
+                },
+                lineColor: '#707073',
+                minorGridLineColor: '#505053',
+                tickColor: '#707073',
+                tickWidth: 1,
+                title: {
+                    style: {
+                        color: '#A0A0A3'
+                    }
+                }
+            },
+            tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                style: {
+                    color: '#F0F0F0'
+                }
+            },
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        color: '#B0B0B3'
+                    },
+                    marker: {
+                        lineColor: '#333'
+                    }
+                },
+                boxplot: {
+                    fillColor: '#505053'
+                },
+                candlestick: {
+                    lineColor: 'white'
+                },
+                errorbar: {
+                    color: 'white'
+                }
+            },
+            legend: {
+                itemStyle: {
+                    color: '#E0E0E3'
+                },
+                itemHoverStyle: {
+                    color: '#FFF'
+                },
+                itemHiddenStyle: {
+                    color: '#606063'
+                }
+            },
+            credits: {
+                style: {
+                    color: '#666'
+                }
+            },
+            labels: {
+                style: {
+                    color: '#707073'
+                }
+            },
+        
+            drilldown: {
+                activeAxisLabelStyle: {
+                    color: '#F0F0F3'
+                },
+                activeDataLabelStyle: {
+                    color: '#F0F0F3'
+                }
+            },
+        
+            navigation: {
+                buttonOptions: {
+                    symbolStroke: '#DDDDDD',
+                    theme: {
+                        fill: '#505053'
+                    }
+                }
+            },
+        
+            // scroll charts
+            rangeSelector: {
+                buttonTheme: {
+                    fill: '#505053',
+                    stroke: '#000000',
+                    style: {
+                        color: '#CCC'
+                    },
+                    states: {
+                        hover: {
+                            fill: '#707073',
+                            stroke: '#000000',
+                            style: {
+                                color: 'white'
+                            }
+                        },
+                        select: {
+                            fill: '#000003',
+                            stroke: '#000000',
+                            style: {
+                                color: 'white'
+                            }
+                        }
+                    }
+                },
+                inputBoxBorderColor: '#505053',
+                inputStyle: {
+                    backgroundColor: '#333',
+                    color: 'silver'
+                },
+                labelStyle: {
+                    color: 'silver'
+                }
+            },
+        
+            navigator: {
+                handles: {
+                    backgroundColor: '#666',
+                    borderColor: '#AAA'
+                },
+                outlineColor: '#CCC',
+                maskFill: 'rgba(255,255,255,0.1)',
+                series: {
+                    color: '#7798BF',
+                    lineColor: '#A6C7ED'
+                },
+                xAxis: {
+                    gridLineColor: '#505053'
+                }
+            },
+        
+            scrollbar: {
+                barBackgroundColor: '#808083',
+                barBorderColor: '#808083',
+                buttonArrowColor: '#CCC',
+                buttonBackgroundColor: '#606063',
+                buttonBorderColor: '#606063',
+                rifleColor: '#FFF',
+                trackBackgroundColor: '#404043',
+                trackBorderColor: '#404043'
+            },
+        
+            // special colors for some of the
+            legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+            background2: '#505053',
+            dataLabelsColor: '#B0B0B3',
+            textColor: '#C0C0C0',
+            contrastTextColor: '#F0F0F3',
+            maskColor: 'rgba(255,255,255,0.3)'
+        };
+
+        Highcharts.setOptions(Highcharts.theme);
+
+        // Highcharts.setOptions({
+        //     colors: $.map(Highcharts.getOptions().colors, function (color) {
+        //         return {
+        //             radialGradient: {
+        //                 cx: 0.4,
+        //                 cy: 0.3,
+        //                 r: 0.5
+        //             },
+        //             stops: [
+        //                 [0, color],
+        //                 [1, Highcharts.Color(color).brighten(-0.2).get('rgb')]
+        //             ]
+        //         };
+        //     })
+        // });
+        // Apply the theme
+
+
+        // Set up the chart
+        var chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'chart3d',
+                margin: 100,
+                type: 'scatter3d',
+                animation: false,
+                options3d: {
+                    enabled: true,
+                    alpha: 10,
+                    beta: 30,
+                    depth: 250,
+                    viewDistance: 5,
+                    fitToPlot: false,
+                    frame: {
+                        bottom: { size: 1, color: 'rgba(0,0,0,0.02)' },
+                        back: { size: 1, color: 'rgba(0,0,0,0.04)' },
+                        side: { size: 1, color: 'rgba(0,0,0,0.06)' }
+                    }
+                }
+            },
+            title: {
+                text: '초과사용량 분포도'
+            },
+            subtitle: {
+                // text: 'Click and drag the plot area to rotate in space'
+            },
+            plotOptions: {
+                scatter: {
+                    width: 10,
+                    height: 10,
+                    depth: 10
+                }
+            },
+            xAxis: {
+                min: 0,
+                max: 1,
+                gridLineWidth: 1,
+                title: {text :'VOICE'}
+            },
+            yAxis: {
+                min: 0,
+                max: 1,
+                title: {text :'SMS'}
+            },
+            zAxis: {
+                min: 0,
+                max: 1,
+                showFirstLabel: false,
+                title: {text :'DATA'}
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: '초과사용량',
+                colorByPoint: true,
+                data: chart3dData
+            }]
+            
+        });
+
+        // Add mouse and touch events for rotation
+        (function (H) {
+            function dragStart(eStart) {
+                eStart = chart.pointer.normalize(eStart);
+        
+                var posX = eStart.chartX,
+                    posY = eStart.chartY,
+                    alpha = chart.options.chart.options3d.alpha,
+                    beta = chart.options.chart.options3d.beta,
+                    sensitivity = 5; // lower is more sensitive
+        
+                function drag(e) {
+                    // Get e.chartX and e.chartY
+                    e = chart.pointer.normalize(e);
+        
+                    chart.update({
+                        chart: {
+                            options3d: {
+                                alpha: alpha + (e.chartY - posY) / sensitivity,
+                                beta: beta + (posX - e.chartX) / sensitivity
+                            }
+                        }
+                    }, undefined, undefined, false);
+                }
+        
+                chart.unbindDragMouse = H.addEvent(document, 'mousemove', drag);
+                chart.unbindDragTouch = H.addEvent(document, 'touchmove', drag);
+        
+                H.addEvent(document, 'mouseup', chart.unbindDragMouse);
+                H.addEvent(document, 'touchend', chart.unbindDragTouch);
+            }
+            H.addEvent(chart.container, 'mousedown', dragStart);
+            H.addEvent(chart.container, 'touchstart', dragStart);
+        }(Highcharts));
+        
+
+        
+
+        // chart("#chart3d2", {
+        //     padding: 100,
+        //     axis : {
+        //         x : {
+        //             type : "block",
+        //             domain : [ "Q1", "Q2", "Q3", "Q4" ],
+        //             line : true,
+        //             orient : "bottom"
+        //         },
+        //         y : {
+        //             type : "range",
+        //             domain : "total",
+        //             step : 5,
+        //             line : true,
+        //             orient : "left"
+        //         },
+        //         z : {
+        //             type : "range",
+        //             domain : [ 0, 100 ],
+        //             line: true,
+        //             step : 4,
+        // 			key : "value"
+        //         },
+        //         data : [
+        //             { sales: 0, profit: 15, total: 20, value: 80 },
+        //             { sales: 15, profit: 6, total: 20, value: 50 },
+        //             { sales: 8, profit: 10, total: 20, value: 60 },
+        //             { sales: 18, profit: 5, total: 20, value: 15 },
+        //             { sales: 18, profit: 20, total: 20, value: 15 }
+        //         ],
+        //         depth: 300,
+        //         degree: {
+        //             x: 10,
+        //             y: 45,
+        //             z: 0
+        //         },
+        //         perspective: 0.9
+        //     },
+        //     brush : {
+        //         type: "polygon.scatter3d",
+        //         target : [ "sales", "profit", "value" ],
+        //         size : 10
+        //     },
+        //     widget : [{
+        //         type : "polygon.rotate3d"
+        //     }, {
+        //         type : "tooltip"
+        //     }],
+        //     style : {
+        //         gridXAxisBorderWidth: 1,
+        //         gridYAxisBorderWidth: 1,
+        //         gridZAxisBorderWidth: 1,
+        //         backgroundColor : "#37393F",
+        //         gridXFontSize : 11,
+        // 		gridYFontSize : 11,
+        // 		gridZFontSize : 11,
+        // 		gridXFontColor : "#FFFFFF",
+        // 		gridYFontColor : "#FFFFFF",
+        // 		gridZFontColor : "#FFFFFF"
+        //     },
+        // });
+    }  
+    //  });
+    
+    
+    // 선택 정보로 목록 INSERT
+    function searchProdInfo() {
+        
+        var prodId = $("#inputProdId").val();
+      
+        if(prodId == null){
+            alert("요금제 ID를 입력하세요.");
+            return;
+        }
+
+        $.ajax({
+            type: "post",
+            url : "/searchProdInfo",
+            data: {
+                prodId : prodId,
+                page : 1,
+                pagelimit : 10
+            }, 
+            success:function(data){   
+                //var id = data.datas.settl_pdct_req_num;
+//                execPython(data.datas.settl_pdct_req_num);
+                  
+                // makeProgressList(data.datas.settl_pdct_req_num, data.datas.co_settl_grp_id, data.datas.settl_pdct_prd, data.datas.op_proc_st_cd)
+                if(data.prodInfo == null){
+                    alert("정확한 요금제 ID를 입력하세요.");
+                    console.log("html : "+data.prodInfo);
+                }
+                else{
+                    $("#prod_status").css({opacity: 0.5, visibility: "visible"}).animate({opacity: 1.0});  
+                    console.log("html : "+ data.prodInfo.MVNO_CO_CD);
+                    
+                    // $('#mvno_co_cd').html(data.prodInfo.MVNO_CO_CD);
+                    $('#mvno_co_cd').html('프리텔레콤');
+                    $('#prod_nm').html(data.prodInfo.PROD_NM);
+
+                    $('#fee_itm_cd').html(data.prodInfo.FEE_ITM_AMT);
+                    
+                    $('#voice_ofr_ctt').html(data.prodInfo.VOICE_OFR_CTT);
+                    $('#sms_ofr_ctt').html(data.prodInfo.SMS_OFR_CTT);
+                    $('#data_ofr_ctt').html(data.prodInfo.DATA_OFR_CTT);
+                    
+                    $('#sel_agrmt_dc_amp').html(data.prodInfo.SEL_AGRMT_DC_AMT);
+                    $('#agrmt_dc_amt_12').html(data.prodInfo.AGRMT_DC_AMT_12);
+                    $('#agrmt_dc_amt_24').html(data.prodInfo.AGRMT_DC_AMT_24);
+                    
+                    $('#usim_only_yn').html(data.prodInfo.USIM_YN);
+                    $('#nw_cd').html(data.prodInfo.NW_CD);
+                    
+                    prodRt = data.prodStatus.rate;
+                    prodNm = data.prodStatus.prod_nm;
+                    
+                    // if(pieChartData[0] !=null) {
+                        // $('#pieChart *').remove(); // div태그 전체가 아닌 내부 요소만 삭제
+                    //     pieChartData.shift();
+                    // }
+                    // pieChartData.push({product : prodRt, other : 100-prodRt});
+                    
+                    
+                    if(chart3dData[0] !=null){
+                        // $('#Chart3d *').remove();
+                        chart3dData = [];
+                    }
+                    
+                    if(data.overStatus.length > 0){
+                        for(var i = 0 ; i < data.overStatus.length ; i++){
+                            chart3dData.push([data.overStatus[i].voice_ovr_amt, data.overStatus[i].sms_ovr_amt, data.overStatus[i].data_ovr_amt]);
+                        }
+                    }else{
+                        alert("해당요금제의 초과사용자가 없습니다.");
+                    }
+                    
+                    drawPieChart();
+                    draw3dChart();
+                    drawOverList(1);
+                }
+            },
+            error:function(e){  
+            }  
+        }); 
+    }
+    
+    function drawOverList(goTo){
+        
+        var prodId = $("#inputProdId").val();
+        
+        var overCount;  // 초과사용자 건수
+        var totalCount; // 요금제가입자 전체 건수
+        var overRate;   // 초과사용자/요금제가입자 비율
+        var cntPerPage = 10; // 한 페이지에 리스트 수
+        var totalPage;  // 총 페이지 수
+        var pageNum;
+        var page;
+        page = goTo;    
+        var groupNum = 5;    // bar에 보여줄 페이지 버튼 개수
+        var pageGroup = Math.ceil(page/groupNum);    //페이지 그룹 넘버링
+        var next = pageGroup*groupNum; 
+        var prev = next-(groupNum-1);  
+        var goPrev;
+        var goNext;
+
+        getCount();
+        
+        function getCount(){
+            $.ajax({
+                type: "post",
+                url : "/getCount",
+                data: {
+                    prodId : prodId
+                }, 
+                success: function(data) {
+
+                    overCount = data.getCount.cnt;
+                    totalCount = data.getCount.total_cnt;
+                    overRate = data.getCount.over_rate;
+                    
+                    totalPage = Math.ceil(overCount/cntPerPage);   
+                    
+                    if(prev-1<=0){
+                        goPrev = 1;
+                    }else{
+                        goPrev = prev-1;
+                    }    
+
+                    if(next>totalPage){
+                        goNext = totalPage;
+                        next = totalPage;
+                      }else{
+                        goNext = next+1;
+                    }
+                    
+                    $("#over_count").html("( "+overCount+"건 )");
+                    $("#over_rate").html(overRate+"% ( "+overCount+"명 / "+totalCount+"명 )");
+
+                    fetchData();
+                    
+                },
+                error: function(e){
+                    
+                }
+            });
+        }
+
+        function fetchData(){
+            
+            $.ajax({
+                type: "post",
+                url : "/drawOverList",
+                data: {
+                    prodId : prodId,
+                    page : page,
+                    cntPerPage : cntPerPage,
+                    prevGrp : prev,
+                    nextGrp : next
+                }, 
+                success: function(data) {
+
+                    var dataArr = data.overList;
+                    var html = "";
+                    
+                    page = data.page;
+                    
+                    prev = data.prevGrp;
+                    next = data.nextGrp;
+                    
+                    for(var i=0 ; i < dataArr.length; i++){
+                        html += "<tr> <td>"+dataArr[i].no+"</td> <td>"+dataArr[i].sv_acnt_num+"</td> <td>"+ dataArr[i].rcmd_prod_id +"</td> <td>"+  dataArr[i].prod_nm 
+                              + "</td> <td>"+ dataArr[i].fee_itm_amt +"</td> <td>"+ dataArr[i].voice_ofr_ctt +"</td> </tr>"
+                              // <p></p>"+ dataArr[i].sms_ofr_ctt + " <p></p>"+ dataArr[i].data_ofr_ctt + " // 음성만 표시
+                    }
+                    $("#over_list_body").html(html);
+                    $("#strd_dt").html(dataArr[0].use_dt);
+
+                    var prevStep = "<li class=\"\"> <a class=\"\" onClick=drawOverList("+goPrev+")> Prev </a> </li>";
+                    var nextStep = "<li class=\"\"> <a class=\"\" onClick=drawOverList("+goNext+")> Next </a> </li>";        
+                
+                    $("#pagePrev").empty();
+                    $("#pagePrev").append(prevStep);
+    
+                    $('#pageZone').empty();
+                    
+                    for(var i=prev ; i<=next; i++){
+                        if(i==page){
+                            pageNum = "<li class=\"active\"> <a class=\"\" onClick=drawOverList("+i+")>"+ i +"</a> </li>";
+                        } else {
+                            pageNum = "<li class=\"\"> <a class=\"\" onClick=drawOverList("+i+")> "+ i +" </a> </li>";
+                        }
+                        $("#pageZone").append(pageNum);
+                    }  
+                    
+                    $("#pageNext").empty();
+                    $("#pageNext").append(nextStep);
+
+                },
+                error: function(e){
+                    
+                }
+            });
+        }
+    }
+    
+    // function drawOverList(){
+        
+    //     var prodId = $("#inputProdId").val();
+    //     var page = 1;
+    //     var countPage = 10;
+    //     var totalCount = 0;
+        
+    //     fetchData();
+        
+    //     $(".prev-btn").on("click", function(){
+    //         if(page > 1){
+    //             page--;
+    //             fetchData();
+    //         }
+    //         console.log("Prev Page: " + page);
+    //     });
+        
+    //     $(".next-btn").on("click", function(){
+    //         if(page * countPage < totalCount){
+    //             page = page + 1;
+    //             fetchData();
+    //         }
+    //         console.log("totalCount: " + totalCount);
+    //         console.log("Next Page: " + page);
+            
+    //     })
+        
+    //     function fetchData(){
+            
+    //         $.ajax({
+    //         type: "post",
+    //         url : "/drawOverList",
+    //         data: {
+    //             prodId : prodId,
+    //             page : page,
+    //             countPage : countPage
+    //         }, 
+    //         success: function(data) {
+    //             console.log(data);
+                
+    //             var dataArr = data.overList;
+    //             var html = "";
+                
+    //             totalCount = data.totalCount;
+                
+    //             for(var i=0 ; i < dataArr.length; i++){
+    //                 html += "<tr> <td>"+dataArr[i].no+"</td> <td>"+dataArr[i].sv_acnt_num+"</td> <td>"+ dataArr[i].rcmd_prod_id +"</td> <td>"+  dataArr[i].prod_nm 
+    //                       + "</td> <td>"+ dataArr[i].fee_itm_amt +"</td> <td>"+ dataArr[i].voice_ofr_ctt +"</td> </tr>"
+    //             }
+    //             $("#over_list_body").html(html);
+                
+    //             $("#strd_dt").html(data.overList[0].use_dt);
+    //         },
+    //         error: function(e){
+                
+    //         }
+            
+    //     });
+            
+    //     }
+        
+    // }
+    
+    // function drawOverList(overList){
+        
+    //     $("#over_list_head").empty();
+            
+    //         var $thead = $("<tr> <th> 서비스계정 </th> <th> 추천요금제 </th> <th> 요금제명 </th> <th> 기본료 </th> <th> 제공량 </th> </tr> ");
+    //         $("#over_list_head").append($thead).trigger("create");
+        
+    //       for(var i=0; i < overList.length; i++){
+        
+    //         var $tbody = $("<tr> <td>"+overList[i].sv_acnt_num+"</td> <td>"+ overList[i].rcmd_prod_id +"</td> <td>"+  overList[i].prod_nm + "</td> <td>"+ overList[i].fee_itm_amt +"</td> <td>"+ overList[i].voice_ofr_ctt +"</td> </tr> ");
+    //         $("#over_list_body").append($tbody).trigger("create");
+        
+    //      }
+        
+    // }
+
+    // function drawOverList(overList){
+    // // $(function(){
+    //     // function drawOverList(overList){
+    //     var pageWidth = $("#overTable").parent().width() - 100;
+
+    //     var $grid = $("#overTable");
+        
+      
+    //     var myHeader = ['서비스계정', '추천요금제', '요금제명', '기본료', '제공량'];
+        
+    //     $grid.jqGrid({
+    //         datatype: 'local',  
+    //         data : overList,
+    //         colNames: myHeader,
+    //         colModel: [overList[0].sv_acnt_num, overList[0].rcmd_prod_id, overList[0].prod_nm, overList[0].fee_itm_amt, overList[0].voice_ofr_ctt]
+
+    //         cmTemplate: { sortable: false }, //sort false
+    //       	rowNum:100,
+    //       	rowList:[100,200,300],
+    //       	width: pageWidth ,
+    //       	pager: '#pager',
+    //       	gridview:true,
+    //       	rownumbers:true,
+    //       	sortable : false,
+    //       	multiselect : false,
+    //       	sortname: 'id',
+    //         viewrecords: true,
+    //         scrollOffset : 0,
+    //         cellEdit: true,
+    //         sortorder: "desc",
+    //         caption:"",
+    //         height:'100%',
+    //         shrinkToFit:true,
+    //         loadonce:true,
+    //         grouping: true,
+    //         groupingView: {
+    //             groupField: ["data_yymm"],
+    //             groupColumnShow: [true],
+    //             groupText: ["<b>{0}</b>"],
+    //             groupOrder: ["asc"],
+    //             groupSummary: [true],
+    //             groupCollapse: false
+                
+    //         }                
+    //     });
+        
+    // //  }
+    // // });
+    // }
+    // jQuery("#overTable").jqGrid('navGrid','#pager',{edit:false,add:false,del:false});
+   
+
+    </script>   
+    
+    <style type="text/css">
+
+       
+        table {
+            height: 400px;
+        }
+        
+    </style>
+
+    
+</head>
+<body class="jui">
+
+<!-- Wrapper-->
+<div class="wrapper">
+    
+    <!-- Header/Navigation -->
+	<% include ./partials/navigation.ejs %>
+
+    <!-- Main content-->
+    <section class="content">
+        <div class="row m-t-sm">
+            <div class="col-md-12">
+                <div class="panel panel-filled">
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="media">
+                                    <i class="pe pe-7s-graph2 c-accent fa-3x"></i>
+                                    <h2 class="m-t-xs m-b-none">
+                                        MOVIOS Recommended Products
+                                    </h2>
+                                    <small>
+                                        Results of Data Analysing
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-3"></div>
+                            
+                            <div class="col-md-3 m-t-sm">
+                            <span class="c-white">
+                                <i class="pe pe-7s-share c-accent fa-1x"></i> Share this report
+                            </span>
+                                <br>
+                                <small>
+                                     
+                                </small>
+                                <div class="btn-group m-t-sm">
+                                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal1"><i class="fa fa-envelope"></i> mvno_tester@sk.com</button>
+                                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal2"><i class="fa fa-check"></i> Other email</button>
+                                    <!--<a href="#" class="btn btn-default btn-sm"><i class="fa fa-envelope"></i> mvno_tester@sk.com</a>-->
+                                    <!--<a href="#" class="btn btn-default btn-sm"><i class="fa fa-check"></i> Other e-mail</a>-->
+                                </div>
+
+                                <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center">
+                                                <h4 class="modal-title"><i class="pe pe-7s-share c-accent fa-1x"></i> Share this report</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Send this report to <a href="mailto:#">mvno_tester@sk.com</a></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-accent">Confirm</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center">
+                                                <h4 class="modal-title"><i class="pe pe-7s-share c-accent fa-1x"></i> Share this report</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>
+                                                  Enter new email address
+                                                  <form class="form-horizontal">
+                                                      <div class="form-group"><label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                                                          <div class="col-sm-10"><input type="email" class="form-control" id="inputEmail3" placeholder="Email"></div>
+                                                      </div>
+                                                  </form>
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-accent">Confirm</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center">
+                                                <h4 class="modal-title">Detail View</h4>
+                                                <!--<small>Lorem Ipsum is simply dummy text.</small>-->
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>결과 상세내역 조회(준비중)</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <!--<button type="button" class="btn btn-accent">Save changes</button>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-15">
+            <div class="panel panel-filled">
+                <div class="panel-heading">
+                    <div class="col-md-4">
+                        <div class="input-group m-b-xs m-t-xs">
+                            <input class="form-control" id="inputProdId" type="text" placeholder="Input product.." style="width: 100%">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" id="searchProd" onClick="javascript:searchProdInfo()"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-filled" id="prod_status" style="visibility:hidden;"> 
+    
+                        <div class="panel-body">
+    
+                            <!--<div class="row">-->
+                            <div class="col-md-12" style="margin-top:20px">
+                                <!--<div class="media">-->
+                                <!--    <div class="col-md-13 py-3" style="margin-top:20px">-->
+                                        <a href="#" class="disabled"><b>요금제 현황 (기본정보)</b></a> <p></p>
+                                        <b>사업자 : </b><span id="mvno_co_cd"></span> <p></p>
+                                        <div class="col-md-6">
+                                            <p>
+                                        		<b>요금제 정보 :  [ <span id="prod_nm" style="color:orange"></span> ] </b>
+                                                <table class="table table-hover">
+                                        			<tbody>
+                                        				<tr>
+                                        					<th style="width:100px">월정액</th><td><span id="fee_itm_cd"></span> 원</td>
+                                        				</tr>
+                                        				<tr>
+                                        					<th>기본제공량</th><td>음성 : <span id="voice_ofr_ctt"></span><p></p>
+                                        					                       문자 : <span id="sms_ofr_ctt"></span><p></p>
+                                        					                       DATA : <span id="data_ofr_ctt"></span>
+                                        					                       </td>
+                                        				</tr>
+                                        				
+                                        				<tr>
+                                        					<th>요금약정</th><td><span id="sel_agrmt_dc_amp"></span> 원</td>
+                                        				</tr>
+                                        				<tr>
+                                        					<th>선택약정</th><td>12개월 : <span id="agrmt_dc_amt_12"></span> 원<p></p>
+                                        					                     24개월 : <span id="agrmt_dc_amt_24"></span> 원<p></p>
+                                        					                </td>
+                                        				</tr>
+                                        				<tr>
+                                        					<th>USIM only</th><td><span id="usim_only_yn"></span></td>
+                                        				</tr>
+                                        				<tr>
+                                        					<th>NW</th><td><span id="nw_cd"></span></td>
+                                        				</tr>
+                                        			</tbody>
+                                    		    </table>
+                                        	</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>
+                                        		<b>사용 현황</b>
+                                                <div id="pieChart" style="height:400px"></div>
+                                            </p>
+                                        </div>
+                                <!--    </div>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                        
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <!--<div class="media">-->
+                                    <!--<div class="col-md-13 py-3">-->
+                                        <a href="#" class="disabled"><b>초과사용자 현황 ( <span id="strd_dt"></span> 기준 )</b></a> <p></p>
+
+                                        <div class="col-md-6">
+                                            <b>초과사용자 전체리스트 <span id="over_count"></span></b></b> 
+                                            <p></p>
+                                            
+
+                                            <!--<div  style="min-height:360px;">-->
+                                                <table id ="overTable" class="table table-bordered" style="table-layout:fixed; margin-bottom:-10px">
+                                                    <thead id="over_list_head">
+                                                            <th style="width:20px">No</th> 
+                                                            <th style="width:50px">서비스계정</th> 
+                                                            <th style="width:55px">추천요금제</th> 
+                                                            <th style="width:70px">요금제명</th> 
+                                                            <th style="width:35px">기본료</th> 
+                                                            <th style="width:130px">제공량</th> 
+                                                        </tr> 
+                                                    </thead>
+                                                    <tbody id="over_list_body">
+                                                    </tbody>
+                                                </table>
+                                            <!--</div>-->
+                                            
+                                            <!--<div class="pull">-->
+                                                <ul class="pagination pagination-sm" id="pagePrev"> </ul>
+                                                <ul class="pagination pagination-sm" id="pageZone"> </ul>
+                                                <ul class="pagination pagination-sm" id="pageNext"> </ul>
+                                            <!--</div>-->
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <b>초과사용자 비율 : <span id="over_rate"></span></b> <p></p>
+                                            <div id="chart3d" style="height:400px; margin-top:10px"></div>
+                                        </div>
+                                    <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+        </div>
+    </section>
+</div>
+<!-- End wrapper-->
+
+</body>
+</html>

@@ -92,6 +92,8 @@ var settledata = require('./routes/settledata')(app, connectionPool);
 var settlelist = require('./routes/settlelist')(app, connectionPool);
 var settleresult = require('./routes/settleresult')(app, connectionPool);
 
+var recommendprod = require('./routes/recommendprod')(app, connectionPool);
+
 //sample routes
 var sample = require('./routes/sample')(app, connectionPool);
 
