@@ -5,23 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+    
     <% include ./partials/css.ejs %>
+    <% include ./partials/script.ejs %>
+
     <link rel="stylesheet" type="text/css" media="screen" href="/vendor/jquery-ui/themes/humanity/jquery-ui.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="/vendor/jqGrid/css/ui.jqgrid.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="/vendor/jqGrid/plugins/ui.multiselect.css"/>
 
-
-    <% include ./partials/script.ejs %>
-    <script src="/vendor/jqGrid/js/jquery-1.11.0.min.js" type="text/javascript"></script>
-    <script src="/vendor/jqGrid/js/i18n/grid.locale-kr.js" type="text/javascript"></script>
-    <script src="/vendor/jqGrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $.jgrid.no_legacy_api=true;
-        $.jgrid.useJSON = true;
-    </script>
-   
-    
     <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
     <script src="https://www.amcharts.com/lib/3/serial.js"></script>
     <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
@@ -29,32 +21,9 @@
     <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 				
     <script type="text/javascript">
+    
     var chartData = generatechartData();
-    
-    // function generatechartData() {
-    //     var chartData = [];
-    //     var firstDate = new Date();
-    //     firstDate.setDate(firstDate.getDate() - 150);
-    //     var visits = 500;
-    
-    //     for (var i = 0; i < 150; i++) {
-    //         // we create date objects here. In your data, you can have date strings
-    //         // and then set format of your dates using chart.dataDateFormat property,
-    //         // however when possible, use date objects, as this will speed up chart rendering.
-    //         var newDate = new Date(firstDate);
-    //         newDate.setDate(newDate.getDate() + i);
-    
-    //         visits += Math.round((Math.random()<0.5?1:-1)*Math.random()*10);
-    
-    //         chartData.push({
-    //             date: newDate,
-    //             visits: visits
-    //         });
-            
-    //     }
-    //     return chartData;
-    // }
-    
+ 
     function generatechartData() {
         var chartData = [];
         var visits;
