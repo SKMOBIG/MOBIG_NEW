@@ -135,10 +135,21 @@
     });
     jQuery("#list").jqGrid('navGrid','#pager',{edit:false,add:false,del:false});
 
+</script>
 
+<style>
+    section {
+        font-size : 15px;
+    }
+    .m-t-sm {
+    	font-size : 15px;
+    }
+    .modal-title {
+        font-size : 18px;
+    }
     
-    
-</script>    
+</style>
+
 </head>
 <body>
 
@@ -153,7 +164,7 @@
     <section class="content">
         <div class="container-fluid">
 
-            <div class="row m-t-sm">
+            <div class="row">
 
                 <div class="col-md-12">
                     <div class="panel panel-filled">
@@ -165,7 +176,7 @@
                                     <div class="media">
                                         <i class="pe pe-7s-graph2 c-accent fa-3x"></i>
                                         <h2 class="m-t-xs m-b-none">
-                                            MOVIOS Big Data Report
+                                            MVNO Big Data Report
                                         </h2>
                                         <small>
                                             Results of Data Analysing
@@ -177,27 +188,27 @@
                                         <tbody>
                                         <tr>
                                             <td>
-                                                사업자코드 <strong class="c-white">122</strong> raw data
+                                                사업자코드 <strong class="c-white">122</strong> raw
                                             </td>
                                             <td>
-                                                단말기모델코드 <strong class="c-white">42</strong> raw data
+                                                단말기모델코드 <strong class="c-white">42</strong> raw
                                             </td>
 
                                         </tr>
                                         <tr>
                                             <td>
-                                                신규가입월 <strong class="c-white">61</strong> raw data
+                                                신규가입월 <strong class="c-white">61</strong> raw
                                             </td>
                                             <td>
-                                                요금제코드 <strong class="c-white">84</strong> raw data
+                                                요금제코드 <strong class="c-white">84</strong> raw
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                음성 <strong class="c-white">244</strong> raw data
+                                                음성 <strong class="c-white">244</strong> raw
                                             </td>
                                             <td>
-                                                DATA <strong class="c-white">42</strong> raw data
+                                                DATA <strong class="c-white">42</strong> raw
                                             </td>
                                         </tr>
                                         </tbody>
@@ -289,8 +300,8 @@
                 <!-- start chart -->
                 
                 <div class="col-md-12">
-                    <h4><i class="pe pe-7s-check c-accent fa-1x"></i> Main report</h4>
-                    <p class="small" style="color: #FFFFFF">2017년 1월~12월까지의 월별가입자, 정산금액, 청구금액 추이</p>
+                    <h4 class="modal-title"><i class="pe pe-7s-check c-accent fa-1x"></i> Main report</h4>
+                    <p class="small" style="color: #FFFFFF; font-size: 15px">　 2017년 1월~12월까지의 월별가입자, 정산금액, 청구금액 추이</p>
                     <canvas id="lineOptions" height="100px"></canvas>
                 </div>  
                 <!-- end chart -->     
@@ -302,7 +313,7 @@
 
                     <div class="panel">
                         <div class="panel-body">
-                            <h4> Data Analysing Activity</h4>
+                            <h4 class="modal-title"><i class="pe pe-7s-check c-accent fa-1x"></i> Data Analysing Activity</h4>
 
                             <div class="v-timeline vertical-container">
                               
@@ -375,14 +386,14 @@
                     <div class="panel">
 
                         <div class="panel-body">
-                            <h4><i class="pe pe-7s-check c-accent fa-1x"></i> Results Data</h4>
+                            <h4 class="modal-title"><i class="pe pe-7s-check c-accent fa-1x"></i> Results Data</h4>
                             <!--<div class="flot-chart  m-t-md m-b-xl" style="height: 200px">-->
                             <!--    <div class="flot-chart-content" id="flotProfile"></div>-->
                             <!--</div>-->
                             
                             <!-- GRID -->
                             <div style="clear:left">
-                                <table id="list"  class="table table-striped" style=" width:100%">
+                                <table id="list"  class="table table-striped" style=" width:100%;">
                                     <tr><td/></tr>
                                 </table>
                                 <div id="pager"></div>
@@ -403,9 +414,9 @@
                     <div class="panel panel-filled">
 
                         <div class="panel-body">
-                          <h4><i class="pe pe-7s-check c-accent fa-1x"></i> Sub report</h4>
+                          <h4 class="modal-title"><i class="pe pe-7s-check c-accent fa-1x"></i> Sub report</h4>
                           
-                          <p class="small" style="color: #FFFFFF">연관자료 분석 결과 추가 제공
+                          <p class="small" style="color: #FFFFFF; font-size: 15px">　 연관자료 분석 결과 추가 제공
                           </p>
                             
                             <div class="row" style="background-color: #FFFFFF">

@@ -223,6 +223,18 @@
         /*line-height: 1.6em;*/
     }
     
+    .disabled{
+        font-size:20px;
+    }
+    
+    .btn-success{
+        font-size:15px;
+    }
+    
+    section{
+        font-size:15px;
+    }
+    
     </style>
 </head>
 
@@ -264,7 +276,7 @@
                     </div>
                     
                     <div class="panel-body buttons-margin">
-                        <i class="c-accent fa-x">- Select Settlement Group : </i>
+                         <a class="disabled"><i class="pe pe-7s-check c-accent fa-1x"></i><b> Select Settlement Group</b></a>
                         <div class="row">
                             
                             <div class="col-md-3">
@@ -297,7 +309,7 @@
                                             <div class="col-md-10">
                                                 <div class="media">
                                                     <div class="col-md-13 py-3">
-                                                        <a href="#" class="disabled"><b><span id="settl_grp_nm"></span></b></a>
+                                                        <a><b><span id="settl_grp_nm"></span></b></a>
                                                         <div><span id="settl_grp_dtl"></span></div>
                                                     </div>
                                                     <hr/>
@@ -312,7 +324,7 @@
                         
                         <div class="row">
                             <div class="col-md-4">
-                                <i class="c-accent fa-x">- Select Prediction Period : </i>
+                                <a class="disabled"><i class="pe pe-7s-check c-accent fa-1x"></i><b> Select Prediction Period　</b></a>
                                 <select name="selectPeriod" id="selectPeriod">
                                     <option>1</option>
                                     <option>2</option>

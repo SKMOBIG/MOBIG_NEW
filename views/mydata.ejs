@@ -11,10 +11,6 @@
     
     <% include ./partials/script.ejs %>
     
-    <style>
-        .items a:hover {text-decoration:none;}
-
-    </style>
     <script>
   
     // 페이징 처리
@@ -89,8 +85,30 @@
         } 
         Command: toastr["info"]("잠시 기다려 주십시오.", "현재 데이터 분석 진행 중입니다.")
     }
-</script>
-<script src="vendor/toastr/toastr.min.js"></script>
+    </script>
+    <script src="vendor/toastr/toastr.min.js"></script>
+    
+    <style>
+        .items a:hover {text-decoration:none;}
+        
+        section {
+            font-size : 15px;
+        }
+        
+        .fa-folder {
+            font-size : 14px;
+        }
+        
+        .btn-xs {
+            font-size : 14px;
+        }
+        .form-control {
+            font-size : 15px;
+            color: #dddddd;
+        }
+
+    </style>
+    
 </head>
 <body>
 
@@ -114,7 +132,7 @@
                             <i class="pe page-header-icon pe-7s-box1"></i>
                         </div>
                         <div class="header-title">
-                            <h3>My Data</h3>
+                            <h3>STATISTICS LIST</h3>
                             <small>
                                 List of Data Analysing
                             </small>

@@ -14,112 +14,19 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/vendor/jqGrid/css/ui.jqgrid.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="/vendor/jqGrid/plugins/ui.multiselect.css"/>
     
-    <!--<script src="/vendor/jqGrid/js/jquery-1.11.0.min.js" type="text/javascript"></script>-->
-    <!--<script src="/vendor/jqGrid/js/i18n/grid.locale-kr.js" type="text/javascript"></script>-->
-    <!--<script src="/vendor/jqGrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>-->
-    <!--<script type="text/javascript">-->
-    <!--    $.jgrid.no_legacy_api=true;-->
-    <!--    $.jgrid.useJSON = true;-->
-    <!--</script>-->
-    
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-3d.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
-    <!-- Basic style components -->
-    <!--<link rel="stylesheet" href="/vendor/jui/dist/ui.min.css" />-->
-    <!--<link rel="stylesheet" href="/vendor/jui/dist/ui-jennifer.min.css" />-->
-    
-    <!-- Grid style components -->
-    <link rel="stylesheet" href="/vendor/jui-grid/dist/grid.min.css" />
-    <link rel="stylesheet" href="/vendor/jui-grid/dist/grid-jennifer.min.css" />
 
-    <!-- Required script files -->
-    <script src="/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="/vendor/jui-core/dist/core.min.js"></script>
-    
-    <!-- Basic script components -->
-    <script src="/vendor/jui/dist/ui.min.js"></script>
-    
-    <!-- Grid script components -->
-    <script src="/vendor/jui-grid/dist/grid.min.js"></script>
-    
-    <script src="/vendor/jui-core/dist/core.min.js"></script>
-    <script src="/vendor/jui-chart/dist/chart.min.js"></script>
-    
-  
     <script type="text/javascript">
-    
 
-    // var pieChartData = [];
     var prodRt;
     var prodNm;
     
     var chart3dData = [];
     var overListData = [];
-    
-    // $(function() {
-    
-    // function drawPieChart(){
-
-    //     var chart = jui.include("chart.builder"); //P145PGIBON, PC0SB00002
-
-    //     var names = {
-    //         product: prodNm,
-    //         other: "Others"
-    //     };
-        
-    //     chart("#pieChart", {
-    //         padding : 150,
-    //         axis : {
-    //             // data : [
-    //             //     { product : 10, other : 90 }
-    //             // ]
-    //             data : pieChartData
-    //         },
-    //         brush : {
-    //             type : "pie",
-    //             showText : "outer",
-    //             active : "product",
-    //             activeEvent : "click",
-    //             format : function(k, v) {
-    //                 return names[k] + " : " + v + "%";
-    //             }
-    //         },
-    //         widget : [
-    //         // {
-    //         //     type : "title",
-    //         //     text : "Pie Sample"
-    //         // }, 
-    //           {
-    //             type : "tooltip",
-    //             orient : "left",
-    //             format : function(data, k) {
-    //                 return {
-    //                     key: names[k] + " :",
-    //                     value: data[k] + "%"
-    //                 }
-    //             }
-    //         }, {
-    //             type : "legend",
-    //             format : function(k) {
-    //                 return names[k];
-    //             }
-    //         }],
-            
-    //         style : {
-    //             titleFontColor : "white",
-    //             pieOuterFontColor : "white",
-    //             pieOuterFontSize : 13,
-    //             pieOuterLineColor : "white",
-    //             legendFontColor : "white",
-    //             legendFontSize : 13,
-    //             zoomBackgroundColor : "white",
-    //             backgroundColor : "#37393F" // 바탕화면 변경
-    //         }
-    //     });
-    // }
     
     function drawPieChart(){
 
@@ -142,9 +49,9 @@
             },
             title: {
                 style: {
-                    color: '#E0E0E3',
+                    color: '#dddddd',
                     textTransform: 'uppercase',
-                    fontSize: '20px'
+                    fontSize: '18px'
                 }
             },
             subtitle: {
@@ -190,13 +97,15 @@
             tooltip: {
                 backgroundColor: 'rgba(0, 0, 0, 0.85)',
                 style: {
-                    color: '#F0F0F0'
+                    color: '#dddddd',
+                    fontSize : '15px'
+                    
                 }
             },
             plotOptions: {
                 series: {
                     dataLabels: {
-                        color: '#B0B0B3'
+                        color: '#dddddd'
                     },
                     marker: {
                         lineColor: '#333'
@@ -379,12 +288,6 @@
     function draw3dChart(){
         
         
-        // Highcharts.createElement('link', {
-        //     href: 'https://fonts.googleapis.com/css?family=Unica+One',
-        //     rel: 'stylesheet',
-        //     type: 'text/css'
-        // }, null, document.getElementsByTagName('head')[0]);
-
         Highcharts.theme = {
             colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
                 '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
@@ -403,9 +306,9 @@
             },
             title: {
                 style: {
-                    color: '#E0E0E3',
+                    color: '#dddddd',
                     textTransform: 'uppercase',
-                    fontSize: '20px'
+                    fontSize: '18px'
                 }
             },
             subtitle: {
@@ -415,10 +318,10 @@
                 }
             },
             xAxis: {
-                gridLineColor: '#707073',
+                gridLineColor: '#cccccc',
                 labels: {
                     style: {
-                        color: '#E0E0E3'
+                        color: '#dddddd'
                     }
                 },
                 lineColor: '#707073',
@@ -426,16 +329,16 @@
                 tickColor: '#707073',
                 title: {
                     style: {
-                        color: '#A0A0A3'
-        
+                        color: '#dddddd',
+                        fontSize : '15px'  // x축 라벨
                     }
                 }
             },
             yAxis: {
-                gridLineColor: '#707073',
+                gridLineColor: '#cccccc',
                 labels: {
                     style: {
-                        color: '#E0E0E3'
+                        color: '#dddddd'
                     }
                 },
                 lineColor: '#707073',
@@ -444,7 +347,25 @@
                 tickWidth: 1,
                 title: {
                     style: {
-                        color: '#A0A0A3'
+                        color: '#dddddd',
+                        fontSize : '15px'  // y축 라벨 
+                    }
+                }
+            },
+            zAxis: {
+                gridLineColor: '#dddddd',
+                labels: {
+                    style: {
+                        color: '#dddddd'
+                    }
+                },
+                lineColor: '#707073',
+                minorGridLineColor: '#505053',
+                tickColor: '#707073',
+                title: {
+                    style: {
+                        color: '#dddddd',
+                        fontSize : '15px'  // z축 라벨
                     }
                 }
             },
@@ -586,24 +507,6 @@
 
         Highcharts.setOptions(Highcharts.theme);
 
-        // Highcharts.setOptions({
-        //     colors: $.map(Highcharts.getOptions().colors, function (color) {
-        //         return {
-        //             radialGradient: {
-        //                 cx: 0.4,
-        //                 cy: 0.3,
-        //                 r: 0.5
-        //             },
-        //             stops: [
-        //                 [0, color],
-        //                 [1, Highcharts.Color(color).brighten(-0.2).get('rgb')]
-        //             ]
-        //         };
-        //     })
-        // });
-        // Apply the theme
-
-
         // Set up the chart
         var chart = new Highcharts.Chart({
             chart: {
@@ -675,7 +578,7 @@
                     posY = eStart.chartY,
                     alpha = chart.options.chart.options3d.alpha,
                     beta = chart.options.chart.options3d.beta,
-                    sensitivity = 5; // lower is more sensitive
+                    sensitivity = 1.5; // lower is more sensitive
         
                 function drag(e) {
                     // Get e.chartX and e.chartY
@@ -700,74 +603,9 @@
             H.addEvent(chart.container, 'mousedown', dragStart);
             H.addEvent(chart.container, 'touchstart', dragStart);
         }(Highcharts));
-        
-
-        
-
-        // chart("#chart3d2", {
-        //     padding: 100,
-        //     axis : {
-        //         x : {
-        //             type : "block",
-        //             domain : [ "Q1", "Q2", "Q3", "Q4" ],
-        //             line : true,
-        //             orient : "bottom"
-        //         },
-        //         y : {
-        //             type : "range",
-        //             domain : "total",
-        //             step : 5,
-        //             line : true,
-        //             orient : "left"
-        //         },
-        //         z : {
-        //             type : "range",
-        //             domain : [ 0, 100 ],
-        //             line: true,
-        //             step : 4,
-        // 			key : "value"
-        //         },
-        //         data : [
-        //             { sales: 0, profit: 15, total: 20, value: 80 },
-        //             { sales: 15, profit: 6, total: 20, value: 50 },
-        //             { sales: 8, profit: 10, total: 20, value: 60 },
-        //             { sales: 18, profit: 5, total: 20, value: 15 },
-        //             { sales: 18, profit: 20, total: 20, value: 15 }
-        //         ],
-        //         depth: 300,
-        //         degree: {
-        //             x: 10,
-        //             y: 45,
-        //             z: 0
-        //         },
-        //         perspective: 0.9
-        //     },
-        //     brush : {
-        //         type: "polygon.scatter3d",
-        //         target : [ "sales", "profit", "value" ],
-        //         size : 10
-        //     },
-        //     widget : [{
-        //         type : "polygon.rotate3d"
-        //     }, {
-        //         type : "tooltip"
-        //     }],
-        //     style : {
-        //         gridXAxisBorderWidth: 1,
-        //         gridYAxisBorderWidth: 1,
-        //         gridZAxisBorderWidth: 1,
-        //         backgroundColor : "#37393F",
-        //         gridXFontSize : 11,
-        // 		gridYFontSize : 11,
-        // 		gridZFontSize : 11,
-        // 		gridXFontColor : "#FFFFFF",
-        // 		gridYFontColor : "#FFFFFF",
-        // 		gridZFontColor : "#FFFFFF"
-        //     },
-        // });
+   
     }  
-    //  });
-    
+
     
     // 선택 정보로 목록 INSERT
     function searchProdInfo() {
@@ -820,13 +658,7 @@
                     prodRt = data.prodStatus.rate;
                     prodNm = data.prodStatus.prod_nm;
                     
-                    // if(pieChartData[0] !=null) {
-                        // $('#pieChart *').remove(); // div태그 전체가 아닌 내부 요소만 삭제
-                    //     pieChartData.shift();
-                    // }
-                    // pieChartData.push({product : prodRt, other : 100-prodRt});
-                    
-                    
+
                     if(chart3dData[0] !=null){
                         // $('#Chart3d *').remove();
                         chart3dData = [];
@@ -969,144 +801,41 @@
         }
     }
     
-    // function drawOverList(){
-        
-    //     var prodId = $("#inputProdId").val();
-    //     var page = 1;
-    //     var countPage = 10;
-    //     var totalCount = 0;
-        
-    //     fetchData();
-        
-    //     $(".prev-btn").on("click", function(){
-    //         if(page > 1){
-    //             page--;
-    //             fetchData();
-    //         }
-    //         console.log("Prev Page: " + page);
-    //     });
-        
-    //     $(".next-btn").on("click", function(){
-    //         if(page * countPage < totalCount){
-    //             page = page + 1;
-    //             fetchData();
-    //         }
-    //         console.log("totalCount: " + totalCount);
-    //         console.log("Next Page: " + page);
-            
-    //     })
-        
-    //     function fetchData(){
-            
-    //         $.ajax({
-    //         type: "post",
-    //         url : "/drawOverList",
-    //         data: {
-    //             prodId : prodId,
-    //             page : page,
-    //             countPage : countPage
-    //         }, 
-    //         success: function(data) {
-    //             console.log(data);
-                
-    //             var dataArr = data.overList;
-    //             var html = "";
-                
-    //             totalCount = data.totalCount;
-                
-    //             for(var i=0 ; i < dataArr.length; i++){
-    //                 html += "<tr> <td>"+dataArr[i].no+"</td> <td>"+dataArr[i].sv_acnt_num+"</td> <td>"+ dataArr[i].rcmd_prod_id +"</td> <td>"+  dataArr[i].prod_nm 
-    //                       + "</td> <td>"+ dataArr[i].fee_itm_amt +"</td> <td>"+ dataArr[i].voice_ofr_ctt +"</td> </tr>"
-    //             }
-    //             $("#over_list_body").html(html);
-                
-    //             $("#strd_dt").html(data.overList[0].use_dt);
-    //         },
-    //         error: function(e){
-                
-    //         }
-            
-    //     });
-            
-    //     }
-        
-    // }
-    
-    // function drawOverList(overList){
-        
-    //     $("#over_list_head").empty();
-            
-    //         var $thead = $("<tr> <th> 서비스계정 </th> <th> 추천요금제 </th> <th> 요금제명 </th> <th> 기본료 </th> <th> 제공량 </th> </tr> ");
-    //         $("#over_list_head").append($thead).trigger("create");
-        
-    //       for(var i=0; i < overList.length; i++){
-        
-    //         var $tbody = $("<tr> <td>"+overList[i].sv_acnt_num+"</td> <td>"+ overList[i].rcmd_prod_id +"</td> <td>"+  overList[i].prod_nm + "</td> <td>"+ overList[i].fee_itm_amt +"</td> <td>"+ overList[i].voice_ofr_ctt +"</td> </tr> ");
-    //         $("#over_list_body").append($tbody).trigger("create");
-        
-    //      }
-        
-    // }
-
-    // function drawOverList(overList){
-    // // $(function(){
-    //     // function drawOverList(overList){
-    //     var pageWidth = $("#overTable").parent().width() - 100;
-
-    //     var $grid = $("#overTable");
-        
-      
-    //     var myHeader = ['서비스계정', '추천요금제', '요금제명', '기본료', '제공량'];
-        
-    //     $grid.jqGrid({
-    //         datatype: 'local',  
-    //         data : overList,
-    //         colNames: myHeader,
-    //         colModel: [overList[0].sv_acnt_num, overList[0].rcmd_prod_id, overList[0].prod_nm, overList[0].fee_itm_amt, overList[0].voice_ofr_ctt]
-
-    //         cmTemplate: { sortable: false }, //sort false
-    //       	rowNum:100,
-    //       	rowList:[100,200,300],
-    //       	width: pageWidth ,
-    //       	pager: '#pager',
-    //       	gridview:true,
-    //       	rownumbers:true,
-    //       	sortable : false,
-    //       	multiselect : false,
-    //       	sortname: 'id',
-    //         viewrecords: true,
-    //         scrollOffset : 0,
-    //         cellEdit: true,
-    //         sortorder: "desc",
-    //         caption:"",
-    //         height:'100%',
-    //         shrinkToFit:true,
-    //         loadonce:true,
-    //         grouping: true,
-    //         groupingView: {
-    //             groupField: ["data_yymm"],
-    //             groupColumnShow: [true],
-    //             groupText: ["<b>{0}</b>"],
-    //             groupOrder: ["asc"],
-    //             groupSummary: [true],
-    //             groupCollapse: false
-                
-    //         }                
-    //     });
-        
-    // //  }
-    // // });
-    // }
-    // jQuery("#overTable").jqGrid('navGrid','#pager',{edit:false,add:false,del:false});
-   
 
     </script>   
     
     <style type="text/css">
 
-       
+       section {
+           font-size: 15px;
+       }
         table {
-            height: 400px;
+            height: 500px;
+            color: #dddddd;
+            /*border: 30px solid #ffffff;*/
+            
+            
+        }
+
+        th, td {
+            /*padding: 10px;*/
+            border: 2px solid #dddddd;
+        }
+        div {
+            color:#dddddd;
+        }
+        
+        #prodTable{
+            height: 350px;
+        }
+        
+        #inputProdId {
+             font-size: 15px;
+             width: 100%; 
+             color: #ffffff;
+        }
+        .disabled{
+           font-size: 16px; 
         }
         
     </style>
@@ -1134,7 +863,7 @@
                                 <div class="media">
                                     <i class="pe pe-7s-graph2 c-accent fa-3x"></i>
                                     <h2 class="m-t-xs m-b-none">
-                                        MOVIOS Recommended Products
+                                        MVNO Recommended Products
                                     </h2>
                                     <small>
                                         Results of Data Analysing
@@ -1222,18 +951,26 @@
         </div>
 
         <div class="col-md-15">
-            <div class="panel panel-filled">
-                <div class="panel-heading">
+            <div class="panel panel-filled"> 
+                <div class="panel-body">
                     <div class="col-md-4">
                         <div class="input-group m-b-xs m-t-xs">
-                            <input class="form-control" id="inputProdId" type="text" placeholder="Input product.." style="width: 100%">
+                            <input class="form-control" id="inputProdId" type="text" placeholder="Input product..">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" id="searchProd" onClick="javascript:searchProdInfo()"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        
+        </div>
 
-                    <div class="panel panel-filled" id="prod_status" style="visibility:hidden;"> 
+        <div class="col-md-15">
+            <!--<div class="panel panel-filled">-->
+                <!--<div class="panel-heading">-->
+                    
+                    <div class="panel panel-filled" id="prod_status" style="visibility:hidden; margin-top:-21px"> 
     
                         <div class="panel-body">
     
@@ -1241,13 +978,20 @@
                             <div class="col-md-12" style="margin-top:20px">
                                 <!--<div class="media">-->
                                 <!--    <div class="col-md-13 py-3" style="margin-top:20px">-->
-                                        <a href="#" class="disabled"><b>요금제 현황 (기본정보)</b></a> <p></p>
-                                        <b>사업자 : </b><span id="mvno_co_cd"></span> <p></p>
+                                        <a class="disabled"><i class="pe pe-7s-check c-accent fa-1x"></i><b> 요금제 현황</b></a> <p></p>
+                                        <!--<b>사업자 : </b><span id="mvno_co_cd"></span> <p></p>-->
                                         <div class="col-md-6">
                                             <p>
-                                        		<b>요금제 정보 :  [ <span id="prod_nm" style="color:orange"></span> ] </b>
-                                                <table class="table table-hover">
+                                        		<!--<b>요금제 정보 :  [ <span id="prod_nm" style="color:orange"></span> ] </b>-->
+                                        		<b>기본 정보 </b>
+                                                <table id="prodTable" class="table table-hover">
                                         			<tbody>
+                                        				<tr>
+                                        					<th style="width:100px">요금제명</th><td><span id="prod_nm" style="color:orange"></span></td>
+                                        				</tr>
+                                        				<tr>
+                                        					<th style="width:100px">사업자</th><td><span id="mvno_co_cd"></span></td>
+                                        				</tr>
                                         				<tr>
                                         					<th style="width:100px">월정액</th><td><span id="fee_itm_cd"></span> 원</td>
                                         				</tr>
@@ -1291,7 +1035,7 @@
                             <div class="col-md-12">
                                 <!--<div class="media">-->
                                     <!--<div class="col-md-13 py-3">-->
-                                        <a href="#" class="disabled"><b>초과사용자 현황 ( <span id="strd_dt"></span> 기준 )</b></a> <p></p>
+                                        <a class="disabled"><i class="pe pe-7s-check c-accent fa-1x"></i><b> 초과사용자 현황 ( <span id="strd_dt"></span> 기준 )</b></a> <p></p>
 
                                         <div class="col-md-6">
                                             <b>초과사용자 전체리스트 <span id="over_count"></span></b></b> 
@@ -1299,7 +1043,7 @@
                                             
 
                                             <!--<div  style="min-height:360px;">-->
-                                                <table id ="overTable" class="table table-bordered" style="table-layout:fixed; margin-bottom:-10px">
+                                                <table id ="overTable" class="table table-hover" style="table-layout:fixed; margin-bottom:-10px">
                                                     <thead id="over_list_head">
                                                             <th style="width:20px">No</th> 
                                                             <th style="width:50px">서비스계정</th> 
@@ -1323,15 +1067,15 @@
                                         </div>
                                         <div class="col-md-6">
                                             <b>초과사용자 비율 : <span id="over_rate"></span></b> <p></p>
-                                            <div id="chart3d" style="height:400px; margin-top:10px"></div>
+                                            <div id="chart3d" style="height:500px; margin-top:10px"></div>
                                         </div>
                                     <!--</div>-->
                                 <!--</div>-->
                             </div>
                         </div>
                     </div>
-                </div> 
-            </div> 
+            <!--    </div> -->
+            <!--</div> -->
         </div>
     </section>
 </div>
