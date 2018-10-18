@@ -47,7 +47,15 @@ module.exports = function(app, connectionPool) {
                                                       THEN 'No' \
                                                       WHEN USIM_ONLY_YN = '1' \
                                                       THEN 'YES' \
-                                                       END AS USIM_YN, NW_CD \
+                                                       END AS USIM_YN, NW_CD, \
+                                                 CASE WHEN MVNO_CO_CD = 'M00035' \
+                                                      THEN 'SK텔링크' \
+                                                      WHEN MVNO_CO_CD = 'M00175' \
+                                                      THEN '프리텔레콤' \
+                                                      WHEN MVNO_CO_CD = 'M00185' \
+                                                      THEN 'CJ헬로' \
+                                                      ELSE '에넥스텔레콤' \
+                                                      END AS MVNO_NM \
                                             FROM prod_strd_info \
                                            WHERE PROD_ID = ? \
                                            ORDER BY MVNO_CO_CD, PROD_ID"
@@ -86,8 +94,7 @@ module.exports = function(app, connectionPool) {
                                                                r.voice_ovr_amt, r.sms_ovr_amt, r.data_ovr_amt \
                                                                FROM mobig.prod_use_anlyz_result r, mobig.prod_list r2 \
                                                                where r.fee_prod_id = r2.prod_id \
-                                                               and r2.prod_id = ? \
-                                                               and r.mvno_co_cd = 'M00175'"
+                                                               and r2.prod_id = ?"
                                                                 ;
                                                                 
                                                 connection.query(sqlStr3, [prodId], function(error3, rows3) {
@@ -232,7 +239,6 @@ module.exports = function(app, connectionPool) {
                                             r.voice_ovr_amt, r.sms_ovr_amt, r.data_ovr_amt \
                                             FROM prod_use_anlyz_result r, prod_list r2 \
                                             where r.fee_prod_id = r2.prod_id \
-                                            and r.mvno_co_cd = 'M00175' \
                                             and r.fee_prod_id = ? \
                                             ) lst, \
                                             prod_strd_info i, \

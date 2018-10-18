@@ -167,7 +167,7 @@
           
           itemMap.put(id, nm);
           
-          var strTag = "<div class=\"align-left col-md-2\" id=\"item_" + id + "\"><a class=\"btn btn-default w-100\" href=\"#div_item\" onClick=\"removeItem(\'"+ id + "\')\">" + nm + "</a></div>";
+          var strTag = "<div class=\"align-left col-md-2\" id=\"item_" + id + "\"><a class=\"btn btn-default w-100\" href=\"#div_item\" onClick=\"removeItem(\'"+ id + "\')\" >" + nm + "</a></div>";
           $("#div_item_row").append(strTag);
           
           document.getElementById('span_total_cnt').innerHTML = itemMap.size();
@@ -225,6 +225,11 @@
         .btn-success{
             font-size:15px;
         }
+        
+        .disabled{
+            font-size:20px;
+            margin-bottom:20px;
+        }
       
     </style>
   
@@ -241,91 +246,25 @@
     <section class="content">
             <div class="container-fluid">
               
-              <div class="row">
-                <div class="col-lg-12">
-                    <div class="view-header">
-                        <div class="pull-right text-right" style="line-height: 14px">
-                            <small>App Pages<br>Basic<br> <span class="c-white">Contacts</span></small>
-                        </div>
-                        <div class="header-icon">
-                            <i class="pe page-header-icon pe-7s-users"></i>
-                        </div>
-                        <div class="header-title">
-                            <h3>MVNO Big Data Category</h3>
-                            <small>
-                                List of all contacts 
-                            </small>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-              </div>
-            
-              <div class="row" id ="div_category">
-                <!--카테고리 목록 가져오기 시작
-                <div class="col-md-2">
-                    <div class="panel panel-filled panel-c-success">
-                        <div class="panel-heading">
-                            가입
-                        </div>
-                        <div class="panel-body">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="panel panel-filled panel-c-success">
-                        <div class="panel-heading">
-                            고객유형
-                        </div>
-                        <div class="panel-body">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="panel panel-filled panel-c-success">
-                        <div class="panel-heading">
-                            단말
-                        </div>
-                        <div class="panel-body">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="panel panel-filled panel-c-success">
-                        <div class="panel-heading">
-                            상품
-                        </div>
-                        <div class="panel-body">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <div class="panel panel-filled panel-c-success">
-                        <div class="panel-heading">
-                            청구
-                        </div>
-                        <div class="panel-body">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="panel panel-filled panel-c-success">
-                        <div class="panel-heading">
-                            정산
-                        </div>
-                        <div class="panel-body">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        </div>
-                    </div>
-                </div> 
-                카테고리 목록 가져오기 끝-->
-              </div>
+              <!--<div class="row">-->
+              <!--  <div class="col-lg-12">-->
+              <!--      <div class="view-header">-->
+              <!--          <div class="pull-right text-right" style="line-height: 14px">-->
+              <!--              <small>App Pages<br>Basic<br> <span class="c-white">Contacts</span></small>-->
+              <!--          </div>-->
+              <!--          <div class="header-icon">-->
+              <!--              <i class="pe page-header-icon pe-7s-users"></i>-->
+              <!--          </div>-->
+              <!--          <div class="header-title">-->
+              <!--              <h3>Bigdata Category</h3>-->
+              <!--              <small>-->
+              <!--                  List of all contacts -->
+              <!--              </small>-->
+              <!--          </div>-->
+              <!--      </div>-->
+              <!--      <hr>-->
+              <!--  </div>-->
+              <!--</div>-->
               
               <div class="row">
                 <div class="col-lg-12">
@@ -337,7 +276,8 @@
                             <i class="pe page-header-icon pe-7s-albums"></i>
                         </div>
                         <div class="header-title">
-                            <h3>MVNO Big Data Items</h3>
+                            <h3>Request Statistic</h3>
+                            <!--<h3>통계데이터 요청</h3>-->
                             <small>
                                 List of all contacts 
                             </small>
@@ -346,125 +286,20 @@
                     <hr>
                 </div>
               </div>
-              
-              <div class="row" id ="div_item">
-                <!--카테고리 목록 가져오기 시작
-                <div class="col-md-4">
-                    <div class="panel panel-filled">
-                        <div class="panel-heading">
-                            <div class="panel-tools">
-                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
-                                <a class="panel-close"><i class="fa fa-times"></i></a>
-                            </div>
-                            <h5 class="m-b-none"><a href=""> 가입 </a></h5>
-                        </div>
-                        <div class="panel-body buttons-margin">
-                            <div>
-                                <button type="button" class="btn btn-default" onClick="addItem('001', '신규가입월')">신규가입월</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('002', '사업자코드')">사업자코드</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('008', '중고/신규')">중고/신규</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('011', '해지월')">해지월</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-filled">
-                        <div class="panel-heading">
-                            <div class="panel-tools">
-                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
-                                <a class="panel-close"><i class="fa fa-times"></i></a>
-                            </div>
-                            <h5 class="m-b-none"><a href=""> 고객 </a></h5>
-                        </div>
-                        <div class="panel-body buttons-margin">
-                            <div>
-                                <button type="button" class="btn btn-default" onClick="addItem('006', '생년월일')">생년월일</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('014', '성별')">성별</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('015', '고객유형')">고객유형</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-filled">
-                        <div class="panel-heading">
-                            <div class="panel-tools">
-                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
-                                <a class="panel-close"><i class="fa fa-times"></i></a>
-                            </div>
-                            <h5 class="m-b-none"><a href=""> 단말 </a></h5>
-                        </div>
-                        <div class="panel-body buttons-margin">
-                            <div>
-                                <button type="button" class="btn btn-default" onClick="addItem('005', '단말모델코드')">단말모델코드</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('007', '단말모델명')">단말모델명</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('012', '단말변경가입월')">단말변경가입월</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              </div>
-              
-              <div class="row">
 
-                <div class="col-md-4">
-                    <div class="panel panel-filled">
-                        <div class="panel-heading">
-                            <div class="panel-tools">
-                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
-                                <a class="panel-close"><i class="fa fa-times"></i></a>
-                            </div>
-                            <h5 class="m-b-none"><a href=""> 상품 </a></h5>
-                        </div>
-                        <div class="panel-body buttons-margin">
-                            <div>
-                                <button type="button" class="btn btn-default" onClick="addItem('009', '요금제코드')">요금제코드</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('010', '요금제명')">요금제명</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-filled">
-                        <div class="panel-heading">
-                            <div class="panel-tools">
-                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
-                                <a class="panel-close"><i class="fa fa-times"></i></a>
-                            </div>
-                            <h5 class="m-b-none"><a href=""> 청구 </a></h5>
-                        </div>
-                        <div class="panel-body buttons-margin">
-                            <div>
-                                <button type="button" class="btn btn-default" onClick="addItem('101', '음성')">음성</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('102', '데이터')">데이터</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('103', '메시지')">메시지</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('104', '합계')">기타</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('105', '합계')">청구금액</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>                
-                <div class="col-md-4">
-                    <div class="panel panel-filled">
-                        <div class="panel-heading">
-                            <div class="panel-tools">
-                                <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
-                                <a class="panel-close"><i class="fa fa-times"></i></a>
-                            </div>
-                            <h5 class="m-b-none"><a href=""> 정산 </a></h5>
-                        </div>
-                        <div class="panel-body buttons-margin">
-                            <div>
-                                <button type="button" class="btn btn-default" onClick="addItem('201', '인프라이용대가')">인프라이용대가</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('202', '정액대가(3G)')">정액대가(3G)</button>
-                                <button type="button" class="btn btn-default" onClick="addItem('203', '정액료(RS)')">정액료(RS)</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+              <a class="disabled"><i class="pe pe-7s-check c-accent fa-1x"></i><b> Bigdata Category</b></a><p></p>
+              <div class="row" id ="div_category">
               </div>
               
+              <hr>
+              
+              <a class="disabled"><i class="pe pe-7s-check c-accent fa-1x"></i><b> Bigdata Items</b></a><p></p>
+              <div class="row" id ="div_item">
+              </div>
+              
+              <hr>
+
+              <a class="disabled"><i class="pe pe-7s-check c-accent fa-1x"></i><b> Data Cart</b></a><p></p>
               <div class="row m-t-sm">
 
                 <div class="col-md-12">
@@ -475,9 +310,9 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="media">
-                                        <i class="c-accent fa-2x">Data Cart</i>
+                                        <!--<i class="c-accent fa-2x">Data Cart</i>-->
                                         <div class="col-md-13 py-3" style="display:none" id="div_item_cnt_row">
-                                            <a href="#" class="disabled">Total <b><span id="span_total_cnt">0</span></b> items</a>
+                                            <a>Total <b><span id="span_total_cnt">0</span></b> items</a>
                                         </div>
                                         <hr/>
                                         <div class="row" id="div_item_row">
